@@ -4,12 +4,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.mongodb.DBObject;
-import com.mongodb.util.JSON;
 import java.io.Serializable;
-import java.util.Map;
 
 public class Location implements JSONable, Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -333964331364087658L;
 
 	@Expose
 	@SerializedName(value = "coordinates")
@@ -133,6 +135,10 @@ public class Location implements JSONable, Serializable{
 	
 	private static class Coordinates implements Serializable{
 		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 4394908733076702633L;
 		public Coordinates() {
 			
 		}
@@ -158,9 +164,4 @@ public class Location implements JSONable, Serializable{
 	 	return gson.toJson(this);
 	}
 
-	@SuppressWarnings("unchecked")
-	public Map<String, Object> toJSONMap() {
-		DBObject obj = (DBObject) JSON.parse(toJSONString());
-		return (Map<String, Object>) obj.toMap();
-	}
 }

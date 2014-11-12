@@ -10,7 +10,12 @@ import java.io.Serializable;
  */
 public class ContextScore implements Serializable{
 
-    @Expose
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1218035527912055891L;
+	
+	@Expose
     @SerializedName(value = "duplication")
     private int duplication;
     @Expose

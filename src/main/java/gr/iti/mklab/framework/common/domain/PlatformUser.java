@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gr.iti.mklab.framework.common.domain;
 
 import com.google.gson.Gson;
@@ -20,12 +16,13 @@ import java.util.List;
  */
 public class PlatformUser implements JSONable {
 
-    @Expose
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6776642234037440981L;
+	@Expose
     @SerializedName(value = "name")
     String name;
-//    @Expose
-//    @SerializedName(value = "topics")
-//    List<DynamicTopic> topics = new ArrayList<DynamicTopic>();
     @Expose
     @SerializedName(value = "organizationName")
     String organizationName;

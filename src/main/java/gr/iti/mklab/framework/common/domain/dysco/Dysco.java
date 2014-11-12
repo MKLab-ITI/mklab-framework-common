@@ -1,6 +1,5 @@
 package gr.iti.mklab.framework.common.domain.dysco;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,6 +13,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import gr.iti.mklab.framework.common.domain.Entity;
 import gr.iti.mklab.framework.common.domain.Item;
 import gr.iti.mklab.framework.common.domain.JSONable;
 import gr.iti.mklab.framework.common.domain.Query;
@@ -28,9 +28,14 @@ import gr.iti.mklab.framework.common.domain.Query;
  * @author etzoannos - e.tzoannos@atc.gr
  *
  */
-public class Dysco implements Serializable, JSONable {
+public class Dysco implements JSONable {
 
-    public Dysco() {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8830711950312367090L;
+
+	public Dysco() {
 
     }
 

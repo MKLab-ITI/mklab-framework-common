@@ -2,19 +2,12 @@ package gr.iti.mklab.framework.common.domain;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
 import gr.iti.mklab.framework.common.domain.StreamUser.Category;
-import gr.iti.mklab.framework.common.domain.dysco.Entity;
 
-import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -807,26 +800,4 @@ public class Item implements JSONable {
         }
     }
 
-    /*
-     public static class DateSerializer extends TypeAdapter<Date> {
-
-     private static DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-
-     @Override
-     public void write(JsonWriter out, Date date) throws IOException {
-     out.beginObject();
-     String d = df.format(date);
-
-     out.name("$date");
-     out.value(d);
-
-     out.endObject();
-     }
-
-     @Override
-     public Date read(JsonReader in) throws IOException {
-     return null;
-     }
-     }
-     */
 }

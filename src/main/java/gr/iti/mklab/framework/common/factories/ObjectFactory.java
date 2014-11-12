@@ -15,23 +15,22 @@ import gr.iti.mklab.framework.common.domain.MediaShare;
 import gr.iti.mklab.framework.common.domain.PlatformUser;
 import gr.iti.mklab.framework.common.domain.Source;
 import gr.iti.mklab.framework.common.domain.StreamUser;
-import gr.iti.mklab.framework.common.domain.Timeslot;
 import gr.iti.mklab.framework.common.domain.Topic;
 import gr.iti.mklab.framework.common.domain.Vote;
 import gr.iti.mklab.framework.common.domain.WebPage;
 import gr.iti.mklab.framework.common.influencers.Influencer;
+import gr.iti.mklab.framework.common.influencers.InfluencerKeywordsPair;
 import gr.iti.mklab.framework.common.influencers.KeywordInfluencersPair;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
  *
  * @author etzoannos - e.tzoannos@atc.gr
  */
-public class ItemFactory {
+public class ObjectFactory {
 
     static Gson gson = new GsonBuilder()
             .excludeFieldsWithoutExposeAnnotation()
@@ -107,6 +106,13 @@ public class ItemFactory {
     	}
     }
     
+    public static synchronized InfluencerKeywordsPair createInfluencerKeywordsPair(String json) {
+        synchronized (gson) {
+            InfluencerKeywordsPair pair = gson.fromJson(json, InfluencerKeywordsPair.class);
+            return pair;
+        }
+    }
+    
     public static synchronized Keyword createKeyword(String json) {
         synchronized (gson) {
             Keyword keyword = gson.fromJson(json, Keyword.class);
@@ -141,14 +147,7 @@ public class ItemFactory {
             return user;
         }
     }
-
-    public static synchronized Timeslot createTimeslot(String json) {
-        synchronized (gson) {
-            Timeslot timeslot = gson.fromJson(json, Timeslot.class);
-            return timeslot;
-        }
-    }
-
+    
     public static synchronized List<Vote> createVoteList(String json) {
         synchronized (gson) {
 
@@ -165,40 +164,4 @@ public class ItemFactory {
         }
     }
 
-    public static void main(String... args) {
-
-        List<Vote> voteList = new ArrayList<Vote>();
-        Vote vote1 = new Vote();
-        vote1.setComment("hello1");
-        vote1.setItemId("id1");
-        vote1.setUsername("stratos");
-        vote1.setDate(new Date());
-        vote1.setPolarity(1);
-
-        Vote vote2 = new Vote();
-        vote2.setComment("hello2");
-        vote2.setItemId("id2");
-        vote2.setUsername("stratos2");
-        vote2.setDate(new Date());
-        vote2.setPolarity(0);
-
-        voteList.add(vote1);
-        voteList.add(vote2);
-
-        String json = new Gson().toJson(voteList);
-
-        System.out.println(json);
-
-        List<Vote> result = ItemFactory.createVoteList(json);
-        List<Vote> result2 = ItemFactory.createVoteList("");
-        List<Vote> result3 = ItemFactory.createVoteList(null);
-
-
-        System.out.println(result);
-        System.out.println(result2);
-        System.out.println(result3);
-
-
-
-    }
 }

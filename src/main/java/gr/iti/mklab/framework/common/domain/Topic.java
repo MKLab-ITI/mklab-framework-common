@@ -9,8 +9,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import gr.iti.mklab.framework.common.domain.JSONable;
-import gr.iti.mklab.framework.common.domain.dysco.Entity;
-
 
 
 /**
@@ -19,11 +17,14 @@ import gr.iti.mklab.framework.common.domain.dysco.Entity;
  * @author ailiakop
  * @email : ailiakop@iti.gr
  */
-
-
-public class Topic implements JSONable{
+public class Topic implements JSONable {
 	
-	 public enum Operation {
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7048965837076822593L;
+
+	public enum Operation {
 
 	        NEW_UPDATE("New"),
 	        DELETED("Deleted");

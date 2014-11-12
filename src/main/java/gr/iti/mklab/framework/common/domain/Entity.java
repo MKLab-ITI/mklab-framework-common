@@ -1,11 +1,9 @@
-package gr.iti.mklab.framework.common.domain.dysco;
+package gr.iti.mklab.framework.common.domain;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import gr.iti.mklab.framework.common.domain.JSONable;
 
 import java.io.Serializable;
 
@@ -15,7 +13,11 @@ import java.io.Serializable;
 */
 public class Entity implements Serializable, JSONable {
 
-    @Expose
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8567813006640515534L;
+	@Expose
     @SerializedName(value = "name")
     private String name;
     @Expose
@@ -92,16 +94,16 @@ public class Entity implements Serializable, JSONable {
 
 	public boolean equals(Object entity) {
 	    //check for self-comparison
-	    if ( this == entity ) return true;
+	    if ( this == entity ) 
+	    	return true;
 
 	    //use instanceof instead of getClass here for two reasons
 	    //1. if need be, it can match any supertype, and not just one class;
 	    //2. it renders an explict check for "that == null" redundant, since
 	    //it does the check for null already - "null instanceof [type]" always
 	    //returns false. (See Effective Java by Joshua Bloch.)
-	    if ( !(entity instanceof Entity) ) return false;
-	    //Alternative to the above line :
-	    //if ( aThat == null || aThat.getClass() != this.getClass() ) return false;
+	    if ( !(entity instanceof Entity) ) 
+	    	return false;
 
 	    //cast to native object is now safe
 	    Entity entity1 = (Entity)entity;

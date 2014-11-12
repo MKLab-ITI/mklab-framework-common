@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
 
 import gr.iti.mklab.framework.common.domain.JSONable;
 
@@ -17,7 +16,12 @@ import java.util.List;
  */
 public class KeywordInfluencersPair implements JSONable {
 
-    @Expose
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3567744282330327248L;
+	
+	@Expose
     @SerializedName(value = "keyword")
     private String keyword;
     @Expose

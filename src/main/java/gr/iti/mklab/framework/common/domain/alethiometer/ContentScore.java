@@ -10,7 +10,11 @@ import java.io.Serializable;
  */
 public class ContentScore implements Serializable {
 
-    @Expose
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4969591292558854831L;
+	@Expose
     @SerializedName(value = "reputation")
     private int reputation = 0;
     @Expose

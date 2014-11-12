@@ -10,7 +10,12 @@ import java.io.Serializable;
  */
 public class ContributorScore implements Serializable{
 
-    @Expose
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 9133751371012302898L;
+	
+	@Expose
     @SerializedName(value = "reputation")
     private int reputation = 0;
     @Expose

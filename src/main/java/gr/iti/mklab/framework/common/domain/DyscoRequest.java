@@ -17,7 +17,14 @@ import gr.iti.mklab.framework.common.domain.feeds.KeywordsFeed;
  * @email : ailiakop@iti.gr
  */
 
-public class DyscoRequest implements JSONable{
+public class DyscoRequest implements JSONable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4206225325464293643L;
+
+
 	public enum Operation {
         NEW_UPDATE("New"),
         DELETED("Deleted");

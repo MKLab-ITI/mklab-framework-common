@@ -2,13 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>eu.socialsensor</groupId>
-    <artifactId>socialsensor-framework-common</artifactId>
-    <version>0.2.3-SNAPSHOT</version>
+    <groupId>gr.iti.mklab</groupId>
+    <artifactId>mklab-framework-common</artifactId>
+    <version>0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>socialsensor-framework-common</name>
-    <url>https://github.com/socialsensor/socialsensor-framework-common</url>
+    <name>mklab-framework-common</name>
+    <url>https://github.com/MKLab-ITI/mklab-framework-common</url>
     <description>This project contains the main class and interface declarations to be used by other projects.</description>
       
     <parent>
@@ -23,11 +23,6 @@
             <name>Manos Schinas</name>
             <email>manosetro</email>
         </developer>
-        <developer>
-            <id>ailiakop</id>
-            <name>Aikaterini Iliakopoulou</name>
-            <email>ailiakop@iti.gr</email>
-        </developer>
     </developers>
   
   <licenses>
@@ -39,9 +34,9 @@
   </licenses>
   
     <scm>
-        <connection>scm:git:git@github.com:socialsensor/socialsensor-framework-common.git</connection>
-        <developerConnection>scm:git:git@github.com:socialsensor/socialsensor-framework-common.git</developerConnection>
-        <url>git@github.com:socialsensor/socialsensor-framework-common.git</url>
+        <connection>scm:git:git@github.com:MKLab-ITI/mklab-framework-common.git</connection>
+        <developerConnection>scm:git:git@github.com:MKLab-ITI/mklab-framework-common.git</developerConnection>
+        <url>git@github.com:MKLab-ITI/mklab-framework-common.git</url>
       <tag>HEAD</tag>
   </scm>
 
@@ -50,59 +45,62 @@
     </properties>
     
     <dependencies>
+    
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
+        
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.2.2</version>
         </dependency>
+        
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.16</version>
         </dependency>
-        <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongo-java-driver</artifactId>
-            <version>2.11.0</version>
-        </dependency>
       
-        <dependency>
-            <groupId>org.apache.solr</groupId>
-            <artifactId>solr-core</artifactId>
-            <version>4.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.solr</groupId>
-            <artifactId>solr-solrj</artifactId>
-            <version>4.0.0</version>
-        </dependency>
-       
     </dependencies>
     
     <repositories />
     <pluginRepositories />
                 
     <build>
+    
+        <pluginManagement>
+        	<plugins>
+           		<plugin>
+                     <groupId>org.apache.maven.plugins</groupId>
+                     <artifactId>maven-release-plugin</artifactId>
+                     <version>2.5</version>
+                     <configuration>
+                          <useReleaseProfile>false</useReleaseProfile>
+                          <releaseProfiles>release</releaseProfiles>
+                          <goals>deploy</goals>
+                     </configuration>
+                </plugin>
+          	</plugins>
+		</pluginManagement>
+		
         <plugins>
-        
-        	<plugin>
-  				<groupId>org.apache.maven.plugins</groupId>
-  				<artifactId>maven-release-plugin</artifactId>
-  				<version>2.5</version>
-  				<configuration>
-    				<autoVersionSubmodules>true</autoVersionSubmodules>
-    				<useReleaseProfile>false</useReleaseProfile>
-    				<releaseProfiles>release</releaseProfiles>
-    				<goals>deploy</goals>
-  				</configuration>
-			</plugin>
 
+    	   	<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.3</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>sonatype-nexus-staging</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+			
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -143,6 +141,21 @@
                 </executions>
             </plugin>
 
+      		<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
         </plugins>
     </build>
 </project>

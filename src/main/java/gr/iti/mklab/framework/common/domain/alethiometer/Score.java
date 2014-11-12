@@ -10,7 +10,12 @@ import java.io.Serializable;
  */
 public class Score implements Serializable{
 
-    @Expose
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8187839728173183058L;
+	
+	@Expose
     @SerializedName(value = "contributor score")
     private ContributorScore contributorScore;
     @Expose

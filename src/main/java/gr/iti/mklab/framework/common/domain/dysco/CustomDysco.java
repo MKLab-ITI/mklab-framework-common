@@ -2,7 +2,6 @@ package gr.iti.mklab.framework.common.domain.dysco;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -10,7 +9,6 @@ import com.google.gson.annotations.SerializedName;
 import gr.iti.mklab.framework.common.domain.Location;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class CustomDysco extends Dysco {
 
