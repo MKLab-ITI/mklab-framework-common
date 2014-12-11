@@ -7,7 +7,6 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import gr.iti.mklab.framework.common.domain.Feed;
 import gr.iti.mklab.framework.common.domain.Keyword;
 
 public class KeywordsFeed extends Feed {
@@ -36,7 +35,7 @@ public class KeywordsFeed extends Feed {
 	public KeywordsFeed(List<String> keywords, Date since, String id) {
 		super(since, Feed.FeedType.KEYWORDS);
 		for(String key : keywords) {
-			this.keywords.add(new Keyword(key, 0.0f));
+			this.keywords.add(new Keyword(key));
 		}
 		
 		this.id = id;

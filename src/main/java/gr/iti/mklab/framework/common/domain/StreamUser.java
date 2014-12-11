@@ -5,8 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import gr.iti.mklab.framework.common.domain.alethiometer.Score;
-
 import java.io.Serializable;
 
 public class StreamUser implements JSONable, Serializable {
@@ -15,49 +13,6 @@ public class StreamUser implements JSONable, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 3558927430206936262L;
-
-	public enum Operation {
-        NEW("New"),
-        UPDATE("Update"),
-        DELETED("Deleted");
-        private final String label;
-
-        private Operation(String label) {
-            this.label = label;
-        }
-
-        @Override
-        public String toString() {
-            return label;
-        }
-    }
-
-    public enum Category {
-    	politician("politician"),
-    	official("official"),
-    	journalist("journalist"),
-    	footballer("footballer");
-    	
-    	private final String label;
-    	
-    	private Category(String label) {
-            this.label = label;
-        }
-
-        @Override
-        public String toString() {
-            return label;
-        }
-    }
-    
-    public StreamUser(String streamId, Operation operation) {
-        this.streamId = streamId;
-        this.operation = operation;
-    }
-    
-    @Expose
-    @SerializedName(value = "operation")
-    protected Operation operation;
     
     // SocialSensor user id with the following structure:
     // StreamName#userid
@@ -125,21 +80,10 @@ public class StreamUser implements JSONable, Serializable {
     @SerializedName(value = "lastUpdated")
     protected Long lastUpdated;
     
-    
-    @Expose
-    @SerializedName(value = "fullScore")
-    protected Score fullScore;
-    
     // The location associated with a user
     @Expose
     @SerializedName(value = "location")
     protected String location;
-    
-    // The category of an User
-    // Nullable
-    @Expose
-    @SerializedName(value = "category")
-    protected Category category;
     
     // The number of the times a user has been mentioned from other users
     @Expose
@@ -302,27 +246,11 @@ public class StreamUser implements JSONable, Serializable {
     	this.lastUpdated = lastUpdated;
     }
     
-    public Score getFullScore() {
-        return fullScore;
-    }
-
-    public void setFullScore(Score fullScore) {
-        this.fullScore = fullScore;
-    }
-    
     public String getLocation() {
         if ( location==null || location.equals("")) {
             return "Unknown";
         }
         return location;
-    }
-    
-    public Category getCategory() {
-    	return category;
-    }
-    
-    public void setCategory(Category category) {
-    	this.category = category;
     }
     
     public Long getMentions() {
@@ -387,14 +315,6 @@ public class StreamUser implements JSONable, Serializable {
     
     public Boolean isVerified() {
     	return verified;
-    }
-    
-    public Operation getOperation() {
-        return operation;
-    }
-
-    public void setOperation(Operation operation) {
-        this.operation = operation;
     }
     
     public void setLinkToProfile(String linkToProfile){

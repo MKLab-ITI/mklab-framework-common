@@ -5,8 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import gr.iti.mklab.framework.common.domain.StreamUser.Category;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,30 +23,10 @@ public class Item implements JSONable {
      */
     private static final long serialVersionUID = -7934442049449016087L;
 
-    public enum Operation {
-
-        NEW("New"),
-        UPDATE("Update"),
-        DELETED("Deleted");
-        private final String label;
-
-        private Operation(String label) {
-            this.label = label;
-        }
-
-        @Override
-        public String toString() {
-            return label;
-        }
-    }
-
     public Item() {
+    	
     }
 
-    public Item(String streamId, Operation operation) {
-        this.streamId = streamId;
-        this.operation = operation;
-    }
     // Unique id of an instance with the following structure: StreamName#internalId
     @Expose
     @SerializedName(value = "id")
@@ -123,9 +101,7 @@ public class Item implements JSONable {
     @Expose
     @SerializedName(value = "insertionTime")
     protected long insertionTime;
-    // The operation associated with Item : NEW, UPDATE, DELETE
-    @SerializedName(value = "operation")
-    protected Operation operation;
+
     // The location associated with an Item
     // Usually this field indicated the origin of the Item
     @Expose
@@ -159,10 +135,6 @@ public class Item implements JSONable {
     @Expose
     @SerializedName(value = "lang")
     protected String lang;
-    // The category of the user that posted the Item
-    @Expose
-    @SerializedName(value = "category")
-    protected Category category;
     // An indicator whether an Item id original or a shared instance of a previous Item
     @Expose
     @SerializedName(value = "original")
@@ -361,26 +333,12 @@ public class Item implements JSONable {
         this.publicationTime = publicationTime;
     }
 
-    //public Date getLastUpdated() {
-    //    return lastUpdated;
-    //}
-    //public void setLastUpdated(Date lastUpdated) {
-    //    this.lastUpdated = lastUpdated;
-    //}
     public long getInsertionTime() {
         return insertionTime;
     }
 
     public void setInsertionTime(long insertionTime) {
         this.insertionTime = insertionTime;
-    }
-
-    public Operation getOperation() {
-        return operation;
-    }
-
-    public void setOperation(Operation operation) {
-        this.operation = operation;
     }
 
     public Location getLocation() {
@@ -445,14 +403,6 @@ public class Item implements JSONable {
 
     public void setLang(String lang) {
         this.lang = lang;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 
     public boolean isOriginal() {

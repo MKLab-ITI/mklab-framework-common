@@ -5,8 +5,7 @@ import java.util.Date;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import gr.iti.mklab.framework.common.domain.Feed;
-import gr.iti.mklab.framework.common.domain.Source;
+import gr.iti.mklab.framework.common.domain.Account;
 
 public class SourceFeed extends Feed {
 
@@ -17,19 +16,19 @@ public class SourceFeed extends Feed {
 	
 	@Expose
     @SerializedName(value = "source")
-	private Source source = null;
+	private Account source = null;
 	
-	public SourceFeed(Source source, Date since, String id) {
+	public SourceFeed(Account source, Date since, String id) {
 		super(since, Feed.FeedType.SOURCE);
 		this.source = source;
 		this.id = id;
 	}
 
-	public Source getSource() {
+	public Account getAccount() {
 		return this.source;
 	}
 	
-	public void setSource(Source source) {
+	public void setAccount(Account source) {
 		this.source = source;
 	}
 

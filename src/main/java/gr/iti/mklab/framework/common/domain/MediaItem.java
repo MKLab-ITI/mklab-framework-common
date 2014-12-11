@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import gr.iti.mklab.framework.common.domain.feeds.Feed;
+
 import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ public class MediaItem implements JSONable, Serializable {
      *
      */
     private static final long serialVersionUID = 7811714823188242818L;
+    
     // Unique id of an MediaItem with the following structure: StreamName#internalId
     @Expose
     @SerializedName(value = "id")
@@ -49,9 +52,6 @@ public class MediaItem implements JSONable, Serializable {
     @Expose
     @SerializedName(value = "reference")
     private String reference;
-//    @Expose
-//    @SerializedName(value = "refUrl")
-//    private String refUrl;
     // The id of the user that posted the first Item that contains the MediaItem
     @Expose
     @SerializedName(value = "uid")

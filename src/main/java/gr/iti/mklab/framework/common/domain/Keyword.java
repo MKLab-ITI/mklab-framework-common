@@ -20,10 +20,6 @@ public class Keyword implements JSONable {
 	@Expose
 	@SerializedName(value = "keyword")
 	private String keyword;
-	 
-	@Expose
-	@SerializedName(value = "score")
-	private double score;
 
 	@Expose
 	@SerializedName(value = "label")
@@ -33,9 +29,8 @@ public class Keyword implements JSONable {
 	 
 	}
     
-	public Keyword(String keyword, double score) {
+	public Keyword(String keyword) {
 		this.keyword = keyword;
-		this.score = score;
 	}
 	
 	public String getName() {
@@ -52,14 +47,6 @@ public class Keyword implements JSONable {
 
 	public void setLabel(String label) {
 		this.label = label;
-	}
-	
-	public double getScore() {
-		return score;
-	}
-
-	public void setScore(double score) {
-		this.score = score;
 	}
 
 	@Override

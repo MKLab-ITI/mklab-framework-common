@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Source implements JSONable {
+public class Account implements JSONable {
 	
 	/**
 	 * 
@@ -32,7 +32,7 @@ public class Source implements JSONable {
 	@SerializedName(value = "network")
 	private String network;
 	
-	public Source(String name, float score) {
+	public Account(String name, float score) {
 		this.name = name;
 		this.score = score;
 	}

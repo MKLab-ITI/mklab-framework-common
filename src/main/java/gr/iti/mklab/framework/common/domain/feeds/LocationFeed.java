@@ -5,7 +5,6 @@ import java.util.Date;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import gr.iti.mklab.framework.common.domain.Feed;
 import gr.iti.mklab.framework.common.domain.Location;
 
 public class LocationFeed extends Feed {

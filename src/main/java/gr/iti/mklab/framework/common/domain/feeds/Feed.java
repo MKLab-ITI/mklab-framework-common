@@ -1,4 +1,4 @@
-package gr.iti.mklab.framework.common.domain;
+package gr.iti.mklab.framework.common.domain.feeds;
 
 import java.util.Date;
 
@@ -16,46 +16,26 @@ public class Feed implements JSONable {
 	 */
 	private static final long serialVersionUID = -8972611573430977057L;
 
-	/*
-	public enum Operation {
-        NEW_UPDATE("New"),
-        DELETED("Deleted");
-        private final String label;
-
-        private Operation(String label) {
-            this.label = label;
-        }
-
-        @Override
-        public String toString() {
-            return label;
-        }
-    }
-	*/
 	
 	@Expose
     @SerializedName(value = "id")
-	protected
-	String id = null;
+	protected String id = null;
 	
 	@Expose
     @SerializedName(value = "dateToRetrieve")
-	Date dateToRetrieve = null;
+	protected Date dateToRetrieve = null;
 	
 	@Expose
     @SerializedName(value = "totalNumberOfItems")
-	Integer totalNumberOfItems = 0;
+	protected Integer totalNumberOfItems = 0;
 	
 	@Expose
     @SerializedName(value = "feedType")
-	FeedType feedType;
+	protected FeedType feedType;
 	
 	@Expose
     @SerializedName(value = "label")
-	String label;
-	
-	// TODO
-	// Add Feed Profile Variables
+	protected String label;
 	
 	public Feed(Date date, FeedType feedType) {
 		this.dateToRetrieve = date;
@@ -121,10 +101,11 @@ public class Feed implements JSONable {
 	}
 	
 	@Override
-	public boolean equals(Object obj){
+	public boolean equals(Object obj) {
 
-		if(this==obj)
+		if(this == obj) {
 			return true;
+		}
 		
         return ((Feed) obj).id.equals(id);
     }

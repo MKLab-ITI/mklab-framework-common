@@ -5,22 +5,18 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import gr.iti.mklab.framework.common.domain.DyscoRequest;
-import gr.iti.mklab.framework.common.domain.Expert;
-import gr.iti.mklab.framework.common.domain.Feed;
 import gr.iti.mklab.framework.common.domain.Item;
 import gr.iti.mklab.framework.common.domain.Keyword;
 import gr.iti.mklab.framework.common.domain.MediaCluster;
 import gr.iti.mklab.framework.common.domain.MediaItem;
 import gr.iti.mklab.framework.common.domain.MediaShare;
 import gr.iti.mklab.framework.common.domain.PlatformUser;
-import gr.iti.mklab.framework.common.domain.Source;
+import gr.iti.mklab.framework.common.domain.Account;
 import gr.iti.mklab.framework.common.domain.StreamUser;
 import gr.iti.mklab.framework.common.domain.Topic;
 import gr.iti.mklab.framework.common.domain.Vote;
 import gr.iti.mklab.framework.common.domain.WebPage;
-import gr.iti.mklab.framework.common.influencers.Influencer;
-import gr.iti.mklab.framework.common.influencers.InfluencerKeywordsPair;
-import gr.iti.mklab.framework.common.influencers.KeywordInfluencersPair;
+import gr.iti.mklab.framework.common.domain.feeds.Feed;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -92,27 +88,7 @@ public class ObjectFactory {
         }
     }
 
-    public static synchronized Influencer createInfluencer(String json) {
-        synchronized (gson) {
-            Influencer influencer = gson.fromJson(json, Influencer.class);
-            return influencer;
-        }
-    }
-
-    public static synchronized KeywordInfluencersPair createKeywordInfluencersPair(String json) {
-    	synchronized (gson) {
-    		KeywordInfluencersPair pair = gson.fromJson(json, KeywordInfluencersPair.class);
-    		return pair;
-    	}
-    }
-    
-    public static synchronized InfluencerKeywordsPair createInfluencerKeywordsPair(String json) {
-        synchronized (gson) {
-            InfluencerKeywordsPair pair = gson.fromJson(json, InfluencerKeywordsPair.class);
-            return pair;
-        }
-    }
-    
+  
     public static synchronized Keyword createKeyword(String json) {
         synchronized (gson) {
             Keyword keyword = gson.fromJson(json, Keyword.class);
@@ -120,10 +96,10 @@ public class ObjectFactory {
         }
     }
 
-    public static synchronized Source createSource(String json) {
+    public static synchronized Account createAccount(String json) {
         synchronized (gson) {
-            Source source = gson.fromJson(json, Source.class);
-            return source;
+        	Account account = gson.fromJson(json, Account.class);
+            return account;
         }
     }
 
@@ -132,13 +108,6 @@ public class ObjectFactory {
     		Topic topic = gson.fromJson(json, Topic.class);
     		return topic;
     	}
-    }
-    
-    public static synchronized Expert createExpert(String json) {
-        synchronized (gson) {
-        	Expert expert = gson.fromJson(json, Expert.class);
-            return expert;
-        }
     }
     
     public static synchronized PlatformUser createPlatformUser(String json) {

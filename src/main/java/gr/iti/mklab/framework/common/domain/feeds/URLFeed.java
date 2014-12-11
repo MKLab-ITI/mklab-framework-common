@@ -5,8 +5,6 @@ import java.util.Date;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import gr.iti.mklab.framework.common.domain.Feed;
-
 
 public class URLFeed extends Feed {
 	

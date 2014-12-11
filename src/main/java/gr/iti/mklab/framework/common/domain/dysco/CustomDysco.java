@@ -48,9 +48,6 @@ public class CustomDysco extends Dysco {
     @SerializedName(value = "listsOfUsers")
     private List<String> listsOfUsers = new ArrayList<String>();
     @Expose
-    @SerializedName(value = "otherSocialNetworks")
-    private List<String> otherSocialNetworks = new ArrayList<String>();
-    @Expose
     @SerializedName(value = "nearLocations")
     private List<Location> nearLocations = new ArrayList<Location>();
     @Expose
@@ -80,14 +77,6 @@ public class CustomDysco extends Dysco {
 
     public void setListsOfUsers(List<String> listsOfUsers) {
         this.listsOfUsers = listsOfUsers;
-    }
-
-    public List<String> getOtherSocialNetworks() {
-        return otherSocialNetworks;
-    }
-
-    public void setOtherSocialNetworks(List<String> otherSocialNetworks) {
-        this.otherSocialNetworks = otherSocialNetworks;
     }
 
     public List<Location> getNearLocations() {
