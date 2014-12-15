@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.mongodb.morphia.annotations.Entity;
 
 @Entity(noClassnameStored = true)
-public class Location implements JSONable, Serializable{
+public class Location extends JSONable {
 
 	/**
 	 * 

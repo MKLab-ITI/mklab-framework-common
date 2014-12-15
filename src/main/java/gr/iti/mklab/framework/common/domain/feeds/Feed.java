@@ -7,7 +7,7 @@ import org.mongodb.morphia.annotations.Entity;
 import gr.iti.mklab.framework.common.domain.JSONable;
 
 @Entity(noClassnameStored = true)
-public class Feed implements JSONable {
+public class Feed extends JSONable {
 	
 	/**
 	 * 

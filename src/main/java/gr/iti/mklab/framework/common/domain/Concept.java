@@ -4,11 +4,10 @@ import org.mongodb.morphia.annotations.Entity;
 
 
 @Entity(noClassnameStored = true)
-public class Concept implements JSONable {
+public class Concept extends JSONable {
 
 	private static final long serialVersionUID = -7389160446822526436L;
 	
-
 	private ConceptType type;
 
 	private Double score;

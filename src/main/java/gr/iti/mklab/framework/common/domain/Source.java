@@ -1,9 +1,15 @@
 package gr.iti.mklab.framework.common.domain;
 
+import org.mongodb.morphia.annotations.Entity;
+
 /**
  *
- * @author etzoannos
+ * @author	Manos Schinas	
+ * @email 	manosetro@iti.gr
+ * 
  */
+
+@Entity(noClassnameStored = true)
 public  enum Source {
 	All, 
 	Facebook, 

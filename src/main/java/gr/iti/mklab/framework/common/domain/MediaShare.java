@@ -1,11 +1,9 @@
 package gr.iti.mklab.framework.common.domain;
 
-import java.io.Serializable;
-
 import org.mongodb.morphia.annotations.Entity;
 
 @Entity(noClassnameStored = true)
-public class MediaShare implements JSONable, Serializable {
+public class MediaShare extends JSONable {
 	
 	/**
 	 * 

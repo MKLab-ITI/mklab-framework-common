@@ -1,19 +1,17 @@
 package gr.iti.mklab.framework.common.domain;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.mongodb.morphia.annotations.Entity;
 
 @Entity(noClassnameStored = true)
-public class Cluster implements JSONable, Serializable {
-	
+public class Cluster extends JSONable {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -7926531925761955502L;
-
+	private static final long serialVersionUID = 5041762845708676137L;
 
 	public Cluster(String id) {
 		this.id = id;

@@ -3,32 +3,24 @@ package gr.iti.mklab.framework.common.domain.dysco;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 
+import gr.iti.mklab.framework.common.domain.Account;
 import gr.iti.mklab.framework.common.domain.Item;
 import gr.iti.mklab.framework.common.domain.JSONable;
 import gr.iti.mklab.framework.common.domain.Location;
 import gr.iti.mklab.framework.common.domain.NamedEntity;
-import gr.iti.mklab.framework.common.domain.Query;
-
 /**
- * This class specifies a representation of the DySCO model, as defined by
- * SocialSensor consortium. The main content of a DySCO object is a set of
- * social network items (tweets, facebook status updates etc) It can also
- * contain several dimensions (Semantic, Social, Authority etc). A DySCO object
- * can be associated with other DySCOs based on community or content.
- *
- * @author etzoannos - e.tzoannos@atc.gr
+ * @author	Manos Schinas
+ * @email	manosetro@iti.gr
  *
  */
-
 @Entity(noClassnameStored = true)
-public class Dysco implements JSONable {
+public class Dysco extends JSONable {
 
 	/**
 	 * 
@@ -45,56 +37,48 @@ public class Dysco implements JSONable {
     }
 
     //The id of the dysco
+    @Id
     protected String id;
     
     //The creation date of the dysco
     protected Date creationDate;
-    
-    //The title of the dysco
-    protected String title;
-    
-    //The score that shows how trending the dysco is
-    protected Double score;
 
-    //Fields holding the information about the main context 
-    //of the items that constitute the dysco
-    //The extracted entities from items' content
-    protected List<NamedEntity> entities = new ArrayList<NamedEntity>();
-    
-    //The users that contribute in social networks to dysco's topic
-    protected List<String> contributors = new ArrayList<String>();
-    
-    //The extracted keywords from items' content with their assigned weights
-    protected Map<String, Double> keywords = new HashMap<String, Double>();
-    
-    //The extracted hashtags from items' content with their assigned weights
-    protected Map<String, Double> hashtags = new HashMap<String, Double>();
-
-    //The query that will be used for retrieving relevant content to the Dysco from Solr
-    protected String solrQueryString = null;
-    
-    //The query that will be used for retrieving relevant author content to the Dysco from Solr
-    protected String solrQueryAuthorString = null;
-
-    protected List<Query> solrQueries = new ArrayList<Query>();
-
-    //The date that the dysco was last created (updated because similar dyscos existed in the past)
+    //The date that the dysco was last updated)
     protected Date updateDate;
 
-    protected Map<String, Double> links = new HashMap<String, Double>();
+    //The title of the dysco
+    protected String title;
 
-    protected int itemsCount = 0;
+    protected List<String> words = new ArrayList<String>();
     
-    protected String author = null;
+    protected List<Account> accounts = new ArrayList<Account>();
 
     private List<Location> nearLocations = new ArrayList<Location>();
 
-    private List<String> wordsToAvoid = new ArrayList<String>();
-    
-    //List of the items that compose the Dysco - serve for dysco's formulation, 
-    //therefore they are stored temporarily in memory
-    protected List<Item> items = new ArrayList<Item>();
+    private List<String> wordsToExclude = new ArrayList<String>();
 
+    
+    //Fields holding the information about the main context of the items that constitute the dysco
+    //These fields are derived from the collected items that are associated with the specific dysco
+    //and are updated dynamically as the dysco evolved over time
+    
+    //The extracted entities from items' content
+    protected List<NamedEntity> entities = new ArrayList<NamedEntity>();
+    //The users that contribute in social networks to dysco's topic
+    protected List<String> contributors = new ArrayList<String>();
+    //The extracted keywords from items' content with their assigned weights
+    protected Map<String, Double> keywords = new HashMap<String, Double>();
+    //The extracted tags from items' content with their assigned weights
+    protected Map<String, Double> tags = new HashMap<String, Double>();
+    //The extracted links from items' content with their assigned weights
+    protected Map<String, Double> links = new HashMap<String, Double>();
+    //The score that shows how trending the dysco is
+    protected Double score;
+    //The total number of items that constitute the dysco
+    protected int itemsCount = 0;
+    //List of the representative items that compose the Dysco
+    protected List<Item> items = new ArrayList<Item>();
+    
     /**
      * Returns the id of the dysco
      *
@@ -212,14 +196,6 @@ public class Dysco implements JSONable {
         this.contributors = contributors;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     /**
      * Returns the dysco's keywords with their assigned weights
      *
@@ -254,8 +230,8 @@ public class Dysco implements JSONable {
      *
      * @return Map of String to Double
      */
-    public Map<String, Double> getHashtags() {
-        return hashtags;
+    public Map<String, Double> getTags() {
+        return tags;
     }
 
     /**
@@ -263,8 +239,8 @@ public class Dysco implements JSONable {
      *
      * @param hashtags
      */
-    public void setHashtags(Map<String, Double> hashtags) {
-        this.hashtags = hashtags;
+    public void setHashtags(Map<String, Double> tags) {
+        this.tags = tags;
     }
 
     /**
@@ -274,71 +250,27 @@ public class Dysco implements JSONable {
      * @param hashtag
      * @param weight
      */
-    public void addHashtag(String hashtag, Double weight) {
-        this.hashtags.put(hashtag, weight);
+    public void addHashtag(String tag, Double weight) {
+        this.tags.put(tag, weight);
     }
 
-    /**
-     * Returns the query as a string for the retrieval of relevant content to
-     * the dysco from solr
-     *
-     * @return String
-     */
-    public String getSolrQueryString() {
-        return solrQueryString;
+    public List<String> getWords() {
+        return words;
     }
 
-    /**
-     * Sets the solr query as a string for the retrieval of relevant content
-     *
-     * @param solrQuery
-     */
-    public void setSolrQueryString(String solrQueryString) {
-        this.solrQueryString = solrQueryString;
-
+    public void setWords(List<String> words) {
+        this.words = words;
     }
 
-    /**
-     * Returns the solr queries for the retrieval of relevant content to the
-     * dysco from solr
-     *
-     * @return String
-     */
-    public List<Query> getSolrQueries() {
-        return solrQueries;
+    public List<Account> getAccounts() {
+        return accounts;
     }
 
-    /**
-     * Sets the solr query for the retrieval of relevant content
-     *
-     * @param solrQuery
-     */
-    public void setSolrQueries(List<Query> solrQueries) {
-        this.solrQueries = solrQueries;
-
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
     }
 
-    /**
-     * Returns the query as a string for the retrieval of relevant author
-     * content to the dysco from solr
-     *
-     * @return String
-     */
-    public String getSolrQueryAuthorString() {
-        return solrQueryAuthorString;
-    }
-
-    /**
-     * Sets the solr query as a string for the retrieval of relevant author
-     * content
-     *
-     * @param solrQuery
-     */
-    public void setSolrAuthorQuery(String solrQueryAuthorString) {
-        this.solrQueryAuthorString = solrQueryAuthorString;
-
-    }
-
+    
     /**
      * Return the list of items that compose the dysco
      *
@@ -408,40 +340,12 @@ public class Dysco implements JSONable {
         this.nearLocations = nearLocations;
     }
     
-    public void setWordsToAvoid(List<String> wordsToAvoid) {
-        this.wordsToAvoid = wordsToAvoid;
+    public void setWordsToExclude(List<String> wordsToExclude) {
+        this.wordsToExclude = wordsToExclude;
     }
 
-    public List<String> getWordsToAvoid() {
-        return this.wordsToAvoid;
+    public List<String> getWordsToExclude() {
+        return this.wordsToExclude;
     }
-
-    public String toString() {
-        String dyscoString = "Id: " + id + "\n";
-        dyscoString += "Creation date: " + creationDate + "\n";
-        dyscoString += "Score: " + score + "\n";
-        dyscoString += "Items: \n";
-        for (Item item : items) {
-            dyscoString += item.getId() + ":" + item.getTitle() + "\n";
-        }
-        dyscoString += "Entities: \n";
-        for (NamedEntity entity : entities) {
-            dyscoString += entity.getName() + "@@@" + entity.getType().toString() + ":" + entity.getCount() + "\n";
-        }
-        dyscoString += "Tags: \n";
-        Iterator<Entry<String, Double>> iteratorHashtags = hashtags.entrySet().iterator();
-        while (iteratorHashtags.hasNext()) {
-            Entry<String, Double> hashtag = iteratorHashtags.next();
-            dyscoString += hashtag.getKey() + ":" + hashtag.getValue() + "\n";
-        }
-        dyscoString += "Keywords: \n";
-        Iterator<Entry<String, Double>> iteratorKeywords = keywords.entrySet().iterator();
-        while (iteratorKeywords.hasNext()) {
-            Entry<String, Double> keyword = iteratorKeywords.next();
-            dyscoString += keyword.getKey() + ":" + keyword.getValue() + "\n";
-        }
-        dyscoString += "SolrQuery : " + solrQueryString + "\n";
-
-        return dyscoString;
-    }
+    
 }

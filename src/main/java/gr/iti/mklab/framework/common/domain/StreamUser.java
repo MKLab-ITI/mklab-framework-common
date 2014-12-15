@@ -1,11 +1,12 @@
 package gr.iti.mklab.framework.common.domain;
 
-import java.io.Serializable;
-
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Index;
+import org.mongodb.morphia.annotations.Indexes;
 
 @Entity(noClassnameStored = true)
-public class StreamUser implements JSONable, Serializable {
+@Indexes(@Index("id"))
+public class StreamUser extends JSONable {
 
     /**
 	 * 
@@ -255,35 +256,4 @@ public class StreamUser implements JSONable, Serializable {
     	return verified;
     }
     
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        String _id = getId();
-        if (_id != null) {
-            sb.append("id=").append(_id.replaceAll("\\r", " ").replaceAll("\\t", " ")
-                    .replaceAll("\\n", " ").trim()).append("\t");
-        }
-        String _userid = getUserid();
-        if (_userid != null) {
-            sb.append("userid=").append(_userid.replaceAll("\\r", " ").replaceAll("\\t", " ")
-                    .replaceAll("\\n", " ").trim()).append("\t");
-        }
-        String _streamId = getStreamId();
-        if (_streamId != null) {
-            sb.append("streamId=").append(_streamId).append("\t");
-        }
-        String _username = getUsername();
-        if (_username != null) {
-            sb.append("username=").append(_username.replaceAll("\\r", " ").replaceAll("\\t", " ")
-                    .replaceAll("\\n", " ").trim()).append("\t");
-        }
-
-        String _name = getName();
-        if (_name != null) {
-            sb.append("name=").append(_name.replaceAll("\\r", " ").replaceAll("\\t", " ")
-                    .replaceAll("\\n", " ").trim()).append("\t");
-        }
-
-        return sb.toString();
-    }
 }

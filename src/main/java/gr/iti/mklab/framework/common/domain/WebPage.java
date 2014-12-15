@@ -3,6 +3,8 @@ package gr.iti.mklab.framework.common.domain;
 import java.util.Date;
 
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Index;
+import org.mongodb.morphia.annotations.Indexes;
 
 /**
  *
@@ -11,7 +13,8 @@ import org.mongodb.morphia.annotations.Entity;
  */
 
 @Entity(noClassnameStored = true)
-public class WebPage implements JSONable, Comparable<WebPage> {
+@Indexes(@Index("url"))
+public class WebPage extends JSONable implements Comparable<WebPage> {
 
     /**
      *
@@ -186,58 +189,6 @@ public class WebPage implements JSONable, Comparable<WebPage> {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getLifeDuration() {
-        String result = "";
-
-        if (date != null) {
-            Long now = new Date().getTime();
-            Long difference = now - date.getTime();
-
-            if (difference > (30L * 24 * 60L * 60L * 1000L)) {
-
-                Long inMonths = difference / (30L * 24L * 60L * 60L * 1000L);
-
-                if (inMonths > 1) {
-                    result = inMonths + " months";
-                } else {
-                    result = inMonths + " month";
-                }
-
-            } else if (difference > (24 * 60L * 60L * 1000L)) {
-
-                Long inDays = difference / (24L * 60L * 60L * 1000L);
-
-                if (inDays > 1) {
-                    result = inDays + " days";
-                } else {
-                    result = inDays + " day";
-                }
-
-            } else if (difference > (60L * 60L * 1000L)) {
-
-                Long inHours = difference / (60L * 60L * 1000L);
-
-                if (inHours > 1) {
-                    result = inHours + " hours";
-                } else {
-                    result = inHours + " hour";
-                }
-
-            } else {
-
-                Long inMinutes = difference / (60L * 1000L);
-
-                if (inMinutes > 1) {
-                    result = inMinutes + " mins";
-                } else {
-                    result = inMinutes + " min";
-                }
-
-            }
-        }
-        return result;
     }
 
     @Override

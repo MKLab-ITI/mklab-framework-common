@@ -1,16 +1,14 @@
 package gr.iti.mklab.framework.common.domain;
 
-import java.io.Serializable;
-
 import org.mongodb.morphia.annotations.Entity;
 
 /**
 *
-* @author cmartin - email: c.j.martin-dancausa@rgu.ac.uk
+* @author Manos Schinas - manosetro@iti.gr
+* 
 */
-
 @Entity(noClassnameStored = true)
-public class NamedEntity implements Serializable, JSONable{
+public class NamedEntity extends JSONable{
 
     /**
 	 * 
@@ -71,12 +69,7 @@ public class NamedEntity implements Serializable, JSONable{
         this.type = type;
     }
 
-    public String toString() {
-        return name + ": " + count;
-    }
-
     public enum Type {
-
         PERSON, LOCATION, ORGANIZATION
     }
 

@@ -18,7 +18,7 @@ import gr.iti.mklab.framework.common.domain.JSONable;
  */
 
 @Entity(noClassnameStored = true)
-public class Configuration implements Iterable<String>, JSONable {
+public class Configuration extends JSONable implements Iterable<String> {
 
 	/**
 	 * 

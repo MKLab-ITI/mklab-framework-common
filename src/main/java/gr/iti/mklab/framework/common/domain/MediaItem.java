@@ -1,14 +1,12 @@
 package gr.iti.mklab.framework.common.domain;
 
-import gr.iti.mklab.framework.common.domain.feeds.Feed;
-
-import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Index;
+import org.mongodb.morphia.annotations.Indexes;
 import org.mongodb.morphia.annotations.Transient;
 
 /**
@@ -20,7 +18,8 @@ import org.mongodb.morphia.annotations.Transient;
  *
  */
 @Entity(noClassnameStored = true)
-public class MediaItem implements JSONable, Serializable {
+@Indexes(@Index("id, -publicationTime"))
+public class MediaItem extends JSONable {
 
     /**
      *
@@ -44,6 +43,7 @@ public class MediaItem implements JSONable, Serializable {
     
     // The id of the first Item that contains the MediaItem
     private String reference;
+    
     // The id of the user that posted the first Item that contains the MediaItem
     private String uid;
     
@@ -95,13 +95,9 @@ public class MediaItem implements JSONable, Serializable {
 
     private Integer height;
     
-    private Feed feed;
     private Float solrScore = 0f;
-    protected static final long HOUR = 1000L * 60L * 60;
-    protected static final long DAY = 1000L * 60L * 60L * 24L;
-    protected static final long MINUTE = 1000L * 60L;
-
-	public MediaItem() {
+	
+    public MediaItem() {
 		
 	}
 	
@@ -145,10 +141,6 @@ public class MediaItem implements JSONable, Serializable {
         location = tempMediaItem.getLocation();
 
         mentions = tempMediaItem.getMentions();
-
-        feed = tempMediaItem.getFeed();
-
-
     }
 
     public String getId() {
@@ -384,14 +376,6 @@ public class MediaItem implements JSONable, Serializable {
     public void setClusterId(String clusterId) {
         this.clusterId = clusterId;
     }
-    
-    public Feed getFeed() {
-        return feed;
-    }
-
-    public void setFeed(Feed feed) {
-        this.feed = feed;
-    }
 
     public String getSource() {
         return source;
@@ -408,104 +392,5 @@ public class MediaItem implements JSONable, Serializable {
     public Float getSolrScore(){
     	return this.solrScore;
     }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        String _id = getId();
-        if (_id != null) {
-            sb.append("id=").append(_id.replaceAll("\\r", " ")
-                    .replaceAll("\\t", " ").replaceAll("\\n", " ").trim()).append("\t");
-        }
-        String _reference = getRef();
-        if (reference != null) {
-            sb.append("_reference=").append(_reference.replaceAll("\r", " ")
-                    .replaceAll("\\t", " ").replaceAll("\\n", " ").trim()).append("\t");
-        }
-        String _streamId = getSource();
-        if (_streamId != null) {
-            sb.append("streamId=").append(_streamId).append("\t");
-        }
-
-        String _description = getDescription();
-        if (_description != null) {
-            sb.append("description=").append("\"").append(_description.replaceAll("\\r", " ")
-                    .replaceAll("\\t", " ").replaceAll("\\n", " ").trim()).append("\"").append("\t");
-        }
-        String _title = getTitle();
-        if (_title != null) {
-            sb.append("title=").append("\"").append(_title.replaceAll("\\t", " ")
-                    .replaceAll("\\r", " ").replaceAll("\\n", " ").trim()).append("\"").append("\t");
-        }
-        String[] _tags = getTags();
-        if (_tags != null && _tags.length > 0) {
-            sb.append("tags=").append("\"");
-            for (int i = 0; i < _tags.length; i++) {
-                sb.append(_tags[i].replaceAll("\\r", " ").replaceAll("\\t", " ").replaceAll("\\n", " ")
-                        .trim()).append(i < _tags.length - 1 ? "," : "");
-            }
-            sb.append("\"\t");
-        }
-
-        Long _pubTime = getPublicationTime();
-        if (_pubTime != null) {
-            sb.append("pubTime=").append(_pubTime).append("\t");
-        }
-
-        Double _latitude = getLatitude();
-        if (_latitude != null) {
-            sb.append("latitude=").append(_latitude).append("\t");
-        }
-
-        Double _longitude = getLongitude();
-        if (_longitude != null) {
-            sb.append("longitude=").append(_longitude).append("\t");
-        }
-
-        String _location = getLocationName();
-        if (_location != null) {
-            sb.append("location=").append(_location).append("\t");
-        }
-
-        Integer _width = getWidth();
-        Integer _height = getHeight();
-        if (_width != null && _height != null) {
-            sb.append("width=").append(_width).append("\t");
-            sb.append("height=").append(_height).append("\t");
-        }
-
-        return sb.toString();
-    }
     
-    
-    
-    public Long getLifeDuration() {
-        Long now = new Date().getTime();
-        Long difference = now - getPublicationTime();
-
-        return difference / (60L * 1000L);
-    }
-
-    public String getLifeDurationText() {
-
-        Long now = new Date().getTime();
-        Long difference = now - getPublicationTime();
-
-        if (difference > DAY) {
-
-            long difInDays = (difference / DAY);
-            if (difInDays == 1) {
-                return difInDays + " day";
-            } else {
-                return difInDays + " days";
-            }
-        } else if (difference > (2L * HOUR)) {
-            long difInHours = (difference / HOUR);
-            return difInHours + "h";
-        } else {
-            long difInMinutes = (difference / MINUTE);
-            return difInMinutes + "m";
-        }
-
-    }
 }

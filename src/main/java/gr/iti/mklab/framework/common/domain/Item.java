@@ -19,8 +19,8 @@ import org.mongodb.morphia.annotations.Transient;
  */
 
 @Entity(noClassnameStored = true)
-@Indexes( @Index("id, -publicationTime") )
-public class Item implements JSONable {
+@Indexes(@Index("id, -publicationTime"))
+public class Item extends JSONable {
 
     /**
      *
@@ -133,10 +133,6 @@ public class Item implements JSONable {
     // The Comments associated with an Item
     protected Long comments;
     
-    protected static final long HOUR = 1000L * 60L * 60;
-    protected static final long DAY = 1000L * 60L * 60L * 24L;
-    protected static final long MINUTE = 1000L * 60L;
-
     // Getters  & Setters for the fields of this class
     public String getId() {
         return id;
@@ -401,84 +397,6 @@ public class Item implements JSONable {
             return null;
         }
         return location.getCountryName();
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-
-        String _streamId = getSource();
-        if (_streamId != null) {
-            sb.append("streamId=").append(_streamId).append("\t");
-        }
-
-        String _description = getDescription();
-        if (_description != null) {
-            sb.append("description=").append("\"").append(_description.replaceAll("\\r", " ")
-                    .replaceAll("\\t", " ").replaceAll("\\n", " ").trim()).append("\"").append("\t");
-        }
-        String _title = getTitle();
-        if (_title != null) {
-            sb.append("title=").append("\"").append(_title.replaceAll("\\r", " ").replaceAll("\\t", " ")
-                    .replaceAll("\\n", " ").trim()).append("\"").append("\t");
-        }
-        String[] _tags = getTags();
-        if (_tags != null && _tags.length > 0) {
-            sb.append("tags=").append("\"");
-            for (int i = 0; i < _tags.length; i++) {
-                sb.append(_tags[i].replaceAll("\\r", " ").replaceAll("\\t", " ").replaceAll("\\n", " ")
-                        .trim()).append(i < _tags.length - 1 ? "," : "");
-            }
-            sb.append("\"\t");
-        }
-
-        long pubTime = getPublicationTime();
-        if (pubTime != -1) {
-            sb.append("pubTime=").append(pubTime).append("\t");
-        }
-
-        Double _latitude = getLatitude();
-        Double _longitude = getLongitude();
-        if (_latitude != null && _longitude != null) {
-            sb.append("latitude=").append(_latitude).append("\t");
-            sb.append("longitude=").append(_longitude).append("\t");
-        }
-
-        String _location = getLocationName();
-        if (_location != null) {
-            sb.append("location=").append(_location).append("\t");
-        }
-        return sb.toString();
-    }
-
-    public Long getLifeDuration() {
-        Long now = new Date().getTime();
-        Long difference = now - getPublicationTime();
-
-        return difference / (60L * 1000L);
-    }
-
-    public String getLifeDurationText() {
-
-        Long now = new Date().getTime();
-        Long difference = now - getPublicationTime();
-
-        if (difference > DAY) {
-
-            long difInDays = (difference / DAY);
-            if (difInDays == 1) {
-                return difInDays + " day";
-            } else {
-                return difInDays + " days";
-            }
-        } else if (difference > (2L * HOUR)) {
-            long difInHours = (difference / HOUR);
-            return difInHours + "h";
-        } else {
-            long difInMinutes = (difference / MINUTE);
-            return difInMinutes + "m";
-        }
-
     }
 
 }

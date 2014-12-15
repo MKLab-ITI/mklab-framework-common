@@ -3,7 +3,7 @@ package gr.iti.mklab.framework.common.domain;
 import org.mongodb.morphia.annotations.Entity;
 
 @Entity(noClassnameStored = true)
-public class Message implements JSONable {
+public class Message extends JSONable {
 	
 	/**
 	 * 
