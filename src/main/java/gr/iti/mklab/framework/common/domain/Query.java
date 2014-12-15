@@ -1,10 +1,8 @@
 package gr.iti.mklab.framework.common.domain;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import org.mongodb.morphia.annotations.Entity;
 
+@Entity(noClassnameStored = true)
 public class Query implements JSONable{
 
 	/**
@@ -21,24 +19,14 @@ public class Query implements JSONable{
 		this.score = score;
 	}
 	
-	@Expose
-    @SerializedName(value = "name")
     protected String name;
-	
-	@Expose
-    @SerializedName(value = "score")
+
     protected Double score;
 	
-	@Expose
-    @SerializedName(value = "type")
     protected Type type;
 	
-	@Expose
-    @SerializedName(value = "coords")
     protected Double[] coords;
-	
-	@Expose
-    @SerializedName(value = "fromExpansion")
+
     protected boolean fromExpansion = false;
 	
 	public String getName() {
@@ -81,13 +69,6 @@ public class Query implements JSONable{
 		return this.fromExpansion;
 	}
 	
- 	@Override
-    public String toJSONString() {
-        Gson gson = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
-                .create();
-        return gson.toJson(this);
-    }
  	
  	public enum Type {
  		Keywords, TwitterUsers, TwitterMentions, TwitterList, Location, URL, Contributors

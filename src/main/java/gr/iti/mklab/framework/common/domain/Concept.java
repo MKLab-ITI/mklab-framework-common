@@ -1,21 +1,19 @@
 package gr.iti.mklab.framework.common.domain;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import org.mongodb.morphia.annotations.Entity;
 
+
+@Entity(noClassnameStored = true)
 public class Concept implements JSONable {
 
 	private static final long serialVersionUID = -7389160446822526436L;
 	
-	@Expose
-    @SerializedName(value = "concept")
-	ConceptType type;
-	@Expose
-    @SerializedName(value = "score")
-	Double score;
 
+	private ConceptType type;
+
+	private Double score;
+
+	@Entity(noClassnameStored = true)
 	public enum ConceptType {
 		graphics,
 		messages,
@@ -41,12 +39,8 @@ public class Concept implements JSONable {
 		return type.toString();
 	}
 	
-	@Override
-	public String toJSONString() {
-		Gson gson = new GsonBuilder()
-        	.excludeFieldsWithoutExposeAnnotation()
-        	.create();
-		return gson.toJson(this);
+	public Double getScore() {
+		return score;
 	}
 	
 }

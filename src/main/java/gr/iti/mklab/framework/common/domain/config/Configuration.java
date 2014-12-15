@@ -1,13 +1,10 @@
-package gr.iti.mklab.framework.common.domain;
+package gr.iti.mklab.framework.common.domain.config;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import org.mongodb.morphia.annotations.Entity;
 
 import gr.iti.mklab.framework.common.domain.JSONable;
 
@@ -19,16 +16,17 @@ import gr.iti.mklab.framework.common.domain.JSONable;
  * @email  manosetro@iti.gr
  *
  */
+
+@Entity(noClassnameStored = true)
 public class Configuration implements Iterable<String>, JSONable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5070483137103099259L;
+	
 	public static final String CLASS_PATH = "Classpath";
 	
-	@Expose
-	@SerializedName(value = "parameters")
 	private Map<String,String> params = new HashMap<String,String>();
 
 	public String getParameter(String name) {
@@ -48,14 +46,5 @@ public class Configuration implements Iterable<String>, JSONable {
 	public Iterator<String> iterator() {
 		return params.keySet().iterator();
 	}
-
-	@Override
-    public String toJSONString() {
-        Gson gson = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
-                .create();
-        return gson.toJson(this);
-    }
-
 	
 }

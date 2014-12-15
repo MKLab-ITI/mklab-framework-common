@@ -2,10 +2,9 @@ package gr.iti.mklab.framework.common.domain.feeds;
 
 import java.util.Date;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import org.mongodb.morphia.annotations.Entity;
 
-
+@Entity(noClassnameStored = true)
 public class URLFeed extends Feed {
 	
 	/**
@@ -13,12 +12,8 @@ public class URLFeed extends Feed {
 	 */
 	private static final long serialVersionUID = -6084756784860676248L;
 
-	@Expose
-    @SerializedName(value = "url")
 	private String url = null;
 	
-	@Expose
-    @SerializedName(value = "network")
 	private String network = null;
 	
 	

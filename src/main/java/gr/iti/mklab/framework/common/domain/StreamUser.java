@@ -1,12 +1,10 @@
 package gr.iti.mklab.framework.common.domain;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 
+import org.mongodb.morphia.annotations.Entity;
+
+@Entity(noClassnameStored = true)
 public class StreamUser implements JSONable, Serializable {
 
     /**
@@ -15,107 +13,65 @@ public class StreamUser implements JSONable, Serializable {
 	private static final long serialVersionUID = 3558927430206936262L;
     
     // SocialSensor user id with the following structure:vStreamName#userid
-    @Expose
-    @SerializedName(value = "id")
     protected String id;
     
     // The internal id of a user in a specific social media
-    @Expose
-    @SerializedName(value = "userid")
     protected String userid;
     
     // The username of the user in a specific social media
-    @Expose
-    @SerializedName(value = "username")
     protected String username;
     
     // A human readable version of the name of a user
-    @Expose
-    @SerializedName(value = "name")
     protected String name;
     
     // The name of the stream that a User comes from
-    @Expose
-    @SerializedName(value = "streamId")
     protected String streamId;
     
     // The number of Items posted from the user
-    @Expose
-    @SerializedName(value = "items")
     protected Integer items = 0;
     
     // The profile image of a user
-    @Expose
-    @SerializedName(value = "profileImage")
     protected String profileImage;
     
     // The URL of the user page in the specific social media
-    @Expose
-    @SerializedName(value = "pageUrl")
     protected String pageUrl;
     
     // A URL of the personal web page of the user
-    @Expose
-    @SerializedName(value = "url")
     protected String url;
     
     // A short description of the user
-    @Expose
-    @SerializedName(value = "description")
     protected String description;
     
     // The date that this account has been created
-    @Expose
-    @SerializedName(value = "createdAt")
     protected String createdAt;
     
     // The last time that this user has been updated
-    @Expose
-    @SerializedName(value = "lastUpdated")
     protected Long lastUpdated;
     
     // The location associated with a user
-    @Expose
-    @SerializedName(value = "location")
     protected String location;
     
     // The number of the times a user has been mentioned from other users
-    @Expose
-    @SerializedName(value = "mentions")
     protected long mentions = 0;
     
     // The number of friends of a User
-    @Expose
-    @SerializedName(value = "friends")
     protected Long friends = 0l;
     
     // The number of followers of a User
-    @Expose
-    @SerializedName(value = "followers")
     protected Long followers = 0l;
     
     // The number of the times a user is listed
-    @Expose
-    @SerializedName(value = "listedCount")
     protected Long listedCount = 0l;
     
     // The number of times the Items of this user have been shared
-    @Expose
-    @SerializedName(value = "shares")
     protected Long shares = 0L;
     
     // An indicator whether the user is verified by the social media service
-    @Expose
-    @SerializedName(value = "verified")
     protected Boolean verified = false;
     
     // Timezone of the specific user
-    @Expose
-    @SerializedName(value = "timezone")
     protected String timezone;
     
-    @Expose
-    @SerializedName(value = "favorities")
     protected long favorities = 0L;
     
     // Getters & Setters for the fields of this class
@@ -297,14 +253,6 @@ public class StreamUser implements JSONable, Serializable {
     
     public Boolean isVerified() {
     	return verified;
-    }
-    
-    @Override
-    public String toJSONString() {
-        Gson gson = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
-                .create();
-        return gson.toJson(this);
     }
     
     @Override

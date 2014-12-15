@@ -8,14 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import org.mongodb.morphia.annotations.Entity;
 
-import gr.iti.mklab.framework.common.domain.Entity;
 import gr.iti.mklab.framework.common.domain.Item;
 import gr.iti.mklab.framework.common.domain.JSONable;
+import gr.iti.mklab.framework.common.domain.Location;
+import gr.iti.mklab.framework.common.domain.NamedEntity;
 import gr.iti.mklab.framework.common.domain.Query;
 
 /**
@@ -28,6 +26,8 @@ import gr.iti.mklab.framework.common.domain.Query;
  * @author etzoannos - e.tzoannos@atc.gr
  *
  */
+
+@Entity(noClassnameStored = true)
 public class Dysco implements JSONable {
 
 	/**
@@ -39,125 +39,61 @@ public class Dysco implements JSONable {
 
     }
 
-    public Dysco(String id, Date date, DyscoType type) {
-        this.id = id;
-        this.creationDate = date;
-        this.dyscoType = type;
-    }
-
     public Dysco(String id, Date date) {
         this.id = id;
         this.creationDate = date;
-
     }
 
     //The id of the dysco
-    @Expose
-    @SerializedName(value = "id")
     protected String id;
+    
     //The creation date of the dysco
-    @Expose
-    @SerializedName(value = "creationDate")
     protected Date creationDate;
+    
     //The title of the dysco
-    @Expose
-    @SerializedName(value = "title")
     protected String title;
+    
     //The score that shows how trending the dysco is
-    @Expose
-    @SerializedName(value = "score")
     protected Double score;
-    //The type of the dysco (CUSTOM/TRENDING)
-    @Expose
-    @SerializedName(value = "dyscoType")
-    protected DyscoType dyscoType;
 
     //Fields holding the information about the main context 
     //of the items that constitute the dysco
     //The extracted entities from items' content
-    @Expose
-    @SerializedName(value = "entities")
-    protected List<Entity> entities = new ArrayList<Entity>();
+    protected List<NamedEntity> entities = new ArrayList<NamedEntity>();
+    
     //The users that contribute in social networks to dysco's topic
-    @Expose
-    @SerializedName(value = "contributors")
     protected List<String> contributors = new ArrayList<String>();
+    
     //The extracted keywords from items' content with their assigned weights
-    @Expose
-    @SerializedName(value = "keywords")
     protected Map<String, Double> keywords = new HashMap<String, Double>();
+    
     //The extracted hashtags from items' content with their assigned weights
-    @Expose
-    @SerializedName(value = "hashtags")
     protected Map<String, Double> hashtags = new HashMap<String, Double>();
 
     //The query that will be used for retrieving relevant content to the Dysco from Solr
-    @Expose
-    @SerializedName(value = "solrQueryString")
     protected String solrQueryString = null;
+    
     //The query that will be used for retrieving relevant author content to the Dysco from Solr
-    @Expose
-    @SerializedName(value = "solrQueryAuthorString")
     protected String solrQueryAuthorString = null;
 
-    @Expose
-    @SerializedName(value = "solrQueries")
     protected List<Query> solrQueries = new ArrayList<Query>();
 
-    //The variable can get values 0,1,2 and shows dysco's trending evolution. 
-    @Expose
-    @SerializedName(value = "trending")
-    protected int trending = 0;
     //The date that the dysco was last created (updated because similar dyscos existed in the past)
-    @Expose
-    @SerializedName(value = "updateDate")
     protected Date updateDate;
 
-    @Expose
-    @SerializedName(value = "links")
     protected Map<String, Double> links = new HashMap<String, Double>();
 
-    @Expose
-    @SerializedName(value = "itemsCount")
     protected int itemsCount = 0;
-
-    @Expose
-    @SerializedName(value = "normalizedRankerScore")
-    protected double normalizedRankerScore = 0.0d;
-    @Expose
-    @SerializedName(value = "normalizedDyscoScore")
-    protected double normalizedDyscoScore = 0.0d;
     
-    @Expose
-    @SerializedName(value = "rankerScore")
-    protected double rankerScore = 0.0d;
-
-    @Expose
-    @SerializedName(value = "storyType")
-    protected String storyType = null;
-
-    @Expose
-    @SerializedName(value = "mainMediaUrl")
-    protected String mainMediaUrl = null;
-    
-    @Expose
-    @SerializedName(value = "author")
     protected String author = null;
 
+    private List<Location> nearLocations = new ArrayList<Location>();
 
-    private String group = "";
-    private String status = "new";
-
+    private List<String> wordsToAvoid = new ArrayList<String>();
+    
     //List of the items that compose the Dysco - serve for dysco's formulation, 
     //therefore they are stored temporarily in memory
     protected List<Item> items = new ArrayList<Item>();
-
-    protected String listId = "";
-
-    public enum DyscoType {
-
-        CUSTOM, TRENDING
-    }
 
     /**
      * Returns the id of the dysco
@@ -236,7 +172,7 @@ public class Dysco implements JSONable {
      *
      * @return List of Entity
      */
-    public List<Entity> getEntities() {
+    public List<NamedEntity> getEntities() {
         return entities;
     }
 
@@ -245,7 +181,7 @@ public class Dysco implements JSONable {
      *
      * @param entities
      */
-    public void setEntities(List<Entity> entities) {
+    public void setEntities(List<NamedEntity> entities) {
         this.entities = entities;
     }
 
@@ -254,7 +190,7 @@ public class Dysco implements JSONable {
      *
      * @param entity
      */
-    public void addEntity(Entity entity) {
+    public void addEntity(NamedEntity entity) {
         entities.add(entity);
     }
 
@@ -276,22 +212,6 @@ public class Dysco implements JSONable {
         this.contributors = contributors;
     }
 
-    public String getStoryType() {
-        return storyType;
-    }
-
-    public void setStoryType(String storyType) {
-        this.storyType = storyType;
-    }
-
-    public String getMainMediaUrl() {
-        return mainMediaUrl;
-    }
-
-    public void setMainMediaUrl(String mainMediaUrl) {
-        this.mainMediaUrl = mainMediaUrl;
-    }
-
     public String getAuthor() {
         return author;
     }
@@ -299,9 +219,6 @@ public class Dysco implements JSONable {
     public void setAuthor(String author) {
         this.author = author;
     }
-    
-    
-    
 
     /**
      * Returns the dysco's keywords with their assigned weights
@@ -450,26 +367,6 @@ public class Dysco implements JSONable {
     }
 
     /**
-     * Returns the trending value that shows dysco's trending evolution (can be
-     * 0,1,2)
-     *
-     * @return
-     */
-    public int getTrending() {
-        return trending;
-    }
-
-    /**
-     * Sets the trending value that shows dysco's trending evolution (can be
-     * 0,1,2)
-     *
-     * @param trending
-     */
-    public void setTrending(int trending) {
-        this.trending = trending;
-    }
-
-    /**
      * Returns the date that dysco was last updated.
      *
      * @return
@@ -485,32 +382,6 @@ public class Dysco implements JSONable {
      */
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
-    }
-
-    /**
-     * Returns the type of the dysco
-     *
-     * @return dyscoType
-     */
-    public DyscoType getDyscoType() {
-        return dyscoType;
-    }
-
-    /**
-     * Sets the type of the dysco (CUSTOM/TRENDING)
-     *
-     * @param dyscoType
-     */
-    public void setDyscoType(DyscoType dyscoType) {
-        this.dyscoType = dyscoType;
-    }
-
-    public String getListId() {
-        return listId;
-    }
-
-    public void setListId(String listId) {
-        this.listId = listId;
     }
 
     public Map<String, Double> getLinks() {
@@ -529,52 +400,20 @@ public class Dysco implements JSONable {
         this.itemsCount = itemsCount;
     }
 
-    public double getRankerScore() {
-        return rankerScore;
+    public List<Location> getNearLocations() {
+        return nearLocations;
     }
 
-    public void setRankerScore(double rankerScore) {
-        this.rankerScore = rankerScore;
-    }
-
-    public double getNormalizedRankerScore() {
-        return normalizedRankerScore;
-    }
-
-    public void setNormalizedRankerScore(double normalizedRankerScore) {
-        this.normalizedRankerScore = normalizedRankerScore;
+    public void setNearLocations(List<Location> nearLocations) {
+        this.nearLocations = nearLocations;
     }
     
-    public double getNormalizedDyscoScore() {
-        return normalizedDyscoScore;
+    public void setWordsToAvoid(List<String> wordsToAvoid) {
+        this.wordsToAvoid = wordsToAvoid;
     }
 
-    public void setNormalizedDyscoScore(double normalizedDyscoScore) {
-        this.normalizedDyscoScore = normalizedDyscoScore;
-    }
-    
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getGroup() {
-        return group;
-    }
-
-    public void setGroup(String group) {
-        this.group = group;
-    }
-
-    @Override
-    public String toJSONString() {
-        Gson gson = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
-                .create();
-        return gson.toJson(this);
+    public List<String> getWordsToAvoid() {
+        return this.wordsToAvoid;
     }
 
     public String toString() {
@@ -586,8 +425,8 @@ public class Dysco implements JSONable {
             dyscoString += item.getId() + ":" + item.getTitle() + "\n";
         }
         dyscoString += "Entities: \n";
-        for (Entity entity : entities) {
-            dyscoString += entity.getName() + "@@@" + entity.getType().toString() + ":" + entity.getCont() + "\n";
+        for (NamedEntity entity : entities) {
+            dyscoString += entity.getName() + "@@@" + entity.getType().toString() + ":" + entity.getCount() + "\n";
         }
         dyscoString += "Tags: \n";
         Iterator<Entry<String, Double>> iteratorHashtags = hashtags.entrySet().iterator();
@@ -602,8 +441,7 @@ public class Dysco implements JSONable {
             dyscoString += keyword.getKey() + ":" + keyword.getValue() + "\n";
         }
         dyscoString += "SolrQuery : " + solrQueryString + "\n";
-        dyscoString += "Trending : " + trending + "\n";
-        dyscoString += "DyscoType : " + dyscoType.toString() + "\n";
+
         return dyscoString;
     }
 }

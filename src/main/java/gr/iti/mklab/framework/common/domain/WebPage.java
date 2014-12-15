@@ -1,16 +1,16 @@
 package gr.iti.mklab.framework.common.domain;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import java.util.Date;
+
+import org.mongodb.morphia.annotations.Entity;
 
 /**
  *
- * @author etzoannos - e.tzoannos@atc.gr
+ * @author 	Manos Schinas
+ * @email	manosetro@iti.gr
  */
+
+@Entity(noClassnameStored = true)
 public class WebPage implements JSONable, Comparable<WebPage> {
 
     /**
@@ -19,78 +19,48 @@ public class WebPage implements JSONable, Comparable<WebPage> {
     private static final long serialVersionUID = -8783341713025378581L;
 
     // The URL of a WebPage. This is usually a short URL
-    @Expose
-    @SerializedName(value = "url")
     private String url;
 
     // The expanded version of URL
-    @Expose
-    @SerializedName(value = "expandedUrl")
     private String expandedUrl;
 
     // The expanded version of URL
-    @Expose
-    @SerializedName(value = "domain")
     private String domain;
 
     // The title extracted from the WebPage
-    @Expose
-    @SerializedName(value = "title")
     private String title;
 
     // The textual content of the web page
-    @Expose
-    @SerializedName(value = "text")
     private String text;
 
     // A flag that indicates whether this web page contains an article
-    @Expose
-    @SerializedName(value = "article")
     private boolean article;
 
     // Number of media contained in this web page
-    @Expose
-    @SerializedName(value = "media")
     private int media = 0;
 
     // Number of media contained in this web page
-    @Expose
-    @SerializedName(value = "mediaIds")
     private String[] mediaIds;
 
     // A representative mediaThumbnail
-    @Expose
-    @SerializedName(value = "mediaThumbnail")
     private String mediaThumbnail;
 
     // The title extracted from the WebPage
-    @Expose
-    @SerializedName(value = "keywords")
     private String[] keywords;
 
     // The date that a web page shared for the first time
-    @Expose
-    @SerializedName(value = "date")
     private Date date;
 
     // The id of the Item that share a web page for the forst time
-    @Expose
-    @SerializedName(value = "reference")
     private String reference;
 
     // The stream of the Item that the web page comes from 
-    @Expose
-    @SerializedName(value = "source")
     private String source;
 
     // The number of times a web page has been shared
-    @Expose
-    @SerializedName(value = "shares")
     private int shares = 0;
 
     // The crawling status of this web page
-    @Expose
-    @SerializedName(value = "status")
     private String status = "new";
 
     public WebPage(String url, String reference) {
@@ -268,14 +238,6 @@ public class WebPage implements JSONable, Comparable<WebPage> {
             }
         }
         return result;
-    }
-
-    @Override
-    public String toJSONString() {
-        Gson gson = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
-                .create();
-        return gson.toJson(this);
     }
 
     @Override

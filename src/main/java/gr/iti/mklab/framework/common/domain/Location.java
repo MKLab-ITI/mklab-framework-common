@@ -1,11 +1,10 @@
 package gr.iti.mklab.framework.common.domain;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
+import org.mongodb.morphia.annotations.Entity;
+
+@Entity(noClassnameStored = true)
 public class Location implements JSONable, Serializable{
 
 	/**
@@ -13,32 +12,18 @@ public class Location implements JSONable, Serializable{
 	 */
 	private static final long serialVersionUID = -333964331364087658L;
 
-	@Expose
-	@SerializedName(value = "coordinates")
 	protected Coordinates coordinates = null;
 	
-	@Expose
-	@SerializedName(value = "radius")
 	protected Double radius = null;
 	
-	@Expose
-	@SerializedName(value = "name")
 	protected String name = null;
 	
-	@Expose
-	@SerializedName(value = "city")
 	protected String city = null;
 	
-	@Expose
-	@SerializedName(value = "country")
 	protected String country = null;
 	
-	@Expose
-	@SerializedName(value = "bbox")
 	protected Double bbox[][] = null;
 	
-	@Expose
-	@SerializedName(value = "inferred")
 	protected Boolean inferred = false;
 	
 	public Location(String name) {
@@ -132,36 +117,27 @@ public class Location implements JSONable, Serializable{
 		return country;
 	}
 	
-	
+	@Entity(noClassnameStored = true)
 	private static class Coordinates implements Serializable{
 		
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 4394908733076702633L;
+		
 		public Coordinates() {
 			
 		}
+		
 		public Coordinates(Double latitude, Double longitude) {
 			this.latitude = latitude;
 			this.longitude = longitude;
 		}
-		
-		@Expose
-		@SerializedName(value = "latitude")
+
 		protected Double latitude = null;
-		@Expose
-		@SerializedName(value = "longitude")
+
 		protected Double longitude = null;
 	}
 	
-	@Override
-	public String toJSONString() {
-		Gson gson = new GsonBuilder()
-	 		.excludeFieldsWithoutExposeAnnotation()
-	 		.create();
-	
-	 	return gson.toJson(this);
-	}
 
 }

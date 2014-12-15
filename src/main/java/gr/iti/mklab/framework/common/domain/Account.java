@@ -1,10 +1,8 @@
 package gr.iti.mklab.framework.common.domain;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import org.mongodb.morphia.annotations.Entity;
 
+@Entity(noClassnameStored = true)
 public class Account implements JSONable {
 	
 	/**
@@ -12,30 +10,11 @@ public class Account implements JSONable {
 	 */
 	private static final long serialVersionUID = 673802988788312082L;
 
-	@Expose
-	@SerializedName(value = "id")
 	private String id;
 	
-	@Expose
-	@SerializedName(value = "name")
 	private String name;
-	 
-	@Expose
-	@SerializedName(value = "list")
-	private String list;
-	
-	@Expose
-	@SerializedName(value = "score")
-	private float score;
-	
-	@Expose
-	@SerializedName(value = "network")
-	private String network;
-	
-	public Account(String name, float score) {
-		this.name = name;
-		this.score = score;
-	}
+
+	private Source source;
 	
 	public String getId() {
 		return id;
@@ -53,35 +32,12 @@ public class Account implements JSONable {
 		this.name = name;
 	}
 	
-	public String getList() {
-		return list;
+	public Source getSource() {
+		return source;
 	}
 
-	public void setList(String list) {
-		this.list = list;
+	public void setSource(String source) {
+		this.source = Source.valueOf(source);
 	}
 	
-	public float getScore() {
-		return score;
-	}
-
-	public void setScore(float score) {
-		this.score = score;
-	}
-	
-	public String getNetwork() {
-		return network;
-	}
-
-	public void setNetwork(String network) {
-		this.network = network;
-	}
-	
-	@Override
-	public String toJSONString() {
-		Gson gson = new GsonBuilder()
-	    	.excludeFieldsWithoutExposeAnnotation()
-	    	.create();
-		return gson.toJson(this);
-	}
 }

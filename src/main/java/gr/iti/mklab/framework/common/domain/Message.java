@@ -1,25 +1,18 @@
 package gr.iti.mklab.framework.common.domain;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import org.mongodb.morphia.annotations.Entity;
 
+@Entity(noClassnameStored = true)
 public class Message implements JSONable {
-	
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4667070758908298510L;
 
-	@Expose
-	@SerializedName(value = "id")
-	String id;
-	
-	@Expose
-	@SerializedName(value = "action")
-	Action action;
+	private String id;
+
+	private Action action;
 	
 	public Message() {
 		
@@ -44,13 +37,5 @@ public class Message implements JSONable {
 	public void setAction(Action action) {
 		this.action = action;
 	}
-	
-    @Override
-    public String toJSONString() {
-        Gson gson = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
-                .create();
-        return gson.toJson(this);
-    }
 
 }

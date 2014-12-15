@@ -1,10 +1,5 @@
 package gr.iti.mklab.framework.common.domain;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import gr.iti.mklab.framework.common.domain.feeds.Feed;
 
 import java.io.Serializable;
@@ -12,6 +7,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Transient;
 
 /**
  * Represents a single stream media item and acts as an envelop for the native
@@ -21,6 +19,7 @@ import java.util.List;
  * @mail manosetro@iti.gr
  *
  */
+@Entity(noClassnameStored = true)
 public class MediaItem implements JSONable, Serializable {
 
     /**
@@ -29,100 +28,71 @@ public class MediaItem implements JSONable, Serializable {
     private static final long serialVersionUID = 7811714823188242818L;
     
     // Unique id of an MediaItem with the following structure: StreamName#internalId
-    @Expose
-    @SerializedName(value = "id")
     private String id;
     
     // The URL of a media item
-    @Expose
-    @SerializedName(value = "url")
     private String url;
     
     // Thumbnail version of a media item
-    @Expose
-    @SerializedName(value = "thumbnail")
     private String thumbnail;
     
     // The URL of the page that contains the media item
-    @Expose
-    @SerializedName(value = "pageUrl")
     private String pageUrl;
     
     // The name of the stream that a Media Item comes from
-    @Expose
-    @SerializedName(value = "source")
     private String source;
     
     // The id of the first Item that contains the MediaItem
-    @Expose
-    @SerializedName(value = "reference")
     private String reference;
     // The id of the user that posted the first Item that contains the MediaItem
-    @Expose
-    @SerializedName(value = "uid")
     private String uid;
+    
     // A detailed instance of the user of an Item
     // This field is not exposed in mongodb
+    @Transient
     private StreamUser streamUser;
+    
     // Textual information
-    @Expose
-    @SerializedName(value = "title")
     private String title;
-    @Expose
-    @SerializedName(value = "description")
+
     private String description;
-    @Expose
-    @SerializedName(value = "tags")
+
     private String[] tags;
+   
     // The type of a media item. Can only be image/video
-    @Expose
-    @SerializedName(value = "type")
     private String type;
+    
     // The publication time of the first item that share the media item
-    @Expose
-    @SerializedName(value = "publicationTime")
     private long publicationTime;
-    @Expose
-    @SerializedName(value = "mentions")
+    
     private String[] mentions;
+    
     // Popularity values
-    @Expose
-    @SerializedName(value = "likes")
     protected Long likes = 0L;
-    @Expose
-    @SerializedName(value = "shares")
+
     protected Long shares = 0L;
-    @Expose
-    @SerializedName(value = "comments")
+
     protected Long comments = 0L;
-    @Expose
-    @SerializedName(value = "views")
+
     protected Long views = 0L;
-    @Expose
-    @SerializedName(value = "ratings")
+
     protected Float ratings = 0F;
+    
     // The sentiment value of a MediaItem
-    @Expose
-    @SerializedName(value = "sentiment")
     protected int sentiment;
+    
     // A list of concepts related to the MediaItem
-    @Expose
-    @SerializedName(value = "concepts")
     private List<Concept> concepts = null;
+    
     // Id of the Visual Cluster
-    @Expose
-    @SerializedName(value = "clusterId")
     private String clusterId = null;
+    
     // Geo information 
-    @Expose
-    @SerializedName(value = "location")
     private Location location;
+    
     // Size of the Media item
-    @Expose
-    @SerializedName(value = "width")
     private Integer width;
-    @Expose
-    @SerializedName(value = "height")
+
     private Integer height;
     
     private Feed feed;
@@ -437,14 +407,6 @@ public class MediaItem implements JSONable, Serializable {
     
     public Float getSolrScore(){
     	return this.solrScore;
-    }
-
-    @Override
-    public String toJSONString() {
-        Gson gson = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
-                .create();
-        return gson.toJson(this);
     }
 
     @Override

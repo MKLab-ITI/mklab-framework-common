@@ -2,11 +2,9 @@ package gr.iti.mklab.framework.common.domain;
 
 import java.io.Serializable;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import org.mongodb.morphia.annotations.Entity;
 
+@Entity(noClassnameStored = true)
 public class MediaShare implements JSONable, Serializable {
 	
 	/**
@@ -23,20 +21,12 @@ public class MediaShare implements JSONable, Serializable {
 	}
 	
 	// Unique id of a Media
-	@Expose
-	@SerializedName(value = "id")
 	private String id;
 		
-	@Expose
-	@SerializedName(value = "reference")
 	private String reference;
 	
-	@Expose
-	@SerializedName(value = "publicationTime")
 	private long publicationTime = 0;
 	
-	@Expose
-	@SerializedName(value = "userid")
 	private String userid;
 	
     public String getId() {
@@ -70,13 +60,5 @@ public class MediaShare implements JSONable, Serializable {
     public void setUserid(String userid) {
         this.userid = userid;
     }
-    
-	@Override
-	public String toJSONString() {
-		Gson gson = new GsonBuilder()
-			.excludeFieldsWithoutExposeAnnotation()
-			.create();
-    	return gson.toJson(this);
-	}
 	
 }

@@ -1,20 +1,25 @@
 package gr.iti.mklab.framework.common.domain;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Index;
+import org.mongodb.morphia.annotations.Indexes;
+import org.mongodb.morphia.annotations.Transient;
+
 /**
  * Represents a single social media post and acts as an envelop for the native object.
  *
- * @author Manos Schinas
+ * @author 	Manos Schinas
+ * @email	manosetro@iti.gr
+ * 
  */
+
+@Entity(noClassnameStored = true)
+@Indexes( @Index("id, -publicationTime") )
 public class Item implements JSONable {
 
     /**
@@ -27,163 +32,106 @@ public class Item implements JSONable {
     }
 
     // Unique id of an instance with the following structure: StreamName#internalId
-    @Expose
-    @SerializedName(value = "id")
     protected String id;
     
     // The id of the original Item
-    @Expose
-    @SerializedName(value = "reference")
     protected String reference;
     
     // The name of the stream that an Item comes from
-    @Expose
-    @SerializedName(value = "source")
     protected String source;
     
     // The title of an Item (in the case of facebook post, this is a shortened title up to 140 characters). It will be used just for searching and sentiment analysis. 
     // It shouldn't be used in the UI - use the originalTitle instead    
-    @Expose
-    @SerializedName(value = "title")
     protected String title;
     
     // A short description of an Item
-    @Expose
-    @SerializedName(value = "description")
     protected String description;
     
     // A set of tags associated with an Item
-    @Expose
-    @SerializedName(value = "tags")
     protected String[] tags;
     
     // The SocialSensor internal id of the user => StreamName#userInternalId
-    @Expose
-    @SerializedName(value = "uid")
     protected String uid;
     
     // A set of identifiers that indicate the news hounds list
-    @Expose
-    @SerializedName(value = "list")
     protected String[] lists;
     
     // A detailed instance of the user of an Item
     // This is not exposed in mongodb
+    @Transient
     protected StreamUser streamUser;
     
     // A set of user ids for the mentioned users
-    @Expose
-    @SerializedName(value = "mentions")
     protected String[] mentions;
     
     // If an Item is a reply to another Item this field
     // keeps the id of the user of the first Item
-    @Expose
-    @SerializedName(value = "inReply")
     protected String inReply;
     
     // The user id of the original Item
-    @Expose
-    @SerializedName(value = "referencedUserId")
     protected String referencedUserId;
     
     // A list of URLs contained in the Item
-    @Expose
-    @SerializedName(value = "links")
     protected URL[] links;
     
     // The id of the original Item
-    @Expose
-    @SerializedName(value = "pageUrl")
     protected String url;
     
     
     // A set of WebPages contained in the Item
     // WebPage is a more detailed representation of URLs
-    @SerializedName(value = "webPages")
+    @Transient
     protected List<WebPage> webPages;
     
     // The publication time of an Item
-    @Expose
-    @SerializedName(value = "publicationTime")
     protected long publicationTime;
     
     // The last time this Item has been updated
-    @Expose
-    @SerializedName(value = "lastUpdated")
     protected Date lastUpdated;
     
     // The time this Item has been inserted in the system
-    @Expose
-    @SerializedName(value = "insertionTime")
     protected long insertionTime;
 
     // The location associated with an Item
     // Usually this field indicated the origin of the Item
-    @Expose
-    @SerializedName(value = "location")
     protected Location location;
     
     // The text associated with an Item
-    @Expose
-    @SerializedName(value = "text")
     protected String text;
     
     // A list of media items contained in an Item
     // This is not exposed in mongodb 
-    @SerializedName(value = "mediaItems")
+    @Transient
     protected List<MediaItem> mediaItems = new ArrayList<MediaItem>();
     
     // A list of ids of the contained media items 
-    @Expose
-    @SerializedName(value = "mediaIds")
     protected List<String> mediaIds = new ArrayList<String>();
     
     // The sentiment of an Item
-    @Expose
-    @SerializedName(value = "sentiment")
     protected String sentiment;
     
     // A list of representative keywords extracted from an Item
-    @Expose
-    @SerializedName(value = "keywords")
     protected List<String> keywords = new ArrayList<String>();
     
     // A list of named entities extracted from an Item
-    @Expose
-    @SerializedName(value = "entities")
-    protected List<Entity> entities;
+    protected List<NamedEntity> entities;
     
     // The language of an Item
-    @Expose
-    @SerializedName(value = "lang")
     protected String lang;
     
     // An indicator whether an Item id original or a shared instance of a previous Item
-    @Expose
-    @SerializedName(value = "original")
     protected boolean original = true;
     
     // Popularity values 
     
     // Number of likes
-    @Expose
-    @SerializedName(value = "likes")
     protected Long likes = 0L;
     
     // Number of the times an Item has been shared
-    @Expose
-    @SerializedName(value = "shares")
     protected Long shares = 0L;
     
     // The Comments associated with an Item
-    @Expose
-    @SerializedName(value = "comments")
-    protected String[] comments;
-    
-    @Expose
-    @SerializedName(value = "numOfComments")
-    protected Long numOfComments = 0L;
+    protected Long comments;
     
     protected static final long HOUR = 1000L * 60L * 60;
     protected static final long DAY = 1000L * 60L * 60L * 24L;
@@ -371,11 +319,11 @@ public class Item implements JSONable {
         this.keywords = keywords;
     }
 
-    public List<Entity> getEntities() {
+    public List<NamedEntity> getEntities() {
         return entities;
     }
 
-    public void setEntities(List<Entity> entities) {
+    public void setEntities(List<NamedEntity> entities) {
         this.entities = entities;
     }
 
@@ -411,19 +359,11 @@ public class Item implements JSONable {
         this.shares = shares;
     }
 
-    public String[] getComments() {
+    public Long getComments() {
         return comments;
     }
 
-    public Long getNumOfComments() {
-        return numOfComments;
-    }
-
-    public void setNumOfComments(Long numOfComments) {
-        this.numOfComments = numOfComments;
-    }
-
-    public void setComments(String[] comments) {
+    public void setComments(Long comments) {
         this.comments = comments;
     }
     
@@ -461,15 +401,6 @@ public class Item implements JSONable {
             return null;
         }
         return location.getCountryName();
-    }
-
-    // Creates the JSON representation of an Item
-    @Override
-    public String toJSONString() {
-        Gson gson = new GsonBuilder()
-        	.excludeFieldsWithoutExposeAnnotation()
-        	.create();
-        return gson.toJson(this);
     }
 
     @Override

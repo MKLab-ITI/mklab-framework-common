@@ -4,11 +4,9 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import org.mongodb.morphia.annotations.Entity;
 
+@Entity(noClassnameStored = true)
 public class Cluster implements JSONable, Serializable {
 	
 	/**
@@ -22,16 +20,10 @@ public class Cluster implements JSONable, Serializable {
 	}
 	
 	// Unique id of a Media cluster
-	@Expose
-	@SerializedName(value = "id")
 	private String id;
-		
-	@Expose
-	@SerializedName(value = "members")
+
 	private Set<String> members = new HashSet<String>();
 	
-	@Expose
-	@SerializedName(value = "count")
 	private int count = 0;
 	
     public String getId() {
@@ -59,13 +51,5 @@ public class Cluster implements JSONable, Serializable {
     public int getCount() {
         return count;
     }
-    
-	@Override
-	public String toJSONString() {
-		Gson gson = new GsonBuilder()
-			.excludeFieldsWithoutExposeAnnotation()
-			.create();
-    	return gson.toJson(this);
-	}
 	
 }

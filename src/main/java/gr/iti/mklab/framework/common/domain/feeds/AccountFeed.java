@@ -1,12 +1,12 @@
 package gr.iti.mklab.framework.common.domain.feeds;
 
 import java.util.Date;
+import org.mongodb.morphia.annotations.Entity;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 import gr.iti.mklab.framework.common.domain.Account;
 
+@Entity(noClassnameStored = true)
 public class AccountFeed extends Feed {
 
 	/**
@@ -14,8 +14,6 @@ public class AccountFeed extends Feed {
 	 */
 	private static final long serialVersionUID = 6865708239941324229L;
 	
-	@Expose
-    @SerializedName(value = "account")
 	private Account account = null;
 	
 	public AccountFeed(Account account, Date since, String id) {
