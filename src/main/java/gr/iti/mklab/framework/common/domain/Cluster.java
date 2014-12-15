@@ -9,7 +9,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MediaCluster implements JSONable, Serializable {
+public class Cluster implements JSONable, Serializable {
 	
 	/**
 	 * 
@@ -17,7 +17,7 @@ public class MediaCluster implements JSONable, Serializable {
 	private static final long serialVersionUID = -7926531925761955502L;
 
 
-	public MediaCluster(String id) {
+	public Cluster(String id) {
 		this.id = id;
 	}
 	

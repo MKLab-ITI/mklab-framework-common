@@ -80,8 +80,8 @@ public class WebPage implements JSONable, Comparable<WebPage> {
 
     // The stream of the Item that the web page comes from 
     @Expose
-    @SerializedName(value = "streamId")
-    private String streamId;
+    @SerializedName(value = "source")
+    private String source;
 
     // The number of times a web page has been shared
     @Expose
@@ -122,12 +122,12 @@ public class WebPage implements JSONable, Comparable<WebPage> {
         this.domain = domain;
     }
 
-    public String getStreamId() {
-        return streamId;
+    public String getSource() {
+        return source;
     }
 
-    public void setStreamId(String streamId) {
-        this.streamId = streamId;
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public Date getDate() {

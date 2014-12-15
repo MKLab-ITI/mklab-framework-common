@@ -32,22 +32,27 @@ public class MediaItem implements JSONable, Serializable {
     @Expose
     @SerializedName(value = "id")
     private String id;
+    
     // The URL of a media item
     @Expose
     @SerializedName(value = "url")
     private String url;
+    
     // Thumbnail version of a media item
     @Expose
     @SerializedName(value = "thumbnail")
     private String thumbnail;
+    
     // The URL of the page that contains the media item
     @Expose
     @SerializedName(value = "pageUrl")
     private String pageUrl;
+    
     // The name of the stream that a Media Item comes from
     @Expose
-    @SerializedName(value = "streamId")
-    private String streamId;
+    @SerializedName(value = "source")
+    private String source;
+    
     // The id of the first Item that contains the MediaItem
     @Expose
     @SerializedName(value = "reference")
@@ -119,19 +124,7 @@ public class MediaItem implements JSONable, Serializable {
     @Expose
     @SerializedName(value = "height")
     private Integer height;
-    // Indicated whether a MediaItem has been inserted into the visual index
-    @Expose
-    @SerializedName(value = "vIndexed")
-    private Boolean vIndexed = Boolean.FALSE;
-    // Indicated whether a MediaItem has been inserted into Solr
-    @Expose
-    @SerializedName(value = "indexed")
-    private Boolean indexed = Boolean.FALSE;
-    // The fetching status of a MediaItem
-    @Expose
-    @SerializedName(value = "status")
-    private String status = "new";
-    private int source;
+    
     private Feed feed;
     private Float solrScore = 0f;
     protected static final long HOUR = 1000L * 60L * 60;
@@ -150,7 +143,7 @@ public class MediaItem implements JSONable, Serializable {
 
         this.url = url.toString();
 
-        this.streamId = "Web";
+        this.source = "Web";
         this.id = "Web#" + url.hashCode();
 
         this.reference = page.getUrl();
@@ -170,7 +163,7 @@ public class MediaItem implements JSONable, Serializable {
 
         this.url = url.toString();
 
-        streamId = tempMediaItem.getStreamId();
+        source = tempMediaItem.getSource();
         reference = tempMediaItem.getRef();
 
         description = tempMediaItem.getDescription();
@@ -261,22 +254,6 @@ public class MediaItem implements JSONable, Serializable {
         this.tags = tags;
     }
 
-    public boolean isVisualIndexed() {
-        return vIndexed;
-    }
-
-    public void setVisualIndexed(boolean vIndexed) {
-        this.vIndexed = vIndexed;
-    }
-
-    public boolean isIndexed() {
-        return indexed;
-    }
-
-    public void setIndexed(boolean indexed) {
-        this.indexed = indexed;
-    }
-
     public void setMentions(String[] mentions) {
         this.mentions = mentions;
     }
@@ -327,50 +304,6 @@ public class MediaItem implements JSONable, Serializable {
 
     public void setSentiment(int sentiment) {
         this.sentiment = sentiment;
-    }
-
-    public String getStreamId() {
-        return streamId;
-    }
-    
-    public String getSimpleStreamId() {
-        
-        if(streamId.equals("Facebook"))
-        {
-            return "facebook";
-        }
-        else if(streamId.equals("GooglePlus"))
-        {
-            return "google-plus";
-        }
-        else if(streamId.equals("Flickr"))
-        {
-            return "flickr";
-        }
-         else if(streamId.equals("Twitter"))
-        {
-            return "twitter";
-        }
-         else if (streamId.equals("Web"))
-         {
-             return "globe";
-         }
-          else if (streamId.equals("Youtube"))
-         {
-             return "youtube";
-         }
-           else if (streamId.equals("Instagram"))
-         {
-             return "instagram";
-         }
-        else
-        {
-            return streamId;
-        }
-    }
-
-    public void setStreamId(String streamId) {
-        this.streamId = streamId;
     }
 
     public long getPublicationTime() {
@@ -490,11 +423,11 @@ public class MediaItem implements JSONable, Serializable {
         this.feed = feed;
     }
 
-    public int getSource() {
+    public String getSource() {
         return source;
     }
 
-    public void setSource(int source) {
+    public void setSource(String source) {
         this.source = source;
     }
     
@@ -527,7 +460,7 @@ public class MediaItem implements JSONable, Serializable {
             sb.append("_reference=").append(_reference.replaceAll("\r", " ")
                     .replaceAll("\\t", " ").replaceAll("\\n", " ").trim()).append("\t");
         }
-        String _streamId = getStreamId();
+        String _streamId = getSource();
         if (_streamId != null) {
             sb.append("streamId=").append(_streamId).append("\t");
         }

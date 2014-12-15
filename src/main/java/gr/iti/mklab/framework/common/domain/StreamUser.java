@@ -14,8 +14,7 @@ public class StreamUser implements JSONable, Serializable {
 	 */
 	private static final long serialVersionUID = 3558927430206936262L;
     
-    // SocialSensor user id with the following structure:
-    // StreamName#userid
+    // SocialSensor user id with the following structure:vStreamName#userid
     @Expose
     @SerializedName(value = "id")
     protected String id;
@@ -49,11 +48,6 @@ public class StreamUser implements JSONable, Serializable {
     @Expose
     @SerializedName(value = "profileImage")
     protected String profileImage;
-    
-    // The url of the image of a User. Usually this image is a bigger version of profileImage
-    @Expose
-    @SerializedName(value = "imageUrl")
-    protected String imageUrl;
     
     // The URL of the user page in the specific social media
     @Expose
@@ -121,12 +115,8 @@ public class StreamUser implements JSONable, Serializable {
     protected String timezone;
     
     @Expose
-    @SerializedName(value = "linkToProfile")
-    protected String linkToProfile;
-    
-    @Expose
-    @SerializedName(value = "favoritiesCount")
-    protected long favoritiesCount = 0L;
+    @SerializedName(value = "favorities")
+    protected long favorities = 0L;
     
     // Getters & Setters for the fields of this class
     
@@ -188,14 +178,6 @@ public class StreamUser implements JSONable, Serializable {
 
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
     
     public String getPageUrl() {
@@ -301,31 +283,19 @@ public class StreamUser implements JSONable, Serializable {
         this.shares += shares;
     }
     
-    public Long getFavoritiesCount() {
-        return favoritiesCount;
+    public Long getFavorities() {
+        return favorities;
     }
 
     public void setFavoritiesCount(Long shares) {
         this.shares = shares;
     }
     
-    public void setVerified(long favoritiesCount) {
-    	this.favoritiesCount = favoritiesCount;
+    public void setVerified(Boolean verified) {
+    	this.verified = verified;
     }
     
     public Boolean isVerified() {
-    	return verified;
-    }
-    
-    public void setLinkToProfile(String linkToProfile){
-    	this.linkToProfile = linkToProfile;
-    }
-    
-    public String getLinkToProfile(){
-    	return linkToProfile;
-    }
-    
-    public boolean isVerifiedOfficial() {
     	return verified;
     }
     

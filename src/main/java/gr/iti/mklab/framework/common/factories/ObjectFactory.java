@@ -1,26 +1,18 @@
 package gr.iti.mklab.framework.common.factories;
 
-import com.google.gson.Gson;
+import com .google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
-import gr.iti.mklab.framework.common.domain.DyscoRequest;
 import gr.iti.mklab.framework.common.domain.Item;
 import gr.iti.mklab.framework.common.domain.Keyword;
-import gr.iti.mklab.framework.common.domain.MediaCluster;
+import gr.iti.mklab.framework.common.domain.Cluster;
 import gr.iti.mklab.framework.common.domain.MediaItem;
 import gr.iti.mklab.framework.common.domain.MediaShare;
-import gr.iti.mklab.framework.common.domain.PlatformUser;
 import gr.iti.mklab.framework.common.domain.Account;
+import gr.iti.mklab.framework.common.domain.Message;
 import gr.iti.mklab.framework.common.domain.StreamUser;
-import gr.iti.mklab.framework.common.domain.Topic;
-import gr.iti.mklab.framework.common.domain.Vote;
 import gr.iti.mklab.framework.common.domain.WebPage;
 import gr.iti.mklab.framework.common.domain.feeds.Feed;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -46,9 +38,9 @@ public class ObjectFactory {
         }
     }
 
-    public static MediaCluster createMediaCluster(String json) {
+    public static Cluster createCluster(String json) {
         synchronized (gson) {
-        	MediaCluster mediaCluster = gson.fromJson(json, MediaCluster.class);
+        	Cluster mediaCluster = gson.fromJson(json, Cluster.class);
             return mediaCluster;
         }
     }
@@ -80,14 +72,6 @@ public class ObjectFactory {
             return feed;
         }
     }
-
-    public static synchronized DyscoRequest createDyscoRequest(String json) {
-        synchronized (gson) {
-            DyscoRequest request = gson.fromJson(json, DyscoRequest.class);
-            return request;
-        }
-    }
-
   
     public static synchronized Keyword createKeyword(String json) {
         synchronized (gson) {
@@ -103,34 +87,11 @@ public class ObjectFactory {
         }
     }
 
-    public static synchronized Topic createTopic(String json) {
+    public static synchronized Message createMessage(String json) {
     	synchronized (gson) {
-    		Topic topic = gson.fromJson(json, Topic.class);
-    		return topic;
+    		Message message = gson.fromJson(json, Message.class);
+			return message;
     	}
-    }
+	}
     
-    public static synchronized PlatformUser createPlatformUser(String json) {
-        synchronized (gson) {
-            PlatformUser user = gson.fromJson(json, PlatformUser.class);
-            return user;
-        }
-    }
-    
-    public static synchronized List<Vote> createVoteList(String json) {
-        synchronized (gson) {
-
-
-            Type listType = new TypeToken<ArrayList<Vote>>() {
-            }.getType();
-
-            List<Vote> voteList = gson.fromJson(json, listType);
-
-            if (voteList == null) {
-                voteList = new ArrayList<Vote>();
-            }
-            return voteList;
-        }
-    }
-
 }

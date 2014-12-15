@@ -14,34 +14,34 @@ public class Message implements JSONable {
 	private static final long serialVersionUID = 4667070758908298510L;
 
 	@Expose
-	@SerializedName(value = "dyscoId")
-	String dyscoId;
+	@SerializedName(value = "id")
+	String id;
 	
 	@Expose
 	@SerializedName(value = "action")
 	Action action;
 	
-	public Message(){
+	public Message() {
 		
 	}
 	
-	public enum Action{
-		NEW,UPDATE,DELETE
+	public enum Action {
+		NEW, UPDATE, DELETE
 	}
 
-	public String getDyscoId(){
-		return dyscoId;
+	public String getId(){
+		return id;
 	}
 	
-	public void setDyscoId(String dyscoId){
-		this.dyscoId = dyscoId;
+	public void setId(String id) {
+		this.id = id;
 	}
 	
-	public Action getAction(){
+	public Action getAction() {
 		return action;
 	}
 	
-	public void setAction(Action action){
+	public void setAction(Action action) {
 		this.action = action;
 	}
 	
@@ -52,17 +52,5 @@ public class Message implements JSONable {
                 .create();
         return gson.toJson(this);
     }
-
-
-	public static synchronized Message create(String json) {
-		Gson gson = new GsonBuilder()
-	    		.excludeFieldsWithoutExposeAnnotation()
-	    		.create();
-		
-		synchronized (gson) {
-		    Message message = gson.fromJson(json, Message.class);
-		    return message;
-		}
-	}
 
 }

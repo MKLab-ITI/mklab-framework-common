@@ -11,10 +11,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Represents a single stream update and acts as an envelop for the native
- * stream update object.
+ * Represents a single social media post and acts as an envelop for the native object.
  *
- * @_author etzoannos
+ * @author Manos Schinas
  */
 public class Item implements JSONable {
 
@@ -31,73 +30,90 @@ public class Item implements JSONable {
     @Expose
     @SerializedName(value = "id")
     protected String id;
+    
     // The id of the original Item
     @Expose
     @SerializedName(value = "reference")
     protected String reference;
+    
     // The name of the stream that an Item comes from
     @Expose
-    @SerializedName(value = "streamId")
-    protected String streamId;
+    @SerializedName(value = "source")
+    protected String source;
+    
     // The title of an Item (in the case of facebook post, this is a shortened title up to 140 characters). It will be used just for searching and sentiment analysis. 
     // It shouldn't be used in the UI - use the originalTitle instead    
     @Expose
     @SerializedName(value = "title")
     protected String title;
+    
     // A short description of an Item
     @Expose
     @SerializedName(value = "description")
     protected String description;
+    
     // A set of tags associated with an Item
     @Expose
     @SerializedName(value = "tags")
     protected String[] tags;
-    // The SocialSensor internal id of the user 
-    // StreamName#userInternalId
+    
+    // The SocialSensor internal id of the user => StreamName#userInternalId
     @Expose
     @SerializedName(value = "uid")
     protected String uid;
+    
     // A set of identifiers that indicate the news hounds list
     @Expose
     @SerializedName(value = "list")
     protected String[] lists;
+    
     // A detailed instance of the user of an Item
     // This is not exposed in mongodb
     protected StreamUser streamUser;
+    
     // A set of user ids for the mentioned users
     @Expose
     @SerializedName(value = "mentions")
     protected String[] mentions;
+    
     // If an Item is a reply to another Item this field
     // keeps the id of the user of the first Item
     @Expose
     @SerializedName(value = "inReply")
     protected String inReply;
+    
     // The user id of the original Item
     @Expose
     @SerializedName(value = "referencedUserId")
     protected String referencedUserId;
+    
     // A list of URLs contained in the Item
     @Expose
     @SerializedName(value = "links")
     protected URL[] links;
+    
     // The id of the original Item
     @Expose
     @SerializedName(value = "pageUrl")
     protected String url;
+    
+    
     // A set of WebPages contained in the Item
     // WebPage is a more detailed representation of URLs
     @SerializedName(value = "webPages")
     protected List<WebPage> webPages;
+    
     // The publication time of an Item
     @Expose
     @SerializedName(value = "publicationTime")
     protected long publicationTime;
+    
     // The last time this Item has been updated
-    //@Expose
-    //@SerializedName(value = "lastUpdated")
-    //protected Date lastUpdated;
-    // The last time this Item has been updated
+    @Expose
+    @SerializedName(value = "lastUpdated")
+    protected Date lastUpdated;
+    
+    // The time this Item has been inserted in the system
     @Expose
     @SerializedName(value = "insertionTime")
     protected long insertionTime;
@@ -107,102 +123,68 @@ public class Item implements JSONable {
     @Expose
     @SerializedName(value = "location")
     protected Location location;
+    
     // The text associated with an Item
     @Expose
     @SerializedName(value = "text")
     protected String text;
+    
     // A list of media items contained in an Item
     // This is not exposed in mongodb 
     @SerializedName(value = "mediaItems")
     protected List<MediaItem> mediaItems = new ArrayList<MediaItem>();
+    
     // A list of ids of the contained media items 
     @Expose
     @SerializedName(value = "mediaIds")
     protected List<String> mediaIds = new ArrayList<String>();
+    
     // The sentiment of an Item
     @Expose
     @SerializedName(value = "sentiment")
     protected String sentiment;
+    
     // A list of representative keywords extracted from an Item
     @Expose
     @SerializedName(value = "keywords")
     protected List<String> keywords = new ArrayList<String>();
+    
     // A list of named entities extracted from an Item
     @Expose
     @SerializedName(value = "entities")
     protected List<Entity> entities;
+    
     // The language of an Item
     @Expose
     @SerializedName(value = "lang")
     protected String lang;
+    
     // An indicator whether an Item id original or a shared instance of a previous Item
     @Expose
     @SerializedName(value = "original")
     protected boolean original = true;
+    
     // Popularity values 
+    
     // Number of likes
     @Expose
     @SerializedName(value = "likes")
     protected Long likes = 0L;
-    // NUmber of the times an Item has been shared
+    
+    // Number of the times an Item has been shared
     @Expose
     @SerializedName(value = "shares")
     protected Long shares = 0L;
+    
     // The Comments associated with an Item
     @Expose
     @SerializedName(value = "comments")
     protected String[] comments;
+    
     @Expose
     @SerializedName(value = "numOfComments")
     protected Long numOfComments = 0L;
-    @Expose
-    @SerializedName(value = "isSearched")
-    protected boolean isSearched;
-    @Expose
-    @SerializedName(value = "indexed")
-    protected boolean indexed;
-    // the following fields are added for the UI purposes (after retrieval from Solr)
-    // no need to be populated at crawling time
-    protected int alethiometerScore;
-    @Expose
-    @SerializedName(value = "alethiometerUserScore")
-    protected int alethiometerUserScore;
-    @Expose
-    @SerializedName(value = "authorFullName")
-    protected String authorFullName;
-    @Expose
-    @SerializedName(value = "authorScreenName")
-    protected String authorScreenName;
-    @Expose
-    @SerializedName(value = "userRole")
-    protected String userRole;
-    protected int followersCount;
-    protected int friendsCount;
-    @Expose
-    @SerializedName(value = "avatarImage")
-    protected String avatarImage;
-    @Expose
-    @SerializedName(value = "avatarImageSmall")
-    protected String avatarImageSmall;
-    @Expose
-    @SerializedName(value = "alethiometerUserStatus")
-    protected String alethiometerUserStatus;
-    @Expose
-    @SerializedName(value = "positiveVotes")
-    protected int positiveVotes = 0;
-    @Expose
-    @SerializedName(value = "negativeVotes")
-    protected int negativeVotes = 0;
-    @Expose
-    @SerializedName(value = "votes")
-    protected List<Vote> votes = new ArrayList<Vote>();
-    //this title is the original one in both tweets and facebook posts. It won't be used for searching, it will only be returned in the results.
-    @Expose
-    @SerializedName(value = "originalTitle")
-    protected String originalTitle;
-
-    protected int validityScore;
-    protected String validityVotes;
+    
     protected static final long HOUR = 1000L * 60L * 60;
     protected static final long DAY = 1000L * 60L * 60L * 24L;
     protected static final long MINUTE = 1000L * 60L;
@@ -224,12 +206,12 @@ public class Item implements JSONable {
         this.reference = reference;
     }
 
-    public String getStreamId() {
-        return streamId;
+    public String getSource() {
+        return source;
     }
 
-    public void setStreamId(String streamId) {
-        this.streamId = streamId;
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public String getTitle() {
@@ -445,148 +427,12 @@ public class Item implements JSONable {
         this.comments = comments;
     }
     
-    public boolean getIsSearched() {
-        return isSearched;
-    }
-
-    public void setIsSearched(boolean isSearched) {
-        this.isSearched = isSearched;
-    }
-
-    public boolean isIndexed() {
-        return indexed;
-    }
-
-    public void setIndexed(boolean indexed) {
-        this.indexed = indexed;
-    }
-
-    public int getValidityScore() {
-        return validityScore;
-    }
-
-    public void setValidityScore(int validityScore) {
-        this.validityScore = validityScore;
-    }
-
-    public int getPositiveVotes() {
-        return positiveVotes;
-    }
-
-    public void setPositiveVotes(int positiveVotes) {
-        this.positiveVotes = positiveVotes;
-    }
-
-    public int getNegativeVotes() {
-        return negativeVotes;
-    }
-
-    public void setNegativeVotes(int negativeVotes) {
-        this.negativeVotes = negativeVotes;
-    }
-
-    public String getValidityVotes() {
-        return validityVotes;
-    }
-
-    public void setValidityVotes(String validityVotes) {
-        this.validityVotes = validityVotes;
-    }
-
-    public String getAlethiometerUserStatus() {
-        return alethiometerUserStatus;
-    }
-
-    public void setAlethiometerUserStatus(String alethiometerUserStatus) {
-        this.alethiometerUserStatus = alethiometerUserStatus;
-    }
-
-    public String getAuthorScreenName() {
-        return authorScreenName;
-    }
-
-    public void setAuthorScreenName(String authorScreenName) {
-        this.authorScreenName = authorScreenName;
-    }
-
-    public int getAlethiometerScore() {
-        return alethiometerScore;
-    }
-
-    public void setAlethiometerScore(int alethiometerScore) {
-        this.alethiometerScore = alethiometerScore;
-    }
-
-    public int getAlethiometerUserScore() {
-        return alethiometerUserScore;
-    }
-
-    public void setAlethiometerUserScore(int alethiometerUserScore) {
-        this.alethiometerUserScore = alethiometerUserScore;
-    }
-
-    public String getAuthorFullName() {
-        return authorFullName;
-    }
-
-    public void setAuthorFullName(String authorFullName) {
-        this.authorFullName = authorFullName;
-    }
-
-    public String getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
-    }
-
     public String getUrl() {
         return url;
     }
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public int getFollowersCount() {
-        return followersCount;
-    }
-
-    public void setFollowersCount(int followersCount) {
-        this.followersCount = followersCount;
-    }
-
-    public int getFriendsCount() {
-        return friendsCount;
-    }
-
-    public void setFriendsCount(int friendsCount) {
-        this.friendsCount = friendsCount;
-    }
-
-    public String getAvatarImage() {
-        return avatarImage;
-    }
-
-    public void setAvatarImage(String avatarImage) {
-        this.avatarImage = avatarImage;
-    }
-
-    public String getAvatarImageSmall() {
-        return avatarImageSmall;
-    }
-
-    public void setAvatarImageSmall(String avatarImageSmall) {
-        this.avatarImageSmall = avatarImageSmall;
-    }
-
-    public List<Vote> getVotes() {
-        return votes;
-    }
-
-    public void setVotes(List<Vote> votes) {
-        this.votes = votes;
     }
 
     public Double getLatitude() {
@@ -617,22 +463,12 @@ public class Item implements JSONable {
         return location.getCountryName();
     }
 
-    public String getOriginalTitle() {
-        return originalTitle;
-    }
-
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
-    }
-
     // Creates the JSON representation of an Item
     @Override
     public String toJSONString() {
         Gson gson = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
-                //.registerTypeAdapter(Date.class, new DateSerializer())
-                //.setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                .create();
+        	.excludeFieldsWithoutExposeAnnotation()
+        	.create();
         return gson.toJson(this);
     }
 
@@ -640,7 +476,7 @@ public class Item implements JSONable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        String _streamId = getStreamId();
+        String _streamId = getSource();
         if (_streamId != null) {
             sb.append("streamId=").append(_streamId).append("\t");
         }
@@ -712,42 +548,6 @@ public class Item implements JSONable {
             return difInMinutes + "m";
         }
 
-    }
-    
-    public String getSimpleStreamId() {
-        
-        if(streamId.equals("Facebook"))
-        {
-            return "facebook";
-        }
-        else if(streamId.equals("GooglePlus"))
-        {
-            return "google-plus";
-        }
-        else if(streamId.equals("Flickr"))
-        {
-            return "flickr";
-        }
-         else if(streamId.equals("Twitter"))
-        {
-            return "twitter";
-        }
-         else if (streamId.equals("Web"))
-         {
-             return "globe";
-         }
-          else if (streamId.equals("Youtube"))
-         {
-             return "youtube";
-         }
-           else if (streamId.equals("Instagram"))
-         {
-             return "instagram";
-         }
-        else
-        {
-            return streamId;
-        }
     }
 
 }

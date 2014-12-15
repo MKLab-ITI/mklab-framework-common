@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import gr.iti.mklab.framework.common.domain.Account;
 
-public class SourceFeed extends Feed {
+public class AccountFeed extends Feed {
 
 	/**
 	 * 
@@ -15,21 +15,21 @@ public class SourceFeed extends Feed {
 	private static final long serialVersionUID = 6865708239941324229L;
 	
 	@Expose
-    @SerializedName(value = "source")
-	private Account source = null;
+    @SerializedName(value = "account")
+	private Account account = null;
 	
-	public SourceFeed(Account source, Date since, String id) {
-		super(since, Feed.FeedType.SOURCE);
-		this.source = source;
+	public AccountFeed(Account account, Date since, String id) {
+		super(since, Feed.FeedType.ACCOUNT);
 		this.id = id;
+		this.account = account;
 	}
 
 	public Account getAccount() {
-		return this.source;
+		return this.account;
 	}
 	
 	public void setAccount(Account source) {
-		this.source = source;
+		this.account = source;
 	}
 
 }
