@@ -5,9 +5,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.Indexes;
+import org.mongodb.morphia.annotations.Property;
 import org.mongodb.morphia.annotations.Transient;
 
 /**
@@ -32,6 +36,11 @@ public class Item extends JSONable {
     }
 
     // Unique id of an instance with the following structure: StreamName#internalId
+    @Id
+    @Property("_id")
+    protected ObjectId oid;
+    
+    @Property("id")
     protected String id;
     
     // The id of the original Item
@@ -59,6 +68,7 @@ public class Item extends JSONable {
     // A detailed instance of the user of an Item
     // This is not exposed in mongodb
     @Transient
+    @Embedded
     protected StreamUser streamUser;
     
     // A set of user ids for the mentioned users
@@ -81,6 +91,7 @@ public class Item extends JSONable {
     // A set of WebPages contained in the Item
     // WebPage is a more detailed representation of URLs
     @Transient
+    @Embedded
     protected List<WebPage> webPages;
     
     // The publication time of an Item
@@ -94,6 +105,7 @@ public class Item extends JSONable {
 
     // The location associated with an Item
     // Usually this field indicated the origin of the Item
+    @Embedded
     protected Location location;
     
     // The text associated with an Item
@@ -102,6 +114,7 @@ public class Item extends JSONable {
     // A list of media items contained in an Item
     // This is not exposed in mongodb 
     @Transient
+    @Embedded
     protected List<MediaItem> mediaItems = new ArrayList<MediaItem>();
     
     // A list of ids of the contained media items 
@@ -114,6 +127,7 @@ public class Item extends JSONable {
     protected List<String> keywords = new ArrayList<String>();
     
     // A list of named entities extracted from an Item
+    @Embedded
     protected List<NamedEntity> entities;
     
     // The language of an Item

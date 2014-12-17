@@ -4,7 +4,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.Indexes;
 import org.mongodb.morphia.annotations.Transient;
@@ -19,6 +21,7 @@ import org.mongodb.morphia.annotations.Transient;
  */
 @Entity(noClassnameStored = true)
 @Indexes(@Index("id, -publicationTime"))
+@Embedded
 public class MediaItem extends JSONable {
 
     /**
@@ -27,6 +30,7 @@ public class MediaItem extends JSONable {
     private static final long serialVersionUID = 7811714823188242818L;
     
     // Unique id of an MediaItem with the following structure: StreamName#internalId
+    @Id
     private String id;
     
     // The URL of a media item
@@ -50,6 +54,7 @@ public class MediaItem extends JSONable {
     // A detailed instance of the user of an Item
     // This field is not exposed in mongodb
     @Transient
+    @Embedded
     private StreamUser streamUser;
     
     // Textual information

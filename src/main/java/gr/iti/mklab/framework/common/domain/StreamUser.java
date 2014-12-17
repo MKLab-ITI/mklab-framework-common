@@ -1,11 +1,14 @@
 package gr.iti.mklab.framework.common.domain;
 
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.Indexes;
 
 @Entity(noClassnameStored = true)
 @Indexes(@Index("id"))
+@Embedded
 public class StreamUser extends JSONable {
 
     /**
@@ -14,7 +17,8 @@ public class StreamUser extends JSONable {
 	private static final long serialVersionUID = 3558927430206936262L;
     
     // SocialSensor user id with the following structure:vStreamName#userid
-    protected String id;
+    @Id
+	protected String id;
     
     // The internal id of a user in a specific social media
     protected String userid;

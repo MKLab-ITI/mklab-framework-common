@@ -1,5 +1,6 @@
 package gr.iti.mklab.framework.common.domain;
 
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 
 /**
@@ -8,6 +9,7 @@ import org.mongodb.morphia.annotations.Entity;
 * 
 */
 @Entity(noClassnameStored = true)
+@Embedded
 public class NamedEntity extends JSONable{
 
     /**

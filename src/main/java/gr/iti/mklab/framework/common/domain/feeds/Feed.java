@@ -3,6 +3,7 @@ package gr.iti.mklab.framework.common.domain.feeds;
 import java.util.Date;
 
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 
 import gr.iti.mklab.framework.common.domain.JSONable;
 
@@ -14,7 +15,7 @@ public class Feed extends JSONable {
 	 */
 	private static final long serialVersionUID = -8972611573430977057L;
 
-
+	@Id
 	protected String id = null;
 
 	protected Date dateToRetrieve = null;
@@ -74,7 +75,7 @@ public class Feed extends JSONable {
 	
 	@Entity(noClassnameStored = true)
 	public enum FeedType {
-		LOCATION, KEYWORDS, ACCOUNT, URL, LIST
+		LOCATION, KEYWORDS, ACCOUNT, URL, GROUP
 	}
 	
 	@Override

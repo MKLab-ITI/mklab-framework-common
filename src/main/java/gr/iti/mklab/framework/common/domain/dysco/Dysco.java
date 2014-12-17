@@ -46,6 +46,8 @@ public class Dysco extends JSONable {
     //The date that the dysco was last updated)
     protected Date updateDate;
 
+    protected Date sinceDate, untilDate;
+    
     //The title of the dysco
     protected String title;
 
@@ -115,6 +117,42 @@ public class Dysco extends JSONable {
         this.creationDate = creationDate;
     }
 
+    /**
+     * Returns the since date of the dysco
+     *
+     * @return Date
+     */
+    public Date getSinceDate() {
+        return sinceDate;
+    }
+
+    /**
+     * Sets the since date of the dysco
+     *
+     * @param creationDate
+     */
+    public void setSinceDate(Date sinceDate) {
+        this.sinceDate = sinceDate;
+    }
+
+    /**
+     * Returns the since date of the dysco
+     *
+     * @return Date
+     */
+    public Date getUntilDate() {
+        return untilDate;
+    }
+
+    /**
+     * Sets the since date of the dysco
+     *
+     * @param creationDate
+     */
+    public void setUntilDate(Date untilDate) {
+        this.untilDate = untilDate;
+    }
+    
     /**
      * Returns the title of the dysco
      *

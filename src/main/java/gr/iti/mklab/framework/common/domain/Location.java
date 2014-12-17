@@ -26,6 +26,10 @@ public class Location extends JSONable {
 	
 	protected Boolean inferred = false;
 	
+	public Location() {
+		
+	}
+	
 	public Location(String name) {
 		this.name = name;
 	}

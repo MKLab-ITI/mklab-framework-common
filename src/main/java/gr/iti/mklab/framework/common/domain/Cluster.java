@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 
 @Entity(noClassnameStored = true)
 public class Cluster extends JSONable {
@@ -18,6 +19,7 @@ public class Cluster extends JSONable {
 	}
 	
 	// Unique id of a Media cluster
+	@Id
 	private String id;
 
 	private Set<String> members = new HashSet<String>();
