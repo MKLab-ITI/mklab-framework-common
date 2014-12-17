@@ -34,6 +34,7 @@ public class Dysco extends JSONable {
     public Dysco(String id, Date date) {
         this.id = id;
         this.creationDate = date;
+        this.updateDate = date;
     }
 
     //The id of the dysco
@@ -45,20 +46,30 @@ public class Dysco extends JSONable {
 
     //The date that the dysco was last updated)
     protected Date updateDate;
-
-    protected Date sinceDate, untilDate;
     
-    //The title of the dysco
+    //The title of the dysc, set by the user
     protected String title;
 
+    // The user that created the dysco
+    protected String ownerId;
+    
+    // Fields that used for collection and retrieval of items
+    
+    // Keywords used to collect items 
     protected List<String> words = new ArrayList<String>();
     
+    // Accounts to follow
     protected List<Account> accounts = new ArrayList<Account>();
 
+    // Locations that used for the collection of Items
     private List<Location> nearLocations = new ArrayList<Location>();
 
+    // Exclude specific keywords from 
     private List<String> wordsToExclude = new ArrayList<String>();
 
+    // Retrieve items in time range [since- until]
+    protected Date sinceDate, untilDate;
+    
     
     //Fields holding the information about the main context of the items that constitute the dysco
     //These fields are derived from the collected items that are associated with the specific dysco
@@ -75,7 +86,7 @@ public class Dysco extends JSONable {
     //The extracted links from items' content with their assigned weights
     protected Map<String, Double> links = new HashMap<String, Double>();
     //The score that shows how trending the dysco is
-    protected Double score;
+    protected Double score = .0;
     //The total number of items that constitute the dysco
     protected int itemsCount = 0;
     //List of the representative items that compose the Dysco
@@ -95,10 +106,28 @@ public class Dysco extends JSONable {
      *
      * @param id
      */
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    /**
+     * Returns the id of the dysco
+     *
+     * @return String
+     */
+    public String geOwnertId() {
+        return ownerId;
+    }
+
+    /**
+     * Sets the id of the dysco
+     *
+     * @param id
+     */
     public void setId(String id) {
         this.id = id;
     }
-
+    
     /**
      * Returns the creation date of the dysco
      *
