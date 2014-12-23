@@ -20,7 +20,10 @@ import org.mongodb.morphia.annotations.Transient;
  *
  */
 @Entity(noClassnameStored = true)
-@Indexes(@Index("id, -publicationTime"))
+@Indexes({
+	@Index("id"), 
+	@Index("-publicationTime")
+})
 @Embedded
 public class MediaItem extends JSONable {
 

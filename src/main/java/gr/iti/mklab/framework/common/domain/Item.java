@@ -23,7 +23,11 @@ import org.mongodb.morphia.annotations.Transient;
  */
 
 @Entity(noClassnameStored = true)
-@Indexes(@Index("id, -publicationTime"))
+@Indexes({
+	@Index("id, "), 
+	@Index("-publicationTime"),
+	@Index("uid, -publicationTime")
+})
 public class Item extends JSONable {
 
     /**
@@ -49,8 +53,7 @@ public class Item extends JSONable {
     // The name of the stream that an Item comes from
     protected String source;
     
-    // The title of an Item (in the case of facebook post, this is a shortened title up to 140 characters). It will be used just for searching and sentiment analysis. 
-    // It shouldn't be used in the UI - use the originalTitle instead    
+    // The title of an Item. It will be used just for searching and sentiment analysis. 
     protected String title;
     
     // A short description of an Item
@@ -91,7 +94,6 @@ public class Item extends JSONable {
     // A set of WebPages contained in the Item
     // WebPage is a more detailed representation of URLs
     @Transient
-    @Embedded
     protected List<WebPage> webPages;
     
     // The publication time of an Item
@@ -103,7 +105,7 @@ public class Item extends JSONable {
     // The time this Item has been inserted in the system
     protected long insertionTime;
 
-    // The location associated with an Item
+    // The location associated with an Item.
     // Usually this field indicated the origin of the Item
     @Embedded
     protected Location location;
@@ -114,7 +116,6 @@ public class Item extends JSONable {
     // A list of media items contained in an Item
     // This is not exposed in mongodb 
     @Transient
-    @Embedded
     protected List<MediaItem> mediaItems = new ArrayList<MediaItem>();
     
     // A list of ids of the contained media items 
@@ -131,7 +132,7 @@ public class Item extends JSONable {
     protected List<NamedEntity> entities;
     
     // The language of an Item
-    protected String lang;
+    protected String language;
     
     // An indicator whether an Item id original or a shared instance of a previous Item
     protected boolean original = true;
@@ -337,12 +338,12 @@ public class Item extends JSONable {
         this.entities = entities;
     }
 
-    public String getLang() {
-        return lang;
+    public String getLanguage() {
+        return language;
     }
 
-    public void setLang(String lang) {
-        this.lang = lang;
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public boolean isOriginal() {

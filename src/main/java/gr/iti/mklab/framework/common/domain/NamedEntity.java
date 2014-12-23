@@ -10,7 +10,7 @@ import org.mongodb.morphia.annotations.Entity;
 */
 @Entity(noClassnameStored = true)
 @Embedded
-public class NamedEntity extends JSONable{
+public class NamedEntity extends JSONable {
 
     /**
 	 * 
