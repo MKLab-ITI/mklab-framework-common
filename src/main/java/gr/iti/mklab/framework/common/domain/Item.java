@@ -2,6 +2,7 @@ package gr.iti.mklab.framework.common.domain;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -65,8 +66,8 @@ public class Item extends JSONable {
     // The SocialSensor internal id of the user => StreamName#userInternalId
     protected String uid;
     
-    // A set of identifiers that indicate the news hounds list
-    protected String[] lists;
+    // A set of labels that indicate the feeds that are associated with this item
+    protected List<String> labels;
     
     // A detailed instance of the user of an Item
     // This is not exposed in mongodb
@@ -205,17 +206,18 @@ public class Item extends JSONable {
         this.uid = uid;
     }
 
-    public String[] getList() {
-        return lists;
+    public List<String> getLabels() {
+        return labels;
     }
 
-    public void setList(String[] lists) {
-        this.lists = lists;
+    public void setLabels(String[] labels) {
+    	this.labels = new ArrayList<String>();
+        this.labels.addAll(Arrays.asList(labels));
     }
 
-    public void setList(String list) {
-    	lists = new String[1];
-        this.lists[0] = list;
+    public void setLabel(String label) {
+    	labels = new ArrayList<String>();
+        labels.add(label);
     }
     
     public StreamUser getStreamUser() {
