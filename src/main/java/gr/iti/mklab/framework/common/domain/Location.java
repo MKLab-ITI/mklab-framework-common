@@ -57,8 +57,6 @@ public class Location extends JSONable {
 			return;
 		}
 		this.name = name;
-		this.bbox = bbox;
-	
 	}
 	
 	public void setLatitude(Double latitude) {

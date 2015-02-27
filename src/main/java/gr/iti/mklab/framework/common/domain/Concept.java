@@ -10,8 +10,6 @@ public class Concept extends JSONable {
 	
 	private ConceptType type;
 
-	private Double score;
-
 	@Entity(noClassnameStored = true)
 	public enum ConceptType {
 		graphics,
@@ -36,10 +34,6 @@ public class Concept extends JSONable {
 	
 	public String getConcept() {
 		return type.toString();
-	}
-	
-	public Double getScore() {
-		return score;
 	}
 	
 }

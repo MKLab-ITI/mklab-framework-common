@@ -2,12 +2,8 @@ package gr.iti.mklab.framework.common.domain.feeds;
 
 import java.util.Date;
 
-import org.mongodb.morphia.annotations.Entity;
-
-
 import gr.iti.mklab.framework.common.domain.Location;
 
-@Entity(noClassnameStored = true)
 public class LocationFeed extends Feed {
 
 	/**
@@ -17,10 +13,15 @@ public class LocationFeed extends Feed {
 	
 	private Location location;
 	
-	public LocationFeed(Location location, Date since, String id) {
-		super(since, Feed.FeedType.LOCATION);
-		this.location = location;
+	public LocationFeed() {
+		
+	}
+	
+	public LocationFeed(String id, Location location, Date since) {
+		super(since);
+		
 		this.id = id;
+		this.location = location;
 	}
 	
 	public Location getLocation() {

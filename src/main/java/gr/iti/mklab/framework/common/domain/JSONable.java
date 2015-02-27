@@ -14,7 +14,7 @@ import com.mongodb.util.JSON;
  * @author etzoannos - e.tzoannos@atc.gr
  */
 
-public class JSONable implements Serializable {
+public class JSONable implements Serializable, Comparable<JSONable>{
 
 	/**
 	 * 
@@ -23,6 +23,16 @@ public class JSONable implements Serializable {
 	
 	private static Morphia morphia = new Morphia();
 
+	protected Double score;
+	
+	public double getScore() {
+		return score;
+	}
+	
+	public void setScore(Double score) {
+		this.score = score;
+	}
+	
 	@Override
 	public String toString() {
 		synchronized(morphia) {
@@ -35,6 +45,16 @@ public class JSONable implements Serializable {
 		synchronized(morphia) {
 			DBObject obj = (DBObject) JSON.parse(json);
 			return morphia.fromDBObject(clazz, obj);
+		}
+	}
+	
+	@Override
+	public int compareTo(JSONable other) {
+		if(this.score > other.score) {
+			return 1;
+		}
+		else {
+			return -1;
 		}
 	}
 	

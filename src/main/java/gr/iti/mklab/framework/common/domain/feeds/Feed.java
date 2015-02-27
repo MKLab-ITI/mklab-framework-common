@@ -7,7 +7,8 @@ import org.mongodb.morphia.annotations.Id;
 
 import gr.iti.mklab.framework.common.domain.JSONable;
 
-@Entity(noClassnameStored = true)
+
+@Entity(value="feeds", noClassnameStored=false)
 public class Feed extends JSONable {
 	
 	/**
@@ -18,26 +19,18 @@ public class Feed extends JSONable {
 	@Id
 	protected String id = null;
 
-	protected Date dateToRetrieve = null;
+	protected Date since = null;
 
 	protected Integer totalNumberOfItems = 0;
 	
-	protected FeedType feedType;
-	
 	protected String label;
 	
-	public Feed(Date date, FeedType feedType) {
-		this.dateToRetrieve = date;
-		this.feedType = feedType;
+	public Feed() {
 		
 	}
 	
-	public  FeedType getFeedtype() {
-		return feedType;
-	}
-	
-	public  void setFeedType(FeedType feedType) {
-		this.feedType = feedType;
+	public Feed(Date since) {
+		this.since = since;
 	}
 	
 	public  String getId() {
@@ -56,12 +49,12 @@ public class Feed extends JSONable {
 		this.label = label;
 	}
 	
-	public Date getDateToRetrieve() {
-		return dateToRetrieve;
+	public Date getSinceDate() {
+		return since;
 	}
 	
-	public void setDateToRetrieve(Date dateToRetrieve) {
-		this.dateToRetrieve = dateToRetrieve;
+	public void setSinceDate(Date since) {
+		this.since = since;
 	}
 	
 	public  Integer getTotalNumberOfItems() {
@@ -72,11 +65,6 @@ public class Feed extends JSONable {
 		this.totalNumberOfItems += totalNumberOfItems;
 	}
 	
-	
-	@Entity(noClassnameStored = true)
-	public enum FeedType {
-		LOCATION, KEYWORDS, ACCOUNT, URL, GROUP
-	}
 	
 	@Override
 	public int hashCode() {

@@ -18,7 +18,7 @@ public class Cluster extends JSONable {
 		this.id = id;
 	}
 	
-	// Unique id of a Media cluster
+	// Unique id of a cluster
 	@Id
 	private String id;
 

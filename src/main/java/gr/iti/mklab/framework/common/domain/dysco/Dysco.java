@@ -85,8 +85,7 @@ public class Dysco extends JSONable {
     protected Map<String, Double> tags = new HashMap<String, Double>();
     //The extracted links from items' content with their assigned weights
     protected Map<String, Double> links = new HashMap<String, Double>();
-    //The score that shows how trending the dysco is
-    protected Double score = .0;
+
     //The total number of items that constitute the dysco
     protected int itemsCount = 0;
     //List of the representative items that compose the Dysco
@@ -198,24 +197,6 @@ public class Dysco extends JSONable {
      */
     public void setTitle(String Title) {
         this.title = Title;
-    }
-
-    /**
-     * Returns the score of the dysco
-     *
-     * @return Double
-     */
-    public Double getScore() {
-        return score;
-    }
-
-    /**
-     * Sets the score of the dysco
-     *
-     * @param score
-     */
-    public void setScore(Double score) {
-        this.score = score;
     }
 
     /**

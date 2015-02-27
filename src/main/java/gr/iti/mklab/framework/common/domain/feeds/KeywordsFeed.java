@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.mongodb.morphia.annotations.Entity;
-
-@Entity(noClassnameStored = true)
 public class KeywordsFeed extends Feed {
 
 	/**
@@ -16,16 +13,21 @@ public class KeywordsFeed extends Feed {
 
 	private List<String> keywords = new ArrayList<String>();
 	
+	public KeywordsFeed() {
+		
+	}
+	
 	public KeywordsFeed(String keyword, Date since, String id) {
-		super(since, Feed.FeedType.KEYWORDS);
+		super(since);
 		this.keywords.add(keyword);
 		this.id = id;
 	}
 	
-	public KeywordsFeed(List<String> keywords, Date since, String id) {
-		super(since, Feed.FeedType.KEYWORDS);
-		this.keywords.addAll(keywords);
+	public KeywordsFeed(String id, List<String> keywords, Date since) {
+		super(since);
+		
 		this.id = id;
+		this.keywords.addAll(keywords);
 	}
 	
 	public List<String> getKeywords() {

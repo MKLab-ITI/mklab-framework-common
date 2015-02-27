@@ -14,7 +14,7 @@ import org.mongodb.morphia.annotations.Indexes;
 
 @Entity(noClassnameStored = true)
 @Indexes(@Index("url"))
-public class WebPage extends JSONable implements Comparable<WebPage> {
+public class WebPage extends JSONable {
 
     /**
      *
@@ -62,9 +62,6 @@ public class WebPage extends JSONable implements Comparable<WebPage> {
 
     // The number of times a web page has been shared
     private int shares = 0;
-
-    // The crawling status of this web page
-    private String status = "new";
 
     public WebPage(String url, String reference) {
         this.url = url;
@@ -181,22 +178,6 @@ public class WebPage extends JSONable implements Comparable<WebPage> {
 
     public void setReference(String reference) {
         this.reference = reference;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    @Override
-    public int compareTo(WebPage o) {
-        if (o.getShares() > getShares()) {
-            return 1;
-        }
-        return -1;
     }
 
 }
