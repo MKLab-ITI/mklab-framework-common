@@ -27,7 +27,7 @@ public class Configuration extends JSONable implements Iterable<String> {
 	
 	public static final String CLASS_PATH = "Classpath";
 	
-	private Map<String,String> params = new HashMap<String,String>();
+	private Map<String, String> params = new HashMap<String, String>();
 
 	public String getParameter(String name) {
 		return getParameter(name,null);

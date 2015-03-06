@@ -21,7 +21,7 @@ public class Feed extends JSONable {
 
 	protected Date since = null;
 
-	protected Integer totalNumberOfItems = 0;
+	protected String source = null;
 	
 	protected String label;
 	
@@ -29,7 +29,8 @@ public class Feed extends JSONable {
 		
 	}
 	
-	public Feed(Date since) {
+	public Feed(String id, Date since) {
+		this.id = id;
 		this.since = since;
 	}
 	
@@ -57,14 +58,13 @@ public class Feed extends JSONable {
 		this.since = since;
 	}
 	
-	public  Integer getTotalNumberOfItems() {
-		return this.totalNumberOfItems;
+	public  String getSource() {
+		return source;
 	}
 	
-	public  void setTotalNumberOfItems(Integer totalNumberOfItems) {
-		this.totalNumberOfItems += totalNumberOfItems;
+	public  void setSource(String source) {
+		this.source = source;
 	}
-	
 	
 	@Override
 	public int hashCode() {

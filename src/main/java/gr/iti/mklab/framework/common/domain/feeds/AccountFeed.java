@@ -16,9 +16,8 @@ public class AccountFeed extends Feed {
 	}
 	
 	public AccountFeed(String id, String username, Date since) {
-		super(since);
-		
-		this.id = id;
+		super(id, since);
+
 		this.username = username;
 	}
 

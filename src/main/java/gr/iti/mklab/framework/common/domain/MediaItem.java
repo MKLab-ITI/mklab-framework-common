@@ -2,9 +2,10 @@ package gr.iti.mklab.framework.common.domain;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Index;
@@ -24,7 +25,6 @@ import org.mongodb.morphia.annotations.Transient;
 	@Index("id"), 
 	@Index("-publicationTime")
 })
-@Embedded
 public class MediaItem extends JSONable {
 
     /**
@@ -57,7 +57,6 @@ public class MediaItem extends JSONable {
     // A detailed instance of the user of an Item
     // This field is not exposed in mongodb
     @Transient
-    @Embedded
     private StreamUser streamUser;
     
     // Textual information
@@ -69,6 +68,9 @@ public class MediaItem extends JSONable {
    
     // The type of a media item. Can only be image/video
     private String type;
+    
+    // A set of labels that indicate the feeds that are associated with this media item
+    protected Set<String> labels;
     
     // The publication time of the first item that share the media item
     private long publicationTime;
@@ -102,8 +104,6 @@ public class MediaItem extends JSONable {
     private Integer width;
 
     private Integer height;
-    
-    private Float solrScore = 0f;
 	
     public MediaItem() {
 		
@@ -208,6 +208,22 @@ public class MediaItem extends JSONable {
         this.type = type;
     }
 
+    public Set<String> getLabels() {
+        return labels;
+    }
+
+    public void addLabels(List<String> labels) {
+    	this.labels = new HashSet<String>();
+        this.labels.addAll(labels);
+    }
+
+    public void addLabel(String label) {
+    	labels = new HashSet<String>();
+    	if(label != null) {
+    		labels.add(label);
+    	}
+    }
+    
     public String getDescription() {
         return description;
     }
@@ -391,14 +407,6 @@ public class MediaItem extends JSONable {
 
     public void setSource(String source) {
         this.source = source;
-    }
-    
-    public void setSolrScore(Float solrScore){
-    	this.solrScore = solrScore;
-    }
-    
-    public Float getSolrScore(){
-    	return this.solrScore;
     }
     
 }

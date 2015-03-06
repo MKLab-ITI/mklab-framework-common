@@ -3,6 +3,7 @@ package gr.iti.mklab.framework.common.domain;
 import java.util.Date;
 
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.Indexes;
 
@@ -22,6 +23,7 @@ public class WebPage extends JSONable {
     private static final long serialVersionUID = -8783341713025378581L;
 
     // The URL of a WebPage. This is usually a short URL
+    @Id
     private String url;
 
     // The expanded version of URL

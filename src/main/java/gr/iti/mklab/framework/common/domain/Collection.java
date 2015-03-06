@@ -17,7 +17,12 @@ public class Collection extends JSONable {
 	
 	private List<JSONable> results = new ArrayList<JSONable>();
 	
+	public <K extends JSONable> void add(K k) {
+		this.results.add(k);
+	}
+	
 	public <K extends JSONable> void addResults(List<K> results) {
 		this.results.addAll(results);
 	}
+	
 }

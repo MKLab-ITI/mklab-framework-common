@@ -1,14 +1,15 @@
 package gr.iti.mklab.framework.common.domain;
 
-import org.mongodb.morphia.annotations.Embedded;
+import java.util.Date;
+
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.Indexes;
+import org.mongodb.morphia.annotations.Property;
 
-@Entity(noClassnameStored = true)
+@Entity(value="StreamUser", noClassnameStored=false)
 @Indexes(@Index("id"))
-@Embedded
 public class StreamUser extends JSONable {
 
     /**
@@ -16,8 +17,9 @@ public class StreamUser extends JSONable {
 	 */
 	private static final long serialVersionUID = 3558927430206936262L;
     
-    // SocialSensor user id with the following structure:vStreamName#userid
+    // Id with the following structure: StreamName#userid
     @Id
+    @Property("id")
 	protected String id;
     
     // The internal id of a user in a specific social media
@@ -48,7 +50,7 @@ public class StreamUser extends JSONable {
     protected String description;
     
     // The date that this account has been created
-    protected String createdAt;
+    protected Date createdAt;
     
     // The last time that this user has been updated
     protected Long lastUpdated;
@@ -165,11 +167,11 @@ public class StreamUser extends JSONable {
         this.description = description;
     }
 
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
     

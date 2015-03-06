@@ -1,12 +1,11 @@
 package gr.iti.mklab.framework.common.domain;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -23,9 +22,9 @@ import org.mongodb.morphia.annotations.Transient;
  * 
  */
 
-@Entity(noClassnameStored = true)
+@Entity(value="Item", noClassnameStored=false)
 @Indexes({
-	@Index("id, "), 
+	@Index("id"), 
 	@Index("-publicationTime"),
 	@Index("uid, -publicationTime")
 })
@@ -42,9 +41,6 @@ public class Item extends JSONable {
 
     // Unique id of an instance with the following structure: StreamName#internalId
     @Id
-    @Property("_id")
-    protected ObjectId oid;
-    
     @Property("id")
     protected String id;
     
@@ -67,12 +63,11 @@ public class Item extends JSONable {
     protected String uid;
     
     // A set of labels that indicate the feeds that are associated with this item
-    protected List<String> labels;
+    protected Set<String> labels;
     
     // A detailed instance of the user of an Item
     // This is not exposed in mongodb
     @Transient
-    @Embedded
     protected StreamUser streamUser;
     
     // A set of user ids for the mentioned users
@@ -86,11 +81,10 @@ public class Item extends JSONable {
     protected String referencedUserId;
     
     // A list of URLs contained in the Item
-    protected URL[] links;
+    protected String[] links;
     
     // The id of the original Item
     protected String url;
-    
     
     // A set of WebPages contained in the Item
     // WebPage is a more detailed representation of URLs
@@ -206,18 +200,28 @@ public class Item extends JSONable {
         this.uid = uid;
     }
 
-    public List<String> getLabels() {
+    public Set<String> getLabels() {
         return labels;
     }
 
-    public void setLabels(String[] labels) {
-    	this.labels = new ArrayList<String>();
-        this.labels.addAll(Arrays.asList(labels));
+    public void addLabels(List<String> labels) {
+    	this.labels = new HashSet<String>();
+    	if(labels != null) {
+    		this.labels.addAll(labels);
+        	for(MediaItem mi : this.getMediaItems()) {
+        		mi.addLabels(labels);
+        	}
+    	}
     }
 
-    public void setLabel(String label) {
-    	labels = new ArrayList<String>();
-        labels.add(label);
+    public void addLabel(String label) {
+    	labels = new HashSet<String>();
+    	if(label != null) {
+    		labels.add(label);
+    		for(MediaItem mi : this.getMediaItems()) {
+            	mi.addLabel(label);
+            }
+    	}
     }
     
     public StreamUser getStreamUser() {
@@ -252,11 +256,11 @@ public class Item extends JSONable {
         this.referencedUserId = referencedUserId;
     }
 
-    public URL[] getLinks() {
+    public String[] getLinks() {
         return links;
     }
 
-    public void setLinks(URL[] links) {
+    public void setLinks(String[] links) {
         this.links = links;
     }
 

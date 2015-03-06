@@ -5,17 +5,22 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
 import gr.iti.mklab.framework.common.domain.Account;
-import gr.iti.mklab.framework.common.domain.Item;
 import gr.iti.mklab.framework.common.domain.JSONable;
 import gr.iti.mklab.framework.common.domain.Location;
-import gr.iti.mklab.framework.common.domain.NamedEntity;
+import gr.iti.mklab.framework.common.domain.feeds.AccountFeed;
+import gr.iti.mklab.framework.common.domain.feeds.Feed;
+import gr.iti.mklab.framework.common.domain.feeds.KeywordsFeed;
+import gr.iti.mklab.framework.common.domain.feeds.LocationFeed;
+
 /**
  * @author	Manos Schinas
+ * 
  * @email	manosetro@iti.gr
  *
  */
@@ -47,7 +52,7 @@ public class Dysco extends JSONable {
     //The date that the dysco was last updated)
     protected Date updateDate;
     
-    //The title of the dysc, set by the user
+    //The title of the dysco, set by the user
     protected String title;
 
     // The user that created the dysco
@@ -56,7 +61,7 @@ public class Dysco extends JSONable {
     // Fields that used for collection and retrieval of items
     
     // Keywords used to collect items 
-    protected List<String> words = new ArrayList<String>();
+    protected Map<String, String> keywords = new HashMap<String, String>();
     
     // Accounts to follow
     protected List<Account> accounts = new ArrayList<Account>();
@@ -65,31 +70,10 @@ public class Dysco extends JSONable {
     private List<Location> nearLocations = new ArrayList<Location>();
 
     // Exclude specific keywords from 
-    private List<String> wordsToExclude = new ArrayList<String>();
+    private List<String> keywordsToExclude = new ArrayList<String>();
 
     // Retrieve items in time range [since- until]
-    protected Date sinceDate, untilDate;
-    
-    
-    //Fields holding the information about the main context of the items that constitute the dysco
-    //These fields are derived from the collected items that are associated with the specific dysco
-    //and are updated dynamically as the dysco evolved over time
-    
-    //The extracted entities from items' content
-    protected List<NamedEntity> entities = new ArrayList<NamedEntity>();
-    //The users that contribute in social networks to dysco's topic
-    protected List<String> contributors = new ArrayList<String>();
-    //The extracted keywords from items' content with their assigned weights
-    protected Map<String, Double> keywords = new HashMap<String, Double>();
-    //The extracted tags from items' content with their assigned weights
-    protected Map<String, Double> tags = new HashMap<String, Double>();
-    //The extracted links from items' content with their assigned weights
-    protected Map<String, Double> links = new HashMap<String, Double>();
-
-    //The total number of items that constitute the dysco
-    protected int itemsCount = 0;
-    //List of the representative items that compose the Dysco
-    protected List<Item> items = new ArrayList<Item>();
+    protected Date sinceDate;
     
     /**
      * Returns the id of the dysco
@@ -162,24 +146,6 @@ public class Dysco extends JSONable {
     public void setSinceDate(Date sinceDate) {
         this.sinceDate = sinceDate;
     }
-
-    /**
-     * Returns the since date of the dysco
-     *
-     * @return Date
-     */
-    public Date getUntilDate() {
-        return untilDate;
-    }
-
-    /**
-     * Sets the since date of the dysco
-     *
-     * @param creationDate
-     */
-    public void setUntilDate(Date untilDate) {
-        this.untilDate = untilDate;
-    }
     
     /**
      * Returns the title of the dysco
@@ -199,151 +165,12 @@ public class Dysco extends JSONable {
         this.title = Title;
     }
 
-    /**
-     * Returns the list of the dysco's entities
-     *
-     * @return List of Entity
-     */
-    public List<NamedEntity> getEntities() {
-        return entities;
-    }
-
-    /**
-     * Sets the entities of the dysco
-     *
-     * @param entities
-     */
-    public void setEntities(List<NamedEntity> entities) {
-        this.entities = entities;
-    }
-
-    /**
-     * Adds an entity to the dysco's list of entities
-     *
-     * @param entity
-     */
-    public void addEntity(NamedEntity entity) {
-        entities.add(entity);
-    }
-
-    /**
-     * Returns the list of contributors for the dysco
-     *
-     * @return List of String
-     */
-    public List<String> getContributors() {
-        return contributors;
-    }
-
-    /**
-     * Sets the contributors for the dysco
-     *
-     * @param contributors
-     */
-    public void setContributors(List<String> contributors) {
-        this.contributors = contributors;
-    }
-
-    /**
-     * Returns the dysco's keywords with their assigned weights
-     *
-     * @return Map of String to Double
-     */
-    public Map<String, Double> getKeywords() {
-        return keywords;
-    }
-
-    /**
-     * Sets the keywords of the dysco with their assigned weights
-     *
-     * @param keywords
-     */
-    public void setKeywords(Map<String, Double> keywords) {
-        this.keywords = keywords;
-    }
-
-    /**
-     * Adds a keyword and its corresponding weight to the list of keywords of
-     * the dysco
-     *
-     * @param keyword
-     * @param weight
-     */
-    public void addKeyword(String keyword, Double weight) {
-        this.keywords.put(keyword, weight);
-    }
-
-    /**
-     * Return the dysco's hashtags with their assigned weights
-     *
-     * @return Map of String to Double
-     */
-    public Map<String, Double> getTags() {
-        return tags;
-    }
-
-    /**
-     * Sets the hashtags of the dysco with their assigned weights
-     *
-     * @param hashtags
-     */
-    public void setHashtags(Map<String, Double> tags) {
-        this.tags = tags;
-    }
-
-    /**
-     * Adds a hashtag and its corresponding weight to the list of hashtags of
-     * the dysco
-     *
-     * @param hashtag
-     * @param weight
-     */
-    public void addHashtag(String tag, Double weight) {
-        this.tags.put(tag, weight);
-    }
-
-    public List<String> getWords() {
-        return words;
-    }
-
-    public void setWords(List<String> words) {
-        this.words = words;
-    }
-
     public List<Account> getAccounts() {
         return accounts;
     }
 
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
-    }
-
-    
-    /**
-     * Return the list of items that compose the dysco
-     *
-     * @return
-     */
-    public List<Item> getItems() {
-        return items;
-    }
-
-    /**
-     * Sets the items that compose the dysco
-     *
-     * @param items
-     */
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
-
-    /**
-     * Adds an item to the list of items that compose the dysco
-     *
-     * @param item
-     */
-    public void addItem(Item item) {
-        this.items.add(item);
     }
 
     /**
@@ -364,22 +191,14 @@ public class Dysco extends JSONable {
         this.updateDate = updateDate;
     }
 
-    public Map<String, Double> getLinks() {
-        return links;
+    public void setKeywords(Map<String, String> keywords) {
+        this.keywords = keywords;
     }
 
-    public void setLinks(Map<String, Double> links) {
-        this.links = links;
+    public Map<String, String> getKeywords() {
+        return this.keywords;
     }
-
-    public int getItemsCount() {
-        return itemsCount;
-    }
-
-    public void setItemsCount(int itemsCount) {
-        this.itemsCount = itemsCount;
-    }
-
+    
     public List<Location> getNearLocations() {
         return nearLocations;
     }
@@ -388,12 +207,37 @@ public class Dysco extends JSONable {
         this.nearLocations = nearLocations;
     }
     
-    public void setWordsToExclude(List<String> wordsToExclude) {
-        this.wordsToExclude = wordsToExclude;
+    public void setKeywordsToExclude(List<String> keywordsToExclude) {
+        this.keywordsToExclude = keywordsToExclude;
     }
 
-    public List<String> getWordsToExclude() {
-        return this.wordsToExclude;
+    public List<String> getKeywordsToExclude() {
+        return this.keywordsToExclude;
     }
     
+    public List<Feed> getFeeds() {
+    	List<Feed> feeds = new ArrayList<Feed>();
+    	
+    	for(Entry<String, String> keyword : keywords.entrySet()) {
+    		String id = keyword.getValue() + "#" + keyword.getKey();
+    		Feed feed = new KeywordsFeed(id, keyword.getKey(), sinceDate);
+    		feed.setSource(keyword.getValue());
+    		
+    		feeds.add(feed);
+    	}
+    	
+    	for(Account account : accounts) {
+    		Feed feed = new AccountFeed(account.getId(), account.getName(), sinceDate);
+    		feed.setSource(account.getSource().name());
+    		
+    		feeds.add(feed);
+    	}
+    	
+    	for(Location location : nearLocations) {
+    		Feed feed = new LocationFeed(null, location, sinceDate);
+    		feeds.add(feed);
+    	}
+    	
+    	return feeds;
+    }
 }

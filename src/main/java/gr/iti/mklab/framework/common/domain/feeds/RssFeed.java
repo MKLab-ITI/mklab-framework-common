@@ -16,9 +16,8 @@ public class RssFeed extends Feed {
 	}
 	
 	public RssFeed(String id, String url, Date since) {
-		super(since);
+		super(id, since);
 		
-		this.id = id;
 		this.url = url;
 	}
 

@@ -17,16 +17,13 @@ public class KeywordsFeed extends Feed {
 		
 	}
 	
-	public KeywordsFeed(String keyword, Date since, String id) {
-		super(since);
+	public KeywordsFeed(String id, String keyword, Date since) {
+		super(id, since);
 		this.keywords.add(keyword);
-		this.id = id;
 	}
 	
 	public KeywordsFeed(String id, List<String> keywords, Date since) {
-		super(since);
-		
-		this.id = id;
+		super(id, since);
 		this.keywords.addAll(keywords);
 	}
 	
