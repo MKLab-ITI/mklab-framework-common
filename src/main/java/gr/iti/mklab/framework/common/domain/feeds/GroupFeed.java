@@ -16,8 +16,8 @@ public class GroupFeed extends Feed {
 		
 	}
 	
-	public GroupFeed(String groupCreator, String groupId, Date since) {
-		super(groupCreator + "|" + groupId, since);
+	public GroupFeed(String groupCreator, String groupId, Date since, String source) {
+		super(groupCreator + "|" + groupId, since, source);
 		
 		this.groupCreator = groupCreator;
 		this.groupId = groupId;

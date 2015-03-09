@@ -29,9 +29,10 @@ public class Feed extends JSONable {
 		
 	}
 	
-	public Feed(String id, Date since) {
+	public Feed(String id, Date since, String source) {
 		this.id = id;
 		this.since = since;
+		this.source = source;
 	}
 	
 	public  String getId() {

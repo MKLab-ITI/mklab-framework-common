@@ -220,21 +220,22 @@ public class Dysco extends JSONable {
     	
     	for(Entry<String, String> keyword : keywords.entrySet()) {
     		String id = keyword.getValue() + "#" + keyword.getKey();
-    		Feed feed = new KeywordsFeed(id, keyword.getKey(), sinceDate);
+    		Feed feed = new KeywordsFeed(id, keyword.getKey(), sinceDate, keyword.getValue());
     		feed.setSource(keyword.getValue());
     		
     		feeds.add(feed);
     	}
     	
     	for(Account account : accounts) {
-    		Feed feed = new AccountFeed(account.getId(), account.getName(), sinceDate);
+    		String source = account.getSource().name();
+    		Feed feed = new AccountFeed(account.getId(), account.getName(), sinceDate, source);
     		feed.setSource(account.getSource().name());
     		
     		feeds.add(feed);
     	}
     	
     	for(Location location : nearLocations) {
-    		Feed feed = new LocationFeed(null, location, sinceDate);
+    		Feed feed = new LocationFeed(null, location, sinceDate, null);
     		feeds.add(feed);
     	}
     	

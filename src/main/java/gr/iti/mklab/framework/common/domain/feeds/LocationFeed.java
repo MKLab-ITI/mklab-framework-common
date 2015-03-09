@@ -17,8 +17,8 @@ public class LocationFeed extends Feed {
 		
 	}
 	
-	public LocationFeed(String id, Location location, Date since) {
-		super(id, since);
+	public LocationFeed(String id, Location location, Date since, String source) {
+		super(id, since, source);
 		
 		this.location = location;
 	}
