@@ -141,7 +141,7 @@ public class Item extends JSONable {
     protected Long shares = 0L;
     
     // The Comments associated with an Item
-    protected Long comments;
+    protected Long comments = 0L;
     
     // Getters  & Setters for the fields of this class
     public String getId() {
