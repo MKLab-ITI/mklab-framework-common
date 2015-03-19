@@ -1,7 +1,7 @@
 package gr.iti.mklab.framework.common.domain.feeds;
 
 
-public class RssFeed extends Feed {
+public class URLFeed extends Feed {
 	
 	/**
 	 * 
@@ -10,11 +10,11 @@ public class RssFeed extends Feed {
 
 	private String url = null;
 	
-	public RssFeed() {
+	public URLFeed() {
 		
 	}
 	
-	public RssFeed(String id, String url, long since, String source) {
+	public URLFeed(String id, String url, long since, String source) {
 		super(id, since, source);
 		
 		this.url = url;

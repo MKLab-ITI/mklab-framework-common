@@ -1,6 +1,5 @@
 package gr.iti.mklab.framework.common.domain.feeds;
 
-import java.util.Date;
 
 public class AccountFeed extends Feed {
 
@@ -15,7 +14,7 @@ public class AccountFeed extends Feed {
 		
 	}
 	
-	public AccountFeed(String id, String username, Date since, String source) {
+	public AccountFeed(String id, String username, long since, String source) {
 		super(id, since, source);
 
 		this.username = username;

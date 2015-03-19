@@ -73,7 +73,7 @@ public class Dysco extends JSONable {
     private List<String> keywordsToExclude = new ArrayList<String>();
 
     // Retrieve items in time range [since- until]
-    protected Date sinceDate;
+    protected long sinceDate;
     
     /**
      * Returns the id of the dysco
@@ -134,7 +134,7 @@ public class Dysco extends JSONable {
      *
      * @return Date
      */
-    public Date getSinceDate() {
+    public long getSinceDate() {
         return sinceDate;
     }
 
@@ -143,7 +143,7 @@ public class Dysco extends JSONable {
      *
      * @param creationDate
      */
-    public void setSinceDate(Date sinceDate) {
+    public void setSinceDate(long sinceDate) {
         this.sinceDate = sinceDate;
     }
     

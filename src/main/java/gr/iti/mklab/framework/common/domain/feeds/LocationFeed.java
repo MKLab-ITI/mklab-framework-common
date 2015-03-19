@@ -1,7 +1,5 @@
 package gr.iti.mklab.framework.common.domain.feeds;
 
-import java.util.Date;
-
 import gr.iti.mklab.framework.common.domain.Location;
 
 public class LocationFeed extends Feed {
@@ -17,7 +15,7 @@ public class LocationFeed extends Feed {
 		
 	}
 	
-	public LocationFeed(String id, Location location, Date since, String source) {
+	public LocationFeed(String id, Location location, long since, String source) {
 		super(id, since, source);
 		
 		this.location = location;

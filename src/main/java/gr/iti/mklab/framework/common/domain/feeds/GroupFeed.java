@@ -1,7 +1,5 @@
 package gr.iti.mklab.framework.common.domain.feeds;
 
-import java.util.Date;
-
 public class GroupFeed extends Feed {
 
 	/**
@@ -16,7 +14,7 @@ public class GroupFeed extends Feed {
 		
 	}
 	
-	public GroupFeed(String groupCreator, String groupId, Date since, String source) {
+	public GroupFeed(String groupCreator, String groupId, long since, String source) {
 		super(groupCreator + "|" + groupId, since, source);
 		
 		this.groupCreator = groupCreator;

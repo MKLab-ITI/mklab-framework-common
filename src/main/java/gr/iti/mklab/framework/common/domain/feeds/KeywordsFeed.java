@@ -1,7 +1,6 @@
 package gr.iti.mklab.framework.common.domain.feeds;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class KeywordsFeed extends Feed {
@@ -17,12 +16,12 @@ public class KeywordsFeed extends Feed {
 		
 	}
 	
-	public KeywordsFeed(String id, String keyword, Date since, String source) {
+	public KeywordsFeed(String id, String keyword, long since, String source) {
 		super(id, since, source);
 		this.keywords.add(keyword);
 	}
 	
-	public KeywordsFeed(String id, List<String> keywords, Date since, String source) {
+	public KeywordsFeed(String id, List<String> keywords, long since, String source) {
 		super(id, since, source);
 		this.keywords.addAll(keywords);
 	}
