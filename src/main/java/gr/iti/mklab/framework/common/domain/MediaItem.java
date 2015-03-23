@@ -138,7 +138,7 @@ public class MediaItem extends JSONable {
         this.url = url.toString();
 
         source = tempMediaItem.getSource();
-        reference = tempMediaItem.getRef();
+        reference = tempMediaItem.getReference();
 
         description = tempMediaItem.getDescription();
         tags = tempMediaItem.getTags();
@@ -183,11 +183,11 @@ public class MediaItem extends JSONable {
         this.thumbnail = thumbnail;
     }
 
-    public String getRef() {
+    public String getReference() {
         return reference;
     }
 
-    public void setRef(String reference) {
+    public void setReference(String reference) {
         this.reference = reference;
     }
 
