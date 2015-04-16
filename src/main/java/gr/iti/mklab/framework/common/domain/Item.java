@@ -166,6 +166,9 @@ public class Item extends JSONable {
 
     public void setSource(String source) {
         this.source = source;
+        for(MediaItem mi : this.getMediaItems()) {
+        	mi.setSource(source);
+        }
     }
 
     public String getTitle() {

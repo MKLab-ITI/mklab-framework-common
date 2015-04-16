@@ -18,17 +18,24 @@ public class NamedEntity extends JSONable {
 	private static final long serialVersionUID = -8567813006640515534L;
 	
     private String name;
-    
-    private Double count;
-    
+    private Integer count = 1;
     private Type type;
 
-    public NamedEntity(String name, double count, Type type) {
+    public NamedEntity() {
+    	
+    }
+    
+    public NamedEntity(String name, Type type) {
+        this.name = name;
+        this.type = type;
+    }
+
+    public NamedEntity(String name, int count, Type type) {
         this.name = name;
         this.count = count;
         this.type = type;
     }
-
+    
     /**
      * @return the name
      */
@@ -46,14 +53,14 @@ public class NamedEntity extends JSONable {
     /**
      * @return the cont
      */
-    public double getCount() {
+    public int getCount() {
         return count;
     }
 
     /**
      * @param cont the cont to set
      */
-    public void setCount(double count) {
+    public void setCount(int count) {
         this.count = count;
     }
 
