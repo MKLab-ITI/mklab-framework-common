@@ -59,11 +59,12 @@ public class Item extends JSONable {
     // A set of tags associated with an Item
     protected String[] tags;
     
-    // The SocialSensor internal id of the user => StreamName#userInternalId
-    protected String uid;
     
     // A set of labels that indicate the feeds that are associated with this item
     protected Set<String> labels;
+    
+    // The SocialSensor internal id of the user => StreamName#userInternalId
+    protected String uid;
     
     // A detailed instance of the user of an Item
     // This is not exposed in mongodb
@@ -80,11 +81,11 @@ public class Item extends JSONable {
     // The user id of the original Item
     protected String referencedUserId;
     
+    // The page of the original Item
+    protected String pageUrl;
+    
     // A list of URLs contained in the Item
     protected String[] links;
-    
-    // The id of the original Item
-    protected String url;
     
     // A set of WebPages contained in the Item
     // WebPage is a more detailed representation of URLs
@@ -387,12 +388,12 @@ public class Item extends JSONable {
         this.comments = comments;
     }
     
-    public String getUrl() {
-        return url;
+    public String getPageUrl() {
+        return pageUrl;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setPageUrl(String pageUrl) {
+        this.pageUrl = pageUrl;
     }
 
     public Double getLatitude() {

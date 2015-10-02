@@ -18,12 +18,32 @@ public class KeywordsFeed extends Feed {
 	
 	public KeywordsFeed(String id, String keyword, long since, String source) {
 		super(id, since, source);
+		
+		if(keyword.contains(" OR ") || keyword.contains(" AND ")) {
+			if(keyword.startsWith("(")) {
+				keyword = "(" + keyword;
+			}
+			if(keyword.endsWith(")")) {
+				keyword = keyword + ")";
+			}
+		}
 		this.keywords.add(keyword);
 	}
 	
 	public KeywordsFeed(String id, List<String> keywords, long since, String source) {
 		super(id, since, source);
-		this.keywords.addAll(keywords);
+		for(String keyword : keywords) {
+			if(keyword.contains(" OR ") || keyword.contains(" AND ")) {
+				if(!keyword.startsWith("(")) {
+					keyword = "(" + keyword;
+				}
+				if(!keyword.endsWith(")")) {
+					keyword = keyword + ")";
+				}
+			}
+			this.keywords.add(keyword);
+		}
+		//this.keywords.addAll(keywords);
 	}
 	
 	public List<String> getKeywords() {
@@ -32,14 +52,45 @@ public class KeywordsFeed extends Feed {
 	
 	public void setKeywords(List<String> keywords) {
 		this.keywords.clear();
-		this.keywords.addAll(keywords);
+		for(String keyword : keywords) {
+			if(keyword.contains(" OR ") || keyword.contains(" AND ")) {
+				if(!keyword.startsWith("(")) {
+					keyword = "(" + keyword;
+				}
+				if(!keyword.endsWith(")")) {
+					keyword = keyword + ")";
+				}
+			}
+			this.keywords.add(keyword);
+		}
+		//this.keywords.addAll(keywords);
 	}
 	
 	public void addKeywords(List<String> keywords) {
-		this.keywords.addAll(keywords);
+		for(String keyword : keywords) {
+			if(keyword.contains(" OR ") || keyword.contains(" AND ")) {
+				if(!keyword.startsWith("(")) {
+					keyword = "(" + keyword;
+				}
+				if(!keyword.endsWith(")")) {
+					keyword = keyword + ")";
+				}
+			}
+			this.keywords.add(keyword);
+		}
+		//this.keywords.addAll(keywords);
 	}
 	
 	public void addKeyword(String keyword) {
+		if(keyword.contains(" OR ") || keyword.contains(" AND ")) {
+			if(!keyword.startsWith("(")) {
+				keyword = "(" + keyword;
+			}
+			if(!keyword.endsWith(")")) {
+				keyword = keyword + ")";
+			}
+		}
+		
 		this.keywords.add(keyword);
 	}
 }

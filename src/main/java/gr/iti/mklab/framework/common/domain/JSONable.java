@@ -1,4 +1,3 @@
-
 package gr.iti.mklab.framework.common.domain;
 
 import java.io.Serializable;
@@ -14,7 +13,7 @@ import com.mongodb.util.JSON;
  * @author etzoannos - e.tzoannos@atc.gr
  */
 
-public class JSONable implements Serializable, Comparable<JSONable>{
+public class JSONable implements Serializable, Comparable<JSONable> {
 
 	/**
 	 * 

@@ -60,8 +60,19 @@
         <dependency>
         	<groupId>org.mongodb.morphia</groupId>
         	<artifactId>morphia</artifactId>
-        	<version>0.108</version>
+        	<version>0.111</version>
+        	<exclusions>
+        		<exclusion>
+        			<artifactId>mongo-java-driver</artifactId>
+        			<groupId>org.mongodb</groupId>
+        		</exclusion>
+        	</exclusions>
         </dependency>
+		<dependency>
+        	<groupId>org.mongodb</groupId>
+        	<artifactId>mongodb-driver</artifactId>
+        	<version>3.0.4</version>
+    	</dependency>
     </dependencies>
     
     <repositories />

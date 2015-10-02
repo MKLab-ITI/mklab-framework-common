@@ -1,11 +1,14 @@
 package gr.iti.mklab.framework.common.domain;
 
 import java.util.Date;
+import java.util.List;
 
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.Indexes;
+import org.mongodb.morphia.annotations.Property;
 
 /**
  *
@@ -22,8 +25,12 @@ public class WebPage extends JSONable {
      */
     private static final long serialVersionUID = -8783341713025378581L;
 
-    // The URL of a WebPage. This is usually a short URL
+    // Unique id of an instance with the following structure: StreamName#internalId
     @Id
+    @Property("id")
+    protected String id;
+    
+    // The URL of a WebPage. This is usually a short URL
     private String url;
 
     // The expanded version of URL
@@ -56,7 +63,7 @@ public class WebPage extends JSONable {
     // The date that a web page shared for the first time
     private Date date;
 
-    // The id of the Item that share a web page for the forst time
+    // The id of the Item that share a web page for the first time
     private String reference;
 
     // The stream of the Item that the web page comes from 
@@ -65,12 +72,33 @@ public class WebPage extends JSONable {
     // The number of times a web page has been shared
     private int shares = 0;
 
-    public WebPage(String url, String reference) {
-        this.url = url;
+    // A list of named entities extracted from a web page
+    @Embedded
+    protected List<NamedEntity> entities;
+    
+    public List<NamedEntity> getEntities() {
+		return entities;
+	}
+
+	public void setEntities(List<NamedEntity> entities) {
+		this.entities = entities;
+	}
+
+	public WebPage(String url, String reference) {
+        this.id = url;
+    	this.url = url;
         this.reference = reference;
     }
 
-    public String getUrl() {
+    public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getUrl() {
         return url;
     }
 
