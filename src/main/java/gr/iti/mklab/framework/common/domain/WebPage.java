@@ -45,6 +45,9 @@ public class WebPage extends JSONable {
     // The textual content of the web page
     private String text;
 
+    // The hash code generated from the content of the web page. (used for de-duplication)
+    private String hash;
+    
     // A flag that indicates whether this web page contains an article
     private boolean article;
 
@@ -63,6 +66,9 @@ public class WebPage extends JSONable {
     // The date that a web page shared for the first time
     private Date date;
 
+    // The date that a web page shared for the first time
+    private Long publicationTime;
+    
     // The id of the Item that share a web page for the first time
     private String reference;
 
@@ -209,5 +215,21 @@ public class WebPage extends JSONable {
     public void setReference(String reference) {
         this.reference = reference;
     }
+
+	public Long getPublicationTime() {
+		return publicationTime;
+	}
+
+	public void setPublicationTime(Long publicationTime) {
+		this.publicationTime = publicationTime;
+	}
+
+	public String getHash() {
+		return hash;
+	}
+
+	public void setHash(String hash) {
+		this.hash = hash;
+	}
 
 }
