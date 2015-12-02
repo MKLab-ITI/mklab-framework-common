@@ -59,8 +59,9 @@ public class Item extends JSONable {
     // A set of tags associated with an Item
     protected String[] tags;
     
-    
-    // A set of labels that indicate the feeds that are associated with this item
+    protected String text;
+
+	// A set of labels that indicate the feeds that are associated with this item
     protected Set<String> labels;
     
     // The SocialSensor internal id of the user => StreamName#userInternalId
@@ -106,9 +107,6 @@ public class Item extends JSONable {
     @Embedded
     protected Location location;
     
-    // The text associated with an Item
-    protected String text;
-    
     // A list of media items contained in an Item
     // This is not exposed in mongodb 
     @Transient
@@ -130,7 +128,7 @@ public class Item extends JSONable {
     // The language of an Item
     protected String language;
     
-    // An indicator whether an Item id original or a shared instance of a previous Item
+    // An indicator whether an Item id original, a shared instance of a previous Item or a comment on a previous Item
     protected boolean original = true;
     
     // Popularity values 
@@ -141,7 +139,7 @@ public class Item extends JSONable {
     // Number of the times an Item has been shared
     protected Long shares = 0L;
     
-    // The Comments associated with an Item
+    // The number of comments associated with an Item
     protected Long comments = 0L;
     
     // Getters  & Setters for the fields of this class
@@ -196,6 +194,14 @@ public class Item extends JSONable {
         this.tags = tags;
     }
 
+    public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+	
     public String getUserId() {
         return uid;
     }
@@ -298,14 +304,6 @@ public class Item extends JSONable {
 
     public void setLocation(Location location) {
         this.location = location;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 
     public List<MediaItem> getMediaItems() {

@@ -75,6 +75,9 @@ public class WebPage extends JSONable {
     // The stream of the Item that the web page comes from 
     private String source;
 
+    // A list of URLs contained in the WebPage
+    private String[] links;
+    
     // The number of times a web page has been shared
     private int shares = 0;
 
@@ -108,7 +111,15 @@ public class WebPage extends JSONable {
         return url;
     }
 
-    public void setUrl(String url) {
+    public String[] getLinks() {
+		return links;
+	}
+
+	public void setLinks(String[] links) {
+		this.links = links;
+	}
+
+	public void setUrl(String url) {
         this.url = url;
     }
 

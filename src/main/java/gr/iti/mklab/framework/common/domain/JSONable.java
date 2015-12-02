@@ -10,7 +10,7 @@ import com.mongodb.util.JSON;
 
 /**
  * 
- * @author etzoannos - e.tzoannos@atc.gr
+ * @author manosetro - manosetro@iti.gr
  */
 
 public class JSONable implements Serializable, Comparable<JSONable> {

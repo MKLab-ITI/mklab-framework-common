@@ -1,11 +1,9 @@
-package gr.iti.mklab.framework.common.domain.dysco;
+package gr.iti.mklab.framework.common.domain.collections;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -13,6 +11,7 @@ import org.mongodb.morphia.annotations.Id;
 import gr.iti.mklab.framework.common.domain.Account;
 import gr.iti.mklab.framework.common.domain.JSONable;
 import gr.iti.mklab.framework.common.domain.Location;
+import gr.iti.mklab.framework.common.domain.Source;
 import gr.iti.mklab.framework.common.domain.feeds.AccountFeed;
 import gr.iti.mklab.framework.common.domain.feeds.Feed;
 import gr.iti.mklab.framework.common.domain.feeds.KeywordsFeed;
@@ -25,43 +24,43 @@ import gr.iti.mklab.framework.common.domain.feeds.LocationFeed;
  *
  */
 @Entity(noClassnameStored = true)
-public class Dysco extends JSONable {
+public class Collection extends JSONable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8830711950312367090L;
 
-	public Dysco() {
+	public Collection() {
 
     }
 
-    public Dysco(String id, Date date) {
+    public Collection(String id, Date date) {
         this.id = id;
-        this.creationDate = date;
-        this.updateDate = date;
+        this.creationDate = date.getTime();
+        this.updateDate = date.getTime();
     }
 
-    //The id of the dysco
+    //The id of the Topic
     @Id
     protected String id;
     
-    //The creation date of the dysco
-    protected Date creationDate;
+    //The creation date of the Topic
+    protected Long creationDate;
 
-    //The date that the dysco was last updated)
-    protected Date updateDate;
+    //The date that the Topic was last updated)
+    protected Long updateDate;
     
-    //The title of the dysco, set by the user
+    //The title of the Topic, set by the user
     protected String title;
 
-    // The user that created the dysco
+    // The user that created the Topic
     protected String ownerId;
     
     // Fields that used for collection and retrieval of items
     
     // Keywords used to collect items 
-    protected Map<String, String> keywords = new HashMap<String, String>();
+    protected List<Keyword> keywords = new ArrayList<Keyword>();
     
     // Accounts to follow
     protected List<Account> accounts = new ArrayList<Account>();
@@ -75,7 +74,9 @@ public class Dysco extends JSONable {
     // Retrieve items in time range [since- until]
     protected long sinceDate;
     
-    /**
+    protected String status = "running";	//running/stop
+
+	/**
      * Returns the id of the dysco
      *
      * @return String
@@ -85,7 +86,7 @@ public class Dysco extends JSONable {
     }
 
     /**
-     * Sets the id of the dysco
+     * Sets the id of the collection
      *
      * @param id
      */
@@ -94,7 +95,7 @@ public class Dysco extends JSONable {
     }
 
     /**
-     * Returns the id of the dysco
+     * Returns the id of the collection
      *
      * @return String
      */
@@ -103,7 +104,7 @@ public class Dysco extends JSONable {
     }
 
     /**
-     * Sets the id of the dysco
+     * Sets the id of the collection
      *
      * @param id
      */
@@ -112,25 +113,25 @@ public class Dysco extends JSONable {
     }
     
     /**
-     * Returns the creation date of the dysco
+     * Returns the creation date of the collection
      *
      * @return Date
      */
     public Date getCreationDate() {
-        return creationDate;
+        return new Date(creationDate);
     }
 
     /**
-     * Sets the creation date of the dysco
+     * Sets the creation date of the collection
      *
      * @param creationDate
      */
     public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+        this.creationDate = creationDate.getTime();
     }
 
     /**
-     * Returns the since date of the dysco
+     * Returns the since date of the collection
      *
      * @return Date
      */
@@ -139,7 +140,7 @@ public class Dysco extends JSONable {
     }
 
     /**
-     * Sets the since date of the dysco
+     * Sets the since date of the collection
      *
      * @param creationDate
      */
@@ -148,7 +149,7 @@ public class Dysco extends JSONable {
     }
     
     /**
-     * Returns the title of the dysco
+     * Returns the title of the collection
      *
      * @return String
      */
@@ -157,7 +158,7 @@ public class Dysco extends JSONable {
     }
 
     /**
-     * Sets the title of the dysco
+     * Sets the title of the collection
      *
      * @param Title
      */
@@ -179,23 +180,23 @@ public class Dysco extends JSONable {
      * @return
      */
     public Date getUpdateDate() {
-        return updateDate;
+        return new Date(updateDate);
     }
 
     /**
-     * Sets the date that dysco was last updated.
+     * Sets the date that collection was last updated.
      *
      * @return
      */
     public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
+        this.updateDate = updateDate.getTime();
     }
 
-    public void setKeywords(Map<String, String> keywords) {
+    public void setKeywords(List<Keyword> keywords) {
         this.keywords = keywords;
     }
 
-    public Map<String, String> getKeywords() {
+    public List<Keyword> getKeywords() {
         return this.keywords;
     }
     
@@ -214,23 +215,32 @@ public class Dysco extends JSONable {
     public List<String> getKeywordsToExclude() {
         return this.keywordsToExclude;
     }
-    
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
     public List<Feed> getFeeds() {
     	List<Feed> feeds = new ArrayList<Feed>();
-    	
-    	for(Entry<String, String> keyword : keywords.entrySet()) {
-    		String id = keyword.getValue() + "#" + keyword.getKey();
-    		Feed feed = new KeywordsFeed(id, keyword.getKey(), sinceDate, keyword.getValue());
-    		feed.setSource(keyword.getValue());
-    		
-    		feeds.add(feed);
+    	for(Keyword keyword : keywords) {
+    		String[] sources = keyword.getSources();
+    		if(sources == null) {
+    			sources = Arrays.toString(Source.values()).replaceAll("^.|.$", "").split(", ");
+    		}
+    		for(String source : sources) {
+        		String id = source + "#" + keyword.getKeyword();
+        		Feed feed = new KeywordsFeed(id, keyword.getKeyword(), sinceDate, source);
+            	feeds.add(feed);
+        	}
     	}
     	
     	for(Account account : accounts) {
     		String source = account.getSource().name();
     		Feed feed = new AccountFeed(account.getId(), account.getName(), sinceDate, source);
-    		feed.setSource(account.getSource().name());
-    		
     		feeds.add(feed);
     	}
     	
@@ -240,5 +250,77 @@ public class Dysco extends JSONable {
     	}
     	
     	return feeds;
+    }
+    
+    public static void main(String[] args) {
+    	Collection collection = new Collection();
+    	
+    	collection.setId("randomid_userid_timestamp");
+    	collection.setCreationDate(new Date());
+    	collection.setSinceDate(System.currentTimeMillis() - (7 * 24 * 3600 * 1000l));
+    	
+    	collection.setOwnerId("1234567890");
+    	
+    	collection.setTitle("ISIS Attacks");
+    	
+    	String[] sources = {"Twitter", "Youtube", "GooglePlus" };
+    	
+    	List<Keyword> k = new ArrayList<Keyword>();
+    	k.add(new Keyword("isis", sources));
+    	k.add(new Keyword("raqqa", sources));
+    	k.add(new Keyword("paris attacks", sources));
+    	
+    	collection.setKeywords(k);
+    	
+    	List<Account> accounts = new ArrayList<Account>();
+    	
+    	Account a = new Account();
+    	a.setId("xxxx");
+    	a.setName("politico");
+    	a.setSource("Twitter");
+    	accounts.add(a);
+    	
+    	collection.setAccounts(accounts);
+    	
+    	System.out.println(collection.toString());
+    }
+    
+    public static class Keyword {
+    	
+    	private String keyword;
+    	private String[] sources;
+    	
+    	public Keyword() {
+    		
+    	}
+    	
+    	public Keyword(String keyword) {
+    		this.keyword = keyword;
+    	}
+    	
+    	public Keyword(String keyword, String[] sources) {
+    		this.keyword = keyword;
+    		this.sources = sources;
+    	}
+    	
+		public String[] getSources() {
+			return sources;
+		}
+
+		public void setSources(String[] sources) {
+			this.sources = sources;
+		}
+
+		public String getKeyword() {
+			return keyword;
+		}
+
+		public void setKeyword(String keyword) {
+			this.keyword = keyword;
+		}
+    	
+		public String toString() {
+			return keyword;
+		}
     }
 }
