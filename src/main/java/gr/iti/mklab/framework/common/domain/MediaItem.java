@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.Indexes;
 import org.mongodb.morphia.annotations.Transient;
@@ -31,10 +30,6 @@ public class MediaItem extends JSONable {
      *
      */
     private static final long serialVersionUID = 7811714823188242818L;
-    
-    // Unique id of an MediaItem with the following structure: StreamName#internalId
-    @Id
-    private String id;
     
     // The URL of a media item
     private String url;

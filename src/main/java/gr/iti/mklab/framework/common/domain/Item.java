@@ -8,10 +8,8 @@ import java.util.Set;
 
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.Indexes;
-import org.mongodb.morphia.annotations.Property;
 import org.mongodb.morphia.annotations.Transient;
 
 /**
@@ -38,11 +36,6 @@ public class Item extends JSONable {
     public Item() {
     	
     }
-
-    // Unique id of an instance with the following structure: StreamName#internalId
-    @Id
-    @Property("id")
-    protected String id;
     
     // The id of the original Item
     protected String reference;

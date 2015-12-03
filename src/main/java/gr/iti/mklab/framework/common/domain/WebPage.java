@@ -5,10 +5,8 @@ import java.util.List;
 
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.Indexes;
-import org.mongodb.morphia.annotations.Property;
 
 /**
  *
@@ -24,11 +22,6 @@ public class WebPage extends JSONable {
      *
      */
     private static final long serialVersionUID = -8783341713025378581L;
-
-    // Unique id of an instance with the following structure: StreamName#internalId
-    @Id
-    @Property("id")
-    protected String id;
     
     // The URL of a WebPage. This is usually a short URL
     private String url;

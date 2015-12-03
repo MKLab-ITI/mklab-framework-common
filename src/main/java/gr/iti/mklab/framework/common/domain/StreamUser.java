@@ -3,10 +3,8 @@ package gr.iti.mklab.framework.common.domain;
 import java.util.Date;
 
 import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.Indexes;
-import org.mongodb.morphia.annotations.Property;
 
 @Entity(value="StreamUser", noClassnameStored=false)
 @Indexes(@Index("id"))
@@ -16,11 +14,6 @@ public class StreamUser extends JSONable {
 	 * 
 	 */
 	private static final long serialVersionUID = 3558927430206936262L;
-    
-    // Id with the following structure: StreamName#userid
-    @Id
-    @Property("id")
-	protected String id;
     
     // The internal id of a user in a specific social media
     protected String userid;
