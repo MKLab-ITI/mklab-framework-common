@@ -25,7 +25,7 @@ public class StreamUser extends JSONable {
     protected String name;
     
     // The name of the stream that a User comes from
-    protected String streamId;
+    protected String source;
     
     // The number of Items posted from the user
     protected Integer items = 0;
@@ -108,12 +108,12 @@ public class StreamUser extends JSONable {
         this.name = name;
     }
     
-    public String getStreamId() {
-        return streamId;
+    public String getSource() {
+        return source;
     }
     
-    public void setStreamId(String streamId) {
-        this.streamId = streamId;
+    public void setSource(String source) {
+        this.source = source;
     }
     
     public Integer getItems() {

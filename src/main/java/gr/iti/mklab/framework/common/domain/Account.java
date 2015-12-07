@@ -10,8 +10,6 @@ public class Account extends JSONable {
 	 */
 	private static final long serialVersionUID = 673802988788312082L;
 
-	private String id;
-	
 	private String name;
 
 	private Source source;

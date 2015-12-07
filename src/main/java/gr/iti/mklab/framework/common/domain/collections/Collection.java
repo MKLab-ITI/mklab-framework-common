@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
 
 import gr.iti.mklab.framework.common.domain.Account;
 import gr.iti.mklab.framework.common.domain.JSONable;
@@ -40,10 +39,6 @@ public class Collection extends JSONable {
         this.creationDate = date.getTime();
         this.updateDate = date.getTime();
     }
-
-    //The id of the Topic
-    @Id
-    protected String id;
     
     //The creation date of the Topic
     protected Long creationDate;
