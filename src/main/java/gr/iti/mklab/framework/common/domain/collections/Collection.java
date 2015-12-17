@@ -67,9 +67,9 @@ public class Collection extends JSONable {
     private List<String> keywordsToExclude = new ArrayList<String>();
 
     // Retrieve items in time range [since- until]
-    protected long sinceDate;
+    protected long since;
     
-    protected String status = "running";	//running/stop
+    protected String status = "running";	//running/stopped
 
 	/**
      * Returns the id of the dysco
@@ -131,7 +131,7 @@ public class Collection extends JSONable {
      * @return Date
      */
     public long getSinceDate() {
-        return sinceDate;
+        return since;
     }
 
     /**
@@ -140,7 +140,7 @@ public class Collection extends JSONable {
      * @param creationDate
      */
     public void setSinceDate(long sinceDate) {
-        this.sinceDate = sinceDate;
+        this.since = sinceDate;
     }
     
     /**
@@ -226,21 +226,22 @@ public class Collection extends JSONable {
     		if(sources == null) {
     			sources = Arrays.toString(Source.values()).replaceAll("^.|.$", "").split(", ");
     		}
+    		
     		for(String source : sources) {
         		String id = source + "#" + keyword.getKeyword();
-        		Feed feed = new KeywordsFeed(id, keyword.getKeyword(), sinceDate, source);
+        		Feed feed = new KeywordsFeed(id, keyword.getKeyword(), since, source);
             	feeds.add(feed);
         	}
     	}
     	
     	for(Account account : accounts) {
     		String source = account.getSource().name();
-    		Feed feed = new AccountFeed(account.getId(), account.getName(), sinceDate, source);
+    		Feed feed = new AccountFeed(account.getId(), account.getName(), since, source);
     		feeds.add(feed);
     	}
     	
     	for(Location location : nearLocations) {
-    		Feed feed = new LocationFeed(null, location, sinceDate, null);
+    		Feed feed = new LocationFeed(null, location, since, null);
     		feeds.add(feed);
     	}
     	
