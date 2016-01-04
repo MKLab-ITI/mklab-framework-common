@@ -36,44 +36,26 @@ public class NamedEntity extends JSONable {
         this.type = type;
     }
     
-    /**
-     * @return the name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * @param name the name to set
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * @return the cont
-     */
     public int getCount() {
         return count;
     }
 
-    /**
-     * @param cont the cont to set
-     */
     public void setCount(int count) {
         this.count = count;
     }
 
-    /**
-     * @return the type
-     */
     public Type getType() {
         return type;
     }
 
-    /**
-     * @param type the type to set
-     */
     public void setType(Type type) {
         this.type = type;
     }

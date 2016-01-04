@@ -12,8 +12,7 @@ import gr.iti.mklab.framework.common.domain.JSONable;
  * Class for the configuration of streams or storages 
  * reading a set of parameters
  * 
- * @author manosetro
- * @email  manosetro@iti.gr
+ * @author manosetro - manosetro@iti.gr
  *
  */
 

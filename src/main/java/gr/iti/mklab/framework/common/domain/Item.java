@@ -16,7 +16,6 @@ import org.mongodb.morphia.annotations.Transient;
  * Represents a single social media post and acts as an envelop for the native object.
  *
  * @author 	Manos Schinas
- * @email	manosetro@iti.gr
  * 
  */
 

@@ -4,8 +4,7 @@ import org.mongodb.morphia.annotations.Entity;
 
 /**
  *
- * @author	Manos Schinas	
- * @email 	manosetro@iti.gr
+ * @author	Manos Schinas - manosetro@iti.gr
  * 
  */
 

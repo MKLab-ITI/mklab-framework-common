@@ -10,8 +10,7 @@ import org.mongodb.morphia.annotations.Indexes;
 
 /**
  *
- * @author 	Manos Schinas
- * @email	manosetro@iti.gr
+ * @author 	Manos Schinas - manosetro@iti.gr
  */
 
 @Entity(noClassnameStored = true)

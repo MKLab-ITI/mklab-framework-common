@@ -15,8 +15,7 @@ import org.mongodb.morphia.annotations.Transient;
  * Represents a single stream media item and acts as an envelop for the native
  * stream media object.
  *
- * @author manosetro
- * @mail manosetro@iti.gr
+ * @author manosetro - manosetro@iti.gr
  *
  */
 @Entity(noClassnameStored = true)

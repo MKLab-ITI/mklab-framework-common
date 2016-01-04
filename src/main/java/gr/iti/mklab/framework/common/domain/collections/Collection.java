@@ -17,9 +17,7 @@ import gr.iti.mklab.framework.common.domain.feeds.KeywordsFeed;
 import gr.iti.mklab.framework.common.domain.feeds.LocationFeed;
 
 /**
- * @author	Manos Schinas
- * 
- * @email	manosetro@iti.gr
+ * @author	Manos Schinas - manosetro@iti.gr
  *
  */
 @Entity(noClassnameStored = true)
@@ -71,92 +69,43 @@ public class Collection extends JSONable {
     
     protected String status = "running";	//running/stopped
 
-	/**
-     * Returns the id of the dysco
-     *
-     * @return String
-     */
     public String getId() {
         return id;
     }
 
-    /**
-     * Sets the id of the collection
-     *
-     * @param id
-     */
     public void setOwnerId(String ownerId) {
         this.ownerId = ownerId;
     }
 
-    /**
-     * Returns the id of the collection
-     *
-     * @return String
-     */
     public String geOwnertId() {
         return ownerId;
     }
 
-    /**
-     * Sets the id of the collection
-     *
-     * @param id
-     */
     public void setId(String id) {
         this.id = id;
     }
     
-    /**
-     * Returns the creation date of the collection
-     *
-     * @return Date
-     */
     public Date getCreationDate() {
         return new Date(creationDate);
     }
 
-    /**
-     * Sets the creation date of the collection
-     *
-     * @param creationDate
-     */
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate.getTime();
     }
 
-    /**
-     * Returns the since date of the collection
-     *
-     * @return Date
-     */
     public long getSinceDate() {
         return since;
     }
 
-    /**
-     * Sets the since date of the collection
-     *
-     * @param creationDate
-     */
     public void setSinceDate(long sinceDate) {
         this.since = sinceDate;
     }
     
-    /**
-     * Returns the title of the collection
-     *
-     * @return String
-     */
+
     public String getTitle() {
         return title;
     }
 
-    /**
-     * Sets the title of the collection
-     *
-     * @param Title
-     */
     public void setTitle(String Title) {
         this.title = Title;
     }
@@ -169,20 +118,10 @@ public class Collection extends JSONable {
         this.accounts = accounts;
     }
 
-    /**
-     * Returns the date that dysco was last updated.
-     *
-     * @return
-     */
     public Date getUpdateDate() {
         return new Date(updateDate);
     }
 
-    /**
-     * Sets the date that collection was last updated.
-     *
-     * @return
-     */
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate.getTime();
     }
