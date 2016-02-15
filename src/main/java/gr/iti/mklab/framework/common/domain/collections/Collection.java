@@ -15,6 +15,7 @@ import gr.iti.mklab.framework.common.domain.feeds.AccountFeed;
 import gr.iti.mklab.framework.common.domain.feeds.Feed;
 import gr.iti.mklab.framework.common.domain.feeds.KeywordsFeed;
 import gr.iti.mklab.framework.common.domain.feeds.LocationFeed;
+import gr.iti.mklab.framework.common.domain.feeds.RssFeed;
 
 /**
  * @author	Manos Schinas - manosetro@iti.gr
@@ -174,9 +175,17 @@ public class Collection extends JSONable {
     	}
     	
     	for(Account account : accounts) {
+    		
     		String source = account.getSource().name();
-    		Feed feed = new AccountFeed(account.getId(), account.getName(), since, source);
-    		feeds.add(feed);
+    		if(source.equals("Web")) {
+    			RssFeed feed = new RssFeed(account.getUsername(), account.getUsername(), since, Source.RSS.toString());
+    			feeds.add((Feed) feed);
+    		}
+    		else {
+    			AccountFeed feed = new AccountFeed(account.getId(), account.getUsername(), since, source);
+    			
+    			feeds.add((Feed) feed);
+    		}
     	}
     	
     	for(Location location : nearLocations) {

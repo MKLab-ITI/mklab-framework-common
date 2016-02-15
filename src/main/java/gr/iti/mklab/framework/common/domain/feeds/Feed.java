@@ -2,7 +2,6 @@ package gr.iti.mklab.framework.common.domain.feeds;
 
 
 import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
 
 import gr.iti.mklab.framework.common.domain.JSONable;
 
@@ -14,9 +13,6 @@ public class Feed extends JSONable {
 	 * 
 	 */
 	private static final long serialVersionUID = -8972611573430977057L;
-
-	@Id
-	protected String id = null;
 
 	protected long since;
 
