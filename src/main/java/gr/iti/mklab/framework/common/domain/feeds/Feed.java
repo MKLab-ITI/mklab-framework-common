@@ -16,6 +16,8 @@ public class Feed extends JSONable {
 
 	protected long since;
 
+	protected long until = 0L;
+	
 	protected String source = null;
 	
 	protected String label;
@@ -52,6 +54,14 @@ public class Feed extends JSONable {
 	
 	public void setSinceDate(long since) {
 		this.since = since;
+	}
+	
+	public long getUntilDate() {
+		return until;
+	}
+	
+	public void setUntilDate(long until) {
+		this.until = until;
 	}
 	
 	public  String getSource() {
