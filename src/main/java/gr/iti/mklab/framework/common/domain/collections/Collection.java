@@ -178,7 +178,7 @@ public class Collection extends JSONable {
     		
     		String source = account.getSource().name();
     		if(source.equals("Web")) {
-    			RssFeed feed = new RssFeed(account.getUsername(), account.getUsername(), since, Source.RSS.toString());
+    			RssFeed feed = new RssFeed(account.getUsername(), account.getUsername(), since);
     			feeds.add((Feed) feed);
     		}
     		else {
