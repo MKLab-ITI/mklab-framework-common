@@ -161,36 +161,41 @@ public class Collection extends JSONable {
 	
     public List<Feed> getFeeds() {
     	List<Feed> feeds = new ArrayList<Feed>();
-    	for(Keyword keyword : keywords) {
-    		String[] sources = keyword.getSources();
-    		if(sources == null) {
-    			sources = Arrays.toString(Source.values()).replaceAll("^.|.$", "").split(", ");
-    		}
-    		
-    		for(String source : sources) {
-        		String id = source + "#" + keyword.getKeyword();
-        		Feed feed = new KeywordsFeed(id, keyword.getKeyword(), since, source);
-            	feeds.add(feed);
-        	}
-    	}
     	
-    	for(Account account : accounts) {
+    	if(keywords != null) {
+    		for(Keyword keyword : keywords) {
+    			String[] sources = keyword.getSources();
+    			if(sources == null) {
+    				sources = Arrays.toString(Source.values()).replaceAll("^.|.$", "").split(", ");
+    			}
     		
-    		String source = account.getSource().name();
-    		if(source.equals("Web")) {
-    			RssFeed feed = new RssFeed(account.getUsername(), account.getUsername(), since);
-    			feeds.add((Feed) feed);
-    		}
-    		else {
-    			AccountFeed feed = new AccountFeed(account.getId(), account.getUsername(), since, source);
-    			
-    			feeds.add((Feed) feed);
+    			for(String source : sources) {
+        			String id = source + "#" + keyword.getKeyword();
+        			Feed feed = new KeywordsFeed(id, keyword.getKeyword(), since, source);
+            		feeds.add(feed);
+        		}
     		}
     	}
     	
-    	for(Location location : nearLocations) {
-    		Feed feed = new LocationFeed(null, location, since, null);
-    		feeds.add(feed);
+    	if(accounts != null) {
+    		for(Account account : accounts) {
+    			String source = account.getSource().name();
+    			if(source.equals("Web")) {
+    				RssFeed feed = new RssFeed(account.getUsername(), account.getUsername(), since);
+    				feeds.add((Feed) feed);
+    			}
+    			else {
+    				AccountFeed feed = new AccountFeed(account.getId(), account.getUsername(), since, source);
+    				feeds.add((Feed) feed);
+    			}
+    		}
+    	}
+    	
+    	if(nearLocations != null) {
+    		for(Location location : nearLocations) {
+    			Feed feed = new LocationFeed(null, location, since, null);
+    			feeds.add(feed);
+    		}
     	}
     	
     	return feeds;
