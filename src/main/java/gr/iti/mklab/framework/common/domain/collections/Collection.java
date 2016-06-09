@@ -39,10 +39,10 @@ public class Collection extends JSONable {
         this.updateDate = date.getTime();
     }
     
-    //The creation date of the Topic
+    // The creation date of the Topic
     protected Long creationDate;
 
-    //The date that the Topic was last updated)
+    // The date that the Topic was last updated
     protected Long updateDate;
     
     //The title of the Topic, set by the user
@@ -50,6 +50,8 @@ public class Collection extends JSONable {
 
     // The user that created the Topic
     protected String ownerId;
+    
+    protected Long lastRunningTime;
     
     // Fields that used for collection and retrieval of items
     
@@ -127,6 +129,14 @@ public class Collection extends JSONable {
         this.updateDate = updateDate.getTime();
     }
 
+    public Long getLastRunningTime() {
+        return lastRunningTime;
+    }
+
+    public void setLastRunningTime(Long lastRunningTime) {
+        this.lastRunningTime = lastRunningTime;
+    }
+    
     public void setKeywords(List<Keyword> keywords) {
         this.keywords = keywords;
     }
