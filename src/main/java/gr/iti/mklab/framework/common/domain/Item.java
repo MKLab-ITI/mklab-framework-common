@@ -134,6 +134,8 @@ public class Item extends JSONable {
     // The number of comments associated with an Item
     protected Long comments = 0L;
     
+    protected String minhash;
+    
     // Getters  & Setters for the fields of this class
     public String getId() {
         return id;
@@ -413,5 +415,17 @@ public class Item extends JSONable {
         }
         return location.getCountryName();
     }
+
+	public String getMinhash() {
+		return minhash;
+	}
+
+	public void setMinhash(String minhash) {
+		this.minhash = minhash;
+	}
+
+	public void setLabels(Set<String> labels) {
+		this.labels = labels;
+	}
 
 }
