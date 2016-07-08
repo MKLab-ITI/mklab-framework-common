@@ -136,6 +136,8 @@ public class Item extends JSONable {
     
     protected String minhash;
     
+    protected String signature;
+    
     // Getters  & Setters for the fields of this class
     public String getId() {
         return id;
@@ -426,6 +428,14 @@ public class Item extends JSONable {
 
 	public void setLabels(Set<String> labels) {
 		this.labels = labels;
+	}
+
+	public String getSignature() {
+		return signature;
+	}
+
+	public void setSignature(String signature) {
+		this.signature = signature;
 	}
 
 }
