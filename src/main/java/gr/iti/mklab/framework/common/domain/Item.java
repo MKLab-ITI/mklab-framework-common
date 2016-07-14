@@ -45,6 +45,9 @@ public class Item extends JSONable {
     // The title of an Item. It will be used just for searching and sentiment analysis. 
     protected String title;
     
+    // The clean title of an Item
+    protected String cleanTitle;
+    
     // A short description of an Item
     protected String description;
     
@@ -174,6 +177,14 @@ public class Item extends JSONable {
         this.title = title;
     }
 
+    public String getCleanTitle() {
+        return cleanTitle;
+    }
+
+    public void setCleanTitle(String cleanTitle) {
+        this.cleanTitle = cleanTitle;
+    }
+    
     public String getDescription() {
         return description;
     }
