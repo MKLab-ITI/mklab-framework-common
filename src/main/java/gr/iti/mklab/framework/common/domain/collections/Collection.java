@@ -3,7 +3,9 @@ package gr.iti.mklab.framework.common.domain.collections;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.mongodb.morphia.annotations.Entity;
 
@@ -64,9 +66,12 @@ public class Collection extends JSONable {
     // Locations that used for the collection of Items
     private List<Location> nearLocations = new ArrayList<Location>();
 
-    // Exclude specific keywords from 
+    // Exclude specific keywords from the collection
     private List<String> keywordsToExclude = new ArrayList<String>();
 
+    // Exclude specific items from the collection during retrieval
+    private Set<String> itemsToExclude = new HashSet<String>();
+    
     // Retrieve items in time range [since- until]
     protected long since;
     
@@ -161,6 +166,14 @@ public class Collection extends JSONable {
         return this.keywordsToExclude;
     }
 	
+	public Set<String> getItemsToExclude() {
+		return itemsToExclude;
+	}
+
+	public void setItemsToExclude(Set<String> itemsToExclude) {
+		this.itemsToExclude = itemsToExclude;
+	}
+
 	public String getStatus() {
 		return status;
 	}
