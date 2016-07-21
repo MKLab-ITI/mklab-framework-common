@@ -65,4 +65,7 @@ public class JSONable implements Serializable, Comparable<JSONable> {
 		}
 	}
 	
+	public static void mapClass(Class<?> c) {
+		morphia.map(c);
+	}
 }

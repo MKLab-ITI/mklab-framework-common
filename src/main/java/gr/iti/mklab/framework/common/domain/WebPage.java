@@ -22,6 +22,16 @@ public class WebPage extends JSONable {
      */
     private static final long serialVersionUID = -8783341713025378581L;
     
+	public WebPage() {
+		
+	}
+			
+	public WebPage(String url, String reference) {
+        this.id = url;
+    	this.url = url;
+        this.reference = reference;
+    }
+	
     // The URL of a WebPage. This is usually a short URL
     private String url;
 
@@ -84,12 +94,6 @@ public class WebPage extends JSONable {
 	public void setEntities(List<NamedEntity> entities) {
 		this.entities = entities;
 	}
-
-	public WebPage(String url, String reference) {
-        this.id = url;
-    	this.url = url;
-        this.reference = reference;
-    }
 
     public String getId() {
 		return id;
