@@ -54,6 +54,12 @@ public class JSONable implements Serializable, Comparable<JSONable> {
 			return morphia.fromDBObject(clazz, obj);
 		}
 	}
+
+	public static <K> K toObject(DBObject obj, Class<K> clazz) {
+		synchronized(morphia) {
+			return morphia.fromDBObject(clazz, obj);
+		}
+	}
 	
 	@Override
 	public int compareTo(JSONable other) {
