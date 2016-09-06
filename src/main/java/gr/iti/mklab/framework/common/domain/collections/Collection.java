@@ -203,8 +203,8 @@ public class Collection extends JSONable {
     	if(accounts != null) {
     		for(Account account : accounts) {
     			String source = account.getSource().name();
-    			if(source.equals("Web")) {
-    				RssFeed feed = new RssFeed(account.getUsername(), account.getUsername(), since);
+    			if(source.equals("RSS")) {
+    				RssFeed feed = new RssFeed(account.getId(), account.getUsername(), since);
     				feeds.add((Feed) feed);
     			}
     			else {
