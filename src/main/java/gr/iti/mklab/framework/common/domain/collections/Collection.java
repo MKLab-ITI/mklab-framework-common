@@ -205,6 +205,7 @@ public class Collection extends JSONable {
     			String source = account.getSource().name();
     			if(source.equals("RSS")) {
     				RssFeed feed = new RssFeed(account.getId(), account.getUsername(), since);
+    				feed.setName(account.getName());
     				feeds.add((Feed) feed);
     			}
     			else {

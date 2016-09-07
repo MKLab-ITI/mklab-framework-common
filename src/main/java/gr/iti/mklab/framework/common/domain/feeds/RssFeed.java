@@ -11,6 +11,7 @@ public class RssFeed extends Feed {
 	private static final long serialVersionUID = -6084756784860676248L;
 
 	private String url = null;
+	private String name = null;
 	
 	public RssFeed() {
 		
@@ -28,6 +29,14 @@ public class RssFeed extends Feed {
 	
 	public void setURL(String url) {
 		this.url = url;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
