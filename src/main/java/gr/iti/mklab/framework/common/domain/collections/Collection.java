@@ -53,6 +53,12 @@ public class Collection extends JSONable {
     // The user that created the Topic
     protected String ownerId;
     
+    // The group id of the use that created the Topic
+    protected String groupId;
+    
+    // The group id of the use that created the Topic
+    protected String privacy = "private";	// private - protected - public
+    
     protected Long lastRunningTime;
     
     // Fields that used for collection and retrieval of items
