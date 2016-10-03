@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.mongodb.morphia.annotations.Entity;
 
 import gr.iti.mklab.framework.common.domain.Account;
@@ -18,6 +19,7 @@ import gr.iti.mklab.framework.common.domain.feeds.Feed;
 import gr.iti.mklab.framework.common.domain.feeds.KeywordsFeed;
 import gr.iti.mklab.framework.common.domain.feeds.LocationFeed;
 import gr.iti.mklab.framework.common.domain.feeds.RssFeed;
+import gr.iti.mklab.framework.utils.QueryUtils;
 
 /**
  * @author	Manos Schinas - manosetro@iti.gr
@@ -199,9 +201,28 @@ public class Collection extends JSONable {
     			}
     		
     			for(String source : sources) {
-        			String id = source + "#" + keyword.getKeyword();
-        			Feed feed = new KeywordsFeed(id, keyword.getKeyword(), since, source);
-            		feeds.add(feed);
+    				String k = keyword.getKeyword();
+    				if(QueryUtils.isBooleanExpression(k)) {
+    					try {
+    						Set<Set<String>> queries = QueryUtils.parse(k);
+    						for(Set<String> qPart : queries) {
+    							String q = StringUtils.join(qPart, " ");
+    							String id = source + "#" + q;
+    							Feed feed = new KeywordsFeed(id, q, since, source);
+    						
+    							feeds.add(feed);
+    						}
+    					}
+    					catch(Exception e) {
+    						e.printStackTrace();
+    					}
+    				}
+    				else {
+    					String id = source + "#" + keyword.getKeyword();
+        				Feed feed = new KeywordsFeed(id, keyword.getKeyword(), since, source);
+        				feeds.add(feed);
+    				}
+            		
         		}
     		}
     	}
