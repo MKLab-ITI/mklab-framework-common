@@ -6,9 +6,9 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 
-import gr.iti.mklab.framework.client.utils.booleanparse.BooleanQueryListener;
-import gr.iti.mklab.framework.client.utils.booleanparse.BooleanQueryParser;
-import gr.iti.mklab.framework.client.utils.booleanparse.BooleanQueryVisitor;
+import gr.iti.mklab.framework.utils.booleanparse.BooleanQueryListener;
+import gr.iti.mklab.framework.utils.booleanparse.BooleanQueryParser;
+import gr.iti.mklab.framework.utils.booleanparse.BooleanQueryVisitor;
 
 import java.util.List;
 import java.util.Iterator;

@@ -1,6 +1,6 @@
 package gr.iti.mklab.framework.utils.booleanparse;
 
-import gr.iti.mklab.framework.client.utils.booleanparse.BooleanQueryParser;
+import gr.iti.mklab.framework.utils.booleanparse.BooleanQueryParser;
 
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 

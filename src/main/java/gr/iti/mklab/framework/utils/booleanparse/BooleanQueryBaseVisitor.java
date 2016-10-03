@@ -1,7 +1,7 @@
 package gr.iti.mklab.framework.utils.booleanparse;
 
-import gr.iti.mklab.framework.client.utils.booleanparse.BooleanQueryParser;
-import gr.iti.mklab.framework.client.utils.booleanparse.BooleanQueryVisitor;
+import gr.iti.mklab.framework.utils.booleanparse.BooleanQueryParser;
+import gr.iti.mklab.framework.utils.booleanparse.BooleanQueryVisitor;
 
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 

@@ -1,6 +1,6 @@
 package gr.iti.mklab.framework.utils.booleanparse.ast;
 
-import gr.iti.mklab.framework.client.utils.booleanparse.ast.Node;
+import gr.iti.mklab.framework.utils.booleanparse.ast.Node;
 
 import java.util.List;
 

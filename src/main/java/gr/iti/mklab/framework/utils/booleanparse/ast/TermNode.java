@@ -1,6 +1,6 @@
 package gr.iti.mklab.framework.utils.booleanparse.ast;
 
-import gr.iti.mklab.framework.client.utils.booleanparse.ast.BooleanExpression;
+import gr.iti.mklab.framework.utils.booleanparse.ast.BooleanExpression;
 import gr.iti.mklab.framework.utils.booleanparse.ast.visitor.BooleanQueryASTVisitor;
 
 public class TermNode extends BooleanExpression {
