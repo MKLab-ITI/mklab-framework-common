@@ -202,10 +202,18 @@ public class Collection extends JSONable {
     		
     			for(String source : sources) {
     				String k = keyword.getKeyword();
+    				if(k == null) {
+    					continue;
+    				}
+    				
     				if(QueryUtils.isBooleanExpression(k)) {
     					try {
     						Set<Set<String>> queries = QueryUtils.parse(k);
     						for(Set<String> qPart : queries) {
+    							if(qPart==null || qPart.isEmpty()) {
+    								continue;
+    							}
+    							
     							String q = StringUtils.join(qPart, " ");
     							String id = source + "#" + q;
     							Feed feed = new KeywordsFeed(id, q, since, source);

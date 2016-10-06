@@ -138,7 +138,7 @@ public class QueryUtils {
 	}
 	
 	public static void main(String...args) {
-		String q = "(((Kagiso Rabada) AND (Nissan) AND (Cricket OR ICC OR ICC T20 OR International Cricket Council OR #MomentsThatCount))) ";
+		String q = "NOT(waste time)";
 	
 		Set<Set<String>> queries = QueryUtils.parse(q);
 		System.out.println(queries);
