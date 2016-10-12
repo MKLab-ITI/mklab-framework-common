@@ -16,6 +16,12 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.TokenStream;
 import org.apache.commons.lang.StringUtils;
+import org.apache.lucene.index.Term;
+import org.apache.lucene.search.BooleanClause.Occur;
+import org.apache.lucene.search.BooleanQuery;
+import org.apache.lucene.search.BooleanQuery.Builder;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.TermQuery;
 
 import com.bpodgursky.jbool_expressions.And;
 import com.bpodgursky.jbool_expressions.Expression;
@@ -37,7 +43,7 @@ public class QueryUtils {
 
 		Node ast = toAST(q);
 
-        Expression<String> expr = toExpression(ast);    
+        Expression<String> expr = toBooleanExpression(ast);    
         expr = RuleSet.simplify(expr);
         expr = RuleSet.toSop(expr);
 
@@ -88,7 +94,7 @@ public class QueryUtils {
         return ast;
 	}
 	
-	public static Expression<String> toExpression(Node ast) {
+	public static Expression<String> toBooleanExpression(Node ast) {
 		BooleanExpression tree = (BooleanExpression) ast;
 		if(tree.operands == null) {
 			return Variable.of(tree.toString());
@@ -96,7 +102,7 @@ public class QueryUtils {
 		else {
 			List<Expression<String>> expressions = new ArrayList<Expression<String>>();
 			for(Node child : tree.operands) {
-				Expression<String> expression = toExpression(child);
+				Expression<String> expression = toBooleanExpression(child);
 				expressions.add(expression);
 			}
 			
@@ -120,6 +126,51 @@ public class QueryUtils {
 		return null;
 	}
 	
+	public static Query toBNF(Node ast) {
+		Builder bq = new BooleanQuery.Builder();
+		BooleanExpression tree = (BooleanExpression) ast;
+		if(tree.operands == null) {
+			Query query = new TermQuery(new Term("", tree.toString()));
+			return query;
+		}
+		else {
+			List<Query> expressions = new ArrayList<Query>();
+			for(Node child : tree.operands) {
+				Query expression = toBNF(child);
+				expressions.add(expression);
+			}
+			
+			String type = ast.toString();
+			if(type.equals("and")) {
+				for(Query exp : expressions) {
+					bq.add(exp, Occur.MUST);
+				}
+			}
+			else if(type.equals("atom")) {
+				for(Query exp : expressions) {
+					bq.add(exp, Occur.SHOULD);
+				}
+			}
+			else if(type.equals("or")) {
+				for(Query exp : expressions) {
+					bq.add(exp, Occur.SHOULD);
+				}
+			}
+			else if(type.equals("not")) {
+				if(expressions.size() == 1) {
+					bq.add(expressions.get(0), Occur.MUST_NOT);
+				}
+				else {
+					bq.add(expressions.remove(0), Occur.MUST);
+					for(Query exp : expressions) {
+						bq.add(exp, Occur.MUST_NOT);
+					}
+				}
+			}
+		}
+		return bq.build();
+	}
+	
 	public static void printTree(Node ast) {
 		printTree(ast, 0);
 	}
@@ -138,7 +189,7 @@ public class QueryUtils {
 	}
 	
 	public static void main(String...args) {
-		String q = "NOT(waste time)";
+		String q = "(recyclicing OR waste) AND (food OR waste) NOT(waste time)";
 	
 		Set<Set<String>> queries = QueryUtils.parse(q);
 		System.out.println(queries);

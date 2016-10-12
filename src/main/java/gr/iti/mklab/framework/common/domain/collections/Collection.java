@@ -79,6 +79,9 @@ public class Collection extends JSONable {
 
     // Exclude specific items from the collection during retrieval
     private Set<String> itemsToExclude = new HashSet<String>();
+
+    // Exclude specific users from the collection during retrieval
+    private Set<String> usersToExclude = new HashSet<String>();
     
     // Retrieve items in time range [since- until]
     protected long since;
@@ -182,6 +185,14 @@ public class Collection extends JSONable {
 		this.itemsToExclude = itemsToExclude;
 	}
 
+	public Set<String> getUsersToExclude() {
+		return usersToExclude;
+	}
+
+	public void setUsersToExclude(Set<String> usersToExclude) {
+		this.usersToExclude = usersToExclude;
+	}
+	
 	public String getStatus() {
 		return status;
 	}
