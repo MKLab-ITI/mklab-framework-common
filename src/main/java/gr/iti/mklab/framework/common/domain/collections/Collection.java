@@ -54,6 +54,9 @@ public class Collection extends JSONable {
 
     // The user that created the Topic
     protected String ownerId;
+
+    // The link of the user that created the Topic
+    protected String ownerLink;
     
     // The group id of the use that created the Topic
     protected String groupId;
@@ -92,6 +95,10 @@ public class Collection extends JSONable {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+    
     public void setOwnerId(String ownerId) {
         this.ownerId = ownerId;
     }
@@ -100,8 +107,12 @@ public class Collection extends JSONable {
         return ownerId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setOwnerLink(String ownerLink) {
+        this.ownerLink = ownerLink;
+    }
+
+    public String geOwnertLink() {
+        return ownerLink;
     }
     
     public Date getCreationDate() {
@@ -206,14 +217,19 @@ public class Collection extends JSONable {
     	
     	if(keywords != null) {
     		for(Keyword keyword : keywords) {
+    			
+				String k = keyword.getKeyword();
+				if(k == null) {
+					continue;
+				}
+				
     			String[] sources = keyword.getSources();
     			if(sources == null) {
     				sources = Arrays.toString(Source.values()).replaceAll("^.|.$", "").split(", ");
     			}
     		
     			for(String source : sources) {
-    				String k = keyword.getKeyword();
-    				if(k == null) {
+    				if(source.equals("RSS")) {
     					continue;
     				}
     				
@@ -221,7 +237,7 @@ public class Collection extends JSONable {
     					try {
     						Set<Set<String>> queries = QueryUtils.parse(k);
     						for(Set<String> qPart : queries) {
-    							if(qPart==null || qPart.isEmpty()) {
+    							if(qPart == null || qPart.isEmpty()) {
     								continue;
     							}
     							
