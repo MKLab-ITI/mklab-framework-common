@@ -48,6 +48,14 @@ public class JSONable implements Serializable, Comparable<JSONable> {
 		}
 	}
     
+	public DBObject toDBObject() {
+		synchronized(morphia) {
+			morphia.map(JSONable.class);
+			DBObject obj = morphia.toDBObject(this);
+			return obj;
+		}
+	}
+	
 	public static <K> K toObject(String json, Class<K> clazz) {
 		synchronized(morphia) {
 			DBObject obj = (DBObject) JSON.parse(json);
