@@ -39,10 +39,12 @@ public class Configuration extends JSONable implements Iterable<String> {
 	public String getParameter(String name, String defaultValue){	
 		String value = params.get(name);
 		
+		if(value != null) { 
 		Matcher matcher = pattern.matcher(value);
-		if(value != null && matcher.find()) {
-			value = matcher.group(2);
-			value = System.getProperty(value);
+			if(matcher.find()) {
+				value = matcher.group(2);
+				value = System.getProperty(value);
+			}
 		}
 		
 		return value == null ? defaultValue : value;
