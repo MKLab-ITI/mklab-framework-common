@@ -1,6 +1,7 @@
 package gr.iti.mklab.framework.common.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.mongodb.morphia.annotations.Entity;
 
@@ -12,7 +13,7 @@ public class Location extends JSONable {
 	 */
 	private static final long serialVersionUID = -333964331364087658L;
 
-	protected Coordinates coordinates = null;
+	protected Coordinates center = null;
 	
 	protected Double radius = null;
 	
@@ -22,7 +23,7 @@ public class Location extends JSONable {
 	
 	protected String country = null;
 	
-	protected Double bbox[][] = null;
+	protected List<Coordinates> polygon = null;
 	
 	protected Boolean inferred = false;
 	
@@ -35,20 +36,20 @@ public class Location extends JSONable {
 	}
 	
 	public Location(Double latitude, Double longitude) {
-		coordinates = new Coordinates();
-		coordinates.latitude = latitude;
-		coordinates.longitude = longitude;
+		center = new Coordinates();
+		center.latitude = latitude;
+		center.longitude = longitude;
 	}
 	
 	public Location(Double latitude, Double longitude, Double radius) {
-		coordinates = new Coordinates();
-		coordinates.latitude = latitude;
-		coordinates.longitude = longitude;
+		center = new Coordinates();
+		center.latitude = latitude;
+		center.longitude = longitude;
 		this.radius = radius;
 	}
 	
 	public Location(Double latitude, Double longitude, String name) {
-		coordinates = new Coordinates(latitude, longitude);
+		center = new Coordinates(latitude, longitude);
 		this.name = name;
 	}
 	
@@ -60,15 +61,19 @@ public class Location extends JSONable {
 	}
 	
 	public void setLatitude(Double latitude) {
-		if(coordinates==null)
-			coordinates = new Coordinates();
-		coordinates.latitude = latitude;
+		if(center == null) {
+			center = new Coordinates();
+		}
+		
+		center.latitude = latitude;
 	}
 	
 	public void setLongitude(Double longitude) {
-		if(coordinates==null)
-			coordinates = new Coordinates();
-		coordinates.longitude = longitude;
+		if(center == null) {
+			center = new Coordinates();
+		}
+		
+		center.longitude = longitude;
 	}
 	
 	public void setRadius(Double radius) {
@@ -88,23 +93,27 @@ public class Location extends JSONable {
 	}
 	
 	public Double getLatitude() {
-		if(coordinates==null)
+		if(center == null) {
 			return null;
-		return coordinates.latitude;
+		}
+		
+		return center.latitude;
 	}
 	
 	public Double getLongitude() {
-		if(coordinates==null)
+		if(center == null) {
 			return null;
-		return coordinates.longitude;
+		}
+		
+		return center.longitude;
 	}
 	
 	public Double getRadius() {
 		return radius;
 	}
 	
-	public Double[][] getbbox() {
-		return bbox;
+	public List<Coordinates> getPolygon() {
+		return polygon;
 	}
 	
 	public  String getName(){
@@ -120,7 +129,7 @@ public class Location extends JSONable {
 	}
 	
 	@Entity(noClassnameStored = true)
-	private static class Coordinates implements Serializable{
+	public static class Coordinates implements Serializable {
 		
 		/**
 		 * 
@@ -137,6 +146,22 @@ public class Location extends JSONable {
 		}
 
 		protected Double latitude = null;
+
+		public Double getLatitude() {
+			return latitude;
+		}
+
+		public void setLatitude(Double latitude) {
+			this.latitude = latitude;
+		}
+
+		public Double getLongitude() {
+			return longitude;
+		}
+
+		public void setLongitude(Double longitude) {
+			this.longitude = longitude;
+		}
 
 		protected Double longitude = null;
 	}

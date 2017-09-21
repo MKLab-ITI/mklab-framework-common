@@ -32,7 +32,8 @@ public class Item extends JSONable {
      */
     private static final long serialVersionUID = -7934442049449016087L;
 
-    public Item() {
+
+	public Item() {
     	
     }
     
@@ -140,6 +141,8 @@ public class Item extends JSONable {
     protected String minhash;
     
     protected String signature;
+    
+    protected List<Topic> topics = new ArrayList<Topic>();
     
     // Getters  & Setters for the fields of this class
     public String getId() {
@@ -448,5 +451,17 @@ public class Item extends JSONable {
 	public void setSignature(String signature) {
 		this.signature = signature;
 	}
+	
+    public List<Topic> getTopics() {
+		return topics;
+	}
 
+	public void setTopics(List<Topic> topics) {
+		this.topics = topics;
+	}
+
+	public void addTopic(String topic, Double score) {
+		this.topics.add(new Topic(topic, score));
+	}
+	
 }
