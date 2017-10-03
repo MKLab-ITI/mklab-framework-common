@@ -271,6 +271,11 @@ public class Collection extends JSONable {
     				feeds.add((Feed) feed);
     			}
     			else {
+    				since = since - (90l * 24l * 3600l * 1000l);
+    				if(since < 0) {
+    					since = 0;
+    				}
+    				
     				AccountFeed feed = new AccountFeed(account.getId(), account.getUsername(), since, source);
     				feeds.add((Feed) feed);
     			}
