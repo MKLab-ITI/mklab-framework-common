@@ -284,7 +284,10 @@ public class Collection extends JSONable {
     	
     	if(nearLocations != null) {
     		for(Location location : nearLocations) {
-    			Feed feed = new LocationFeed(null, location, since, null);
+    			
+    			
+    			String locationId = "Location#" + location.hashCode();
+    			Feed feed = new LocationFeed(locationId, location, since, Source.Twitter.toString());
     			feeds.add(feed);
     		}
     	}
