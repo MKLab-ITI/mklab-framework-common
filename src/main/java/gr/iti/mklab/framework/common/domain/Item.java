@@ -142,8 +142,6 @@ public class Item extends JSONable {
     
     protected String signature;
     
-    protected List<Topic> topics = new ArrayList<Topic>();
-    
     // Getters  & Setters for the fields of this class
     public String getId() {
         return id;
@@ -450,18 +448,6 @@ public class Item extends JSONable {
 
 	public void setSignature(String signature) {
 		this.signature = signature;
-	}
-	
-    public List<Topic> getTopics() {
-		return topics;
-	}
-
-	public void setTopics(List<Topic> topics) {
-		this.topics = topics;
-	}
-
-	public void addTopic(String topic, Double score) {
-		this.topics.add(new Topic(topic, score));
 	}
 	
 }
